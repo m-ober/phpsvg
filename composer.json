@@ -20,6 +20,11 @@
         "psr-4": {"Dampfklon\\phpsvg\\": "svglib/"}
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "vimeo/psalm": "^3.8"
+    },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs -s --error-severity=1 --warning-severity=8 --ignore=vendor/* --standard=PSR12 --extensions=php .",
+        "psalm": "vendor/bin/psalm"
     }
 }
