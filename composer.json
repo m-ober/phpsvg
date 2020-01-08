@@ -18,5 +18,8 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {"Dampfklon\\phpsvg\\": "svglib/"}
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5"
     }
 }

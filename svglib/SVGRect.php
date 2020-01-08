@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Rect.
@@ -26,18 +27,20 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGRect extends SVGShapeEx
 {
-    public static function getInstance( $x, $y, $id, $width, $height, $style = null )
+    public static function getInstance($x, $y, $id, $width, $height, $style = null)
     {
         $rect = new SVGRect('<rect></rect>');
 
-        $rect->setX( $x );
-        $rect->setY( $y );
-        $rect->setWidth( $width );
-        $rect->setHeight( $height );
-        $rect->setId( $id );
+        $rect->setX($x);
+        $rect->setY($y);
+        $rect->setWidth($width);
+        $rect->setHeight($height);
+        $rect->setId($id);
         $rect->setStyle($style);
 
         return $rect;
@@ -45,17 +48,17 @@ class SVGRect extends SVGShapeEx
     
     /**
      * Define the round of rect
-     * 
+     *
      * @param integer $rx the round
      */
-    public function setRound( $rx )
+    public function setRound($rx)
     {
-        $this->addAttribute('rx', $rx );
+        $this->addAttribute('rx', $rx);
     }
     
-    /** 
+    /**
      * Return the round of rect
-     *  
+     *
      * @return integer return the round
      */
     public function getRound()
@@ -63,4 +66,3 @@ class SVGRect extends SVGShapeEx
         return $this->getAttribute('rx');
     }
 }
-?>

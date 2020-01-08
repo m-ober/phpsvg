@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Linear Gradient.
@@ -28,14 +29,16 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGLinearGradient extends XmlElement
 {
-    public static function getInstance( $id, array $stops )
+    public static function getInstance($id, array $stops)
     {
-        $gradient = new SVGLinearGradient( '<linearGradient></linearGradient>' );
-        $gradient->setId( $id );
-        $gradient->setStops( $stops );
+        $gradient = new SVGLinearGradient('<linearGradient></linearGradient>');
+        $gradient->setId($id);
+        $gradient->setStops($stops);
 
         return $gradient;
     }
@@ -43,12 +46,12 @@ class SVGLinearGradient extends XmlElement
     /**
      * Add one stop object.
      * Do not control the offset.
-     * 
+     *
      * @param SVGStop $stop
      */
-    public function addStop( SVGStop $stop )
+    public function addStop(SVGStop $stop)
     {
-        $this->append( $stop );
+        $this->append($stop);
     }
 
     /**
@@ -56,26 +59,22 @@ class SVGLinearGradient extends XmlElement
      *
      * @param array of SVGStop
      */
-    public function setStops( $stops )
+    public function setStops($stops)
     {
-        if ( is_array( $stops ) )
-        {
+        if (is_array($stops)) {
             //automagic controls the offset
             $offset = 0;
-            $stopCount = count( $stops )-1;
+            $stopCount = count($stops) - 1;
 
-            foreach ( $stops as $line => $stop )
-            {
-                if ( $stop instanceof SVGStop )
-                {
-                    if ( !$stop->getOffset() )
-                    {
+            foreach ($stops as $line => $stop) {
+                if ($stop instanceof SVGStop) {
+                    if (!$stop->getOffset()) {
                         $c = 1 * ( $offset / $stopCount );
                         $offset++;
-                        $stop->setOffset( $c );
+                        $stop->setOffset($c);
                     }
 
-                    $this->addStop( $stop );
+                    $this->addStop($stop);
                 }
             }
         }
@@ -121,4 +120,3 @@ class SVGLinearGradient extends XmlElement
         return $this->getAttribute('y2');
     }*/
 }
-?>

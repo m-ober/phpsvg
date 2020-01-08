@@ -28,6 +28,7 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
 
 $rotate = @$_REQUEST[ 'rotate' ]; //rotate the square using passed angle
@@ -36,26 +37,23 @@ $file = @$_REQUEST[ 'file' ]; //load the file passed
 $fill = @$_REQUEST[ 'fill' ] ? @$_REQUEST[ 'fill' ] : 'red';
 $stroke = @$_REQUEST[ 'stroke' ] ? @$_REQUEST[ 'stroke' ] : 'black';
 
-$svg = SVGDocument::getInstance( $file );
+$svg = SVGDocument::getInstance($file);
 
 $style = new SVGStyle();
-$style->setFill( $fill );
-$style->setStroke( $stroke );
+$style->setFill($fill);
+$style->setStroke($stroke);
 
-$rect = SVGRect::getInstance( 50, 50, 'myRect', 100, 100, $style );
+$rect = SVGRect::getInstance(50, 50, 'myRect', 100, 100, $style);
 
-if ( $rotate )
-{
+if ($rotate) {
     //uses the x and y properties to align the rect
-    $rect->rotate( $rotate, $rect->getX() * 2, $rect->getY() * 2 );
+    $rect->rotate($rotate, $rect->getX() * 2, $rect->getY() * 2);
 }
 
-if ( $translate )
-{
-    $translate = explode( ',', $translate );
-    $rect->translate( $translate[ 0 ], $translate[ 1 ] );
+if ($translate) {
+    $translate = explode(',', $translate);
+    $rect->translate($translate[ 0 ], $translate[ 1 ]);
 }
 
-$svg->addShape( $rect );
+$svg->addShape($rect);
 $svg->output();
-?>

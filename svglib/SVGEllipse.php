@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Ellipse.
@@ -28,28 +29,30 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGEllipse extends SVGShapeEx
 {
     /**
      * Construct a circle
-     * 
+     *
      * @param integer $cx the center x
      * @param integer $cy the center y
      * @param integer $radius the radius of circle
      * @param string $id the id of element
      * @param SVGStyle $style style of element
-     * 
-     * @return SVGCircle 
+     *
+     * @return SVGCircle
      */
-    public static function getInstance( $cx, $cy, $radiusX, $radiusY, $id = null, $style = null )
+    public static function getInstance($cx, $cy, $radiusX, $radiusY, $id = null, $style = null)
     {
         $circle = new SVGEllipse('<ellipse></ellipse>');
 
-        $circle->setCx( $cx );
-        $circle->setCy( $cy );
-        $circle->setRadius($radiusX, $radiusY );
-        $circle->setId( $id );
+        $circle->setCx($cx);
+        $circle->setCy($cy);
+        $circle->setRadius($radiusX, $radiusY);
+        $circle->setId($id);
         $circle->setStyle($style);
 
         return $circle;
@@ -57,12 +60,12 @@ class SVGEllipse extends SVGShapeEx
     
     /**
      * Define the center x
-     * 
-     * @param integer $cx 
+     *
+     * @param integer $cx
      */
-    public function setCx( $cx )
+    public function setCx($cx)
     {
-        $this->addAttribute('cx', $cx );
+        $this->addAttribute('cx', $cx);
     }
     
     /**
@@ -77,12 +80,12 @@ class SVGEllipse extends SVGShapeEx
     
     /**
      * Define the center y
-     * 
-     * @param integer $cy 
+     *
+     * @param integer $cy
      */
-    public function setCy( $cy )
+    public function setCy($cy)
     {
-        $this->addAttribute('cy', $cy );
+        $this->addAttribute('cy', $cy);
     }
     
     /**
@@ -97,33 +100,32 @@ class SVGEllipse extends SVGShapeEx
     
     /**
      * Define the radius of circle
-     * 
-     * @param integer $radius 
+     *
+     * @param integer $radius
      */
-    public function setRadius( $radiusX, $radiusY )
+    public function setRadius($radiusX, $radiusY)
     {
-        $this->addAttribute('rx', $radiusX );
-        $this->addAttribute('ry', $radiusY );
+        $this->addAttribute('rx', $radiusX);
+        $this->addAttribute('ry', $radiusY);
     }
 
     /**
      * Return the x radius of circle
-     * 
+     *
      * @return integer the radius of circle
      */
-    public function getRadiusX( )
+    public function getRadiusX()
     {
         return $this->getAttribute('rx');
     }
     
     /**
      * Return the y radius of circle
-     * 
+     *
      * @return integer the radius of circle
      */
-    public function getRadiusY( )
+    public function getRadiusY()
     {
         return $this->getAttribute('ry');
     }
 }
-?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Gradient Drawing example
@@ -26,6 +27,7 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
 $svg = SVGDocument::getInstance();
 
@@ -36,27 +38,26 @@ $stop->setOpacity(1);
 $stops[] = $stop;
 
 #a second way to create a stop
-$stops[] = SVGStop::getInstance( null , "stop-color:blue;stop-opacity:1");
-$stops[] = SVGStop::getInstance( null , "stop-color:black;stop-opacity:1");
+$stops[] = SVGStop::getInstance(null, "stop-color:blue;stop-opacity:1");
+$stops[] = SVGStop::getInstance(null, "stop-color:black;stop-opacity:1");
 
-$gradient = SVGLinearGradient::getInstance( null, $stops );
-$svg->addDefs( $gradient );
+$gradient = SVGLinearGradient::getInstance(null, $stops);
+$svg->addDefs($gradient);
 
-$style = new SVGStyle( );
-$style->setFill( $gradient );
+$style = new SVGStyle();
+$style->setFill($gradient);
 
-$svg->addShape( SVGRect::getInstance( 10, 20, null , '100', '200', $style ) );
+$svg->addShape(SVGRect::getInstance(10, 20, null, '100', '200', $style));
 
 #second rect
-$stops2[] = SVGStop::getInstance( null , "stop-color:yellow;stop-opacity:1");
-$stops2[] = SVGStop::getInstance( null , "stop-color:green;stop-opacity:1");
-$radial = SVGRadialGradient::getInstance( null, $stops2 );
-$svg->addDefs( $radial );
-$style2 = new SVGStyle( );
-$style2->setFill( $radial );
+$stops2[] = SVGStop::getInstance(null, "stop-color:yellow;stop-opacity:1");
+$stops2[] = SVGStop::getInstance(null, "stop-color:green;stop-opacity:1");
+$radial = SVGRadialGradient::getInstance(null, $stops2);
+$svg->addDefs($radial);
+$style2 = new SVGStyle();
+$style2->setFill($radial);
 
-$rect2 = SVGRect::getInstance( 150, 20, null , 100, 200, $style2 );
-$svg->addShape( $rect2 );
+$rect2 = SVGRect::getInstance(150, 20, null, 100, 200, $style2);
+$svg->addShape($rect2);
 
 $svg->output();
-?>

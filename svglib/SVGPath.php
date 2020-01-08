@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Path.
@@ -28,7 +29,9 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGPath extends SVGShape
 {
     /**
@@ -37,24 +40,22 @@ class SVGPath extends SVGShape
      * @param string or array $d the points
      * @param string $id of element
      * @param string or SVGStyle object $style of element
-     * 
+     *
      * @return SVGPath
      */
-    public static function getInstance( $d, $id, $style )
+    public static function getInstance($d, $id, $style)
     {
         $path = new SVGPath('<path></path>');
 
         //if is as array make implode to glue it
-        if ( is_array( $d ) )
-        {
-            $d = implode( ' ', $d);
+        if (is_array($d)) {
+            $d = implode(' ', $d);
         }
 
         $path->setAttribute('d', $d);
-        $path->setId( $id );
-        $path->setAttribute( 'style', $style );
+        $path->setId($id);
+        $path->setAttribute('style', $style);
 
         return $path;
     }
 }
-?>

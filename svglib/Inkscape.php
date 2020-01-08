@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * Description: Interface with command-line Inkscape
@@ -202,6 +203,7 @@
  * Implemented for Inkscape-0.48.0
  */
 namespace Dampfklon\phpsvg;
+
 class Inkscape
 {
     /**
@@ -212,41 +214,39 @@ class Inkscape
     protected $params;
     /**
      * Last execute result string.
-     * 
+     *
      * @var string
      */
     protected $lastExecuteResult;
     protected $lastCmd;
 
-    public function __construct( $filename )
+    public function __construct($filename)
     {
         //treat if is a SVGDocument
-        if ( $filename instanceof SVGDocument )
-        {
-            $tmpFileName =  sys_get_temp_dir().'tmp.svg';
-            $filename->asXML($tmpFileName, false );
+        if ($filename instanceof SVGDocument) {
+            $tmpFileName =  sys_get_temp_dir() . 'tmp.svg';
+            $filename->asXML($tmpFileName, false);
             $filename = $tmpFileName;
         }
 
-        $this->addParam( 'without-gui' );
-        $this->setFile( $filename );
+        $this->addParam('without-gui');
+        $this->setFile($filename);
     }
 
-    public function addParam( $param, $value = NULL )
+    public function addParam($param, $value = null)
     {
-        if ( $param )
-        {
+        if ($param) {
             $this->params[$param] = $value;
         }
     }
 
-    public function setParam( $param, $value = NULL )
+    public function setParam($param, $value = null)
     {
         $this->clearParams();
         $this->params[$param] = $value;
     }
 
-    public function getParam( $param )
+    public function getParam($param)
     {
         return $this->params[$param];
     }
@@ -256,7 +256,7 @@ class Inkscape
         return $this->params;
     }
 
-    public function setParams( $params )
+    public function setParams($params)
     {
         return $this->params = $params;
     }
@@ -274,16 +274,14 @@ class Inkscape
      * @param integer $width
      * @param integer $height
      */
-    public function setSize( $width, $height )
+    public function setSize($width, $height)
     {
-        if ( $width )
-        {
-            $this->addParam( 'export-width', $width );
+        if ($width) {
+            $this->addParam('export-width', $width);
         }
 
-        if ( $height )
-        {
-            $this->addParam( 'export-height', $width );
+        if ($height) {
+            $this->addParam('export-height', $width);
         }
     }
 
@@ -297,13 +295,12 @@ class Inkscape
      * @param string $color
      * @param string $opacity
      */
-    public function setBackground( $color, $opacity = null )
+    public function setBackground($color, $opacity = null)
     {
-        $this->addParam( 'export-background', $color );
+        $this->addParam('export-background', $color);
 
-        if ( $opacity )
-        {
-            $this->addParam( 'export-background-opacity', $opacity );
+        if ($opacity) {
+            $this->addParam('export-background-opacity', $opacity);
         }
     }
 
@@ -312,9 +309,9 @@ class Inkscape
      *
      * @param integer $dpi the quality of resulting image
      */
-    public function setDpi( $dpi )
+    public function setDpi($dpi)
     {
-        $this->addParam( 'export-dpi', $dpi );
+        $this->addParam('export-dpi', $dpi);
     }
 
     /*
@@ -330,7 +327,7 @@ class Inkscape
      */
     public function exportTextToPath()
     {
-        $this->addParam( 'export-text-to-path' );
+        $this->addParam('export-text-to-path');
     }
 
     /**
@@ -342,7 +339,7 @@ class Inkscape
      */
     public function exportAreaSnap()
     {
-        $this->addParam( 'export-area-snap' );
+        $this->addParam('export-area-snap');
     }
 
     /**
@@ -353,25 +350,25 @@ class Inkscape
     public function getHelp()
     {
         $tmpParams = $this->getParams();
-        $this->setParam( 'help' );
+        $this->setParam('help');
         $exec = $this->execute();
-        $this->setParams( $tmpParams );
+        $this->setParams($tmpParams);
 
         return $exec;
     }
 
     /**
      * Display a brief usage message. --usage
-     * 
+     *
      * @return string
-     * 
+     *
      */
     public function getUsage()
     {
         $tmpParams = $this->getParams();
-        $this->setParam( 'usage' );
+        $this->setParam('usage');
         $exec = $this->execute();
-        $this->setParams( $tmpParams );
+        $this->setParams($tmpParams);
 
         return $exec;
     }
@@ -379,7 +376,7 @@ class Inkscape
     /**
      *
      * Show Inkscape version and build date.
-     * 
+     *
      * -V, --version
      *
      * @return the version of inkscape
@@ -387,25 +384,24 @@ class Inkscape
     public function getVersion()
     {
         $tmpParams = $this->getParams();
-        $this->setParam( 'version' );
+        $this->setParam('version');
         $exec = $this->execute();
-        $this->setParams( $tmpParams );
+        $this->setParams($tmpParams);
 
         return $exec;
     }
 
     /**
-     * 
+     *
      * Open specified document(s).
      * Option string may be omitted, i.e. you can list the filenames without -f.
      *
      * @param string $filename
      */
-    public function setFile( $filename )
+    public function setFile($filename)
     {
-        if ( $filename )
-        {
-            $this->addParam( 'file', $filename );
+        if ($filename) {
+            $this->addParam('file', $filename);
         }
     }
 
@@ -417,18 +413,17 @@ class Inkscape
      * Only export to PNG the object whose id is given in --export-id.
      * All other objects are hidden and won't show in export even if they overlay the exported object.
      * Without --export-id, this option is ignored
-     * 
+     *
      * @param string $id
      * @param boolean All other objects are hidden and won't show in export even if they overlay the exported object.
      */
-    public function setExportId( $id, $exportIdOnly = false )
+    public function setExportId($id, $exportIdOnly = false)
     {
-        if ( $exportIdOnly )
-        {
-            $this->addParam( 'export-id-only' );
+        if ($exportIdOnly) {
+            $this->addParam('export-id-only');
         }
 
-        $this->addParam( 'export-id', $id );
+        $this->addParam('export-id', $id);
     }
 
     /**
@@ -441,50 +436,41 @@ class Inkscape
      * @return string
      *
      */
-    public function export( $format, $filename )
+    public function export($format, $filename)
     {
-        if ( !$format )
-        {
-            throw new Exception( 'Need to inform a format.' );
+        if (!$format) {
+            throw new Exception('Need to inform a format.');
         }
 
-        if ( !$filename )
-        {
-            throw new Exception( 'Need to inform a file path to save.' );
+        if (!$filename) {
+            throw new Exception('Need to inform a file path to save.');
         }
 
         $availableFormat = array( 'png', 'ps', 'eps', 'pdf', 'plain-svg' );
 
-        if ( in_array( $format, $availableFormat ) )
-        {
-            $this->addParam( 'export-' . $format, $filename );
+        if (in_array($format, $availableFormat)) {
+            $this->addParam('export-' . $format, $filename);
             $this->execute();
 
-            if ( file_exists( $filename ) )
-            {
+            if (file_exists($filename)) {
                 return true;
-            }
-            else
-            {
+            } else {
                 $msg = '';
 
-                if ( !defined( 'INKSCAPE_PATH' ) )
-                {
+                if (!defined('INKSCAPE_PATH')) {
                     $msg = ' Define INKSCAPE_PATH is not defined. Try to define it.';
                 }
 
-                throw new Exception( 'Impossible to save file in path : ' . $filename . PHP_EOL . '  Inkcape cmd: ' . $this->lastCmd . PHP_EOL . 'Inkscape Error Message = ' . $this->lastExecuteResult . $msg );
+                throw new Exception('Impossible to save file in path : ' . $filename . PHP_EOL . '  Inkcape cmd: ' . $this->lastCmd . PHP_EOL . 'Inkscape Error Message = ' . $this->lastExecuteResult . $msg);
             }
-        }
-        else
-        {
-            throw new Exception( 'Format not available:' . $format . '.' );
+        } else {
+            throw new Exception('Format not available:' . $format . '.');
         }
     }
 
     /**
      * Return the last execute result string
-     * 
+     *
      * @return string
      */
     public function getLastExecuteResult()
@@ -494,7 +480,7 @@ class Inkscape
     
     /**
      * Returns the last executed cmd
-     * 
+     *
      * @return string
      */
     public function getLastCmd()
@@ -509,39 +495,31 @@ class Inkscape
      *
      * @return string
      */
-    public function execute( $extraParam = null )
+    public function execute($extraParam = null)
     {
-        if ( defined( 'INKSCAPE_PATH' ) )
-        {
+        if (defined('INKSCAPE_PATH')) {
             $exec = INKSCAPE_PATH;
-        }
-        else
-        {
+        } else {
             $exec = 'inkscape';
         }
 
-        if ( is_array( $this->params ) )
-        {
-            foreach ($this->params as $param => $value)
-            {
+        if (is_array($this->params)) {
+            foreach ($this->params as $param => $value) {
                 $exec .= ' --' . $param;
 
-                if ( $value )
-                {
+                if ($value) {
                     $exec .= '=' . $value;
                 }
             }
         }
 
         $this->lastCmd = $exec . ' ' . $extraParam;
-        $this->lastExecuteResult = shell_exec( $this->lastCmd );
+        $this->lastExecuteResult = shell_exec($this->lastCmd);
 
-        if ( trim( $this->lastExecuteResult ) == 'Nothing to do!' )
-        {
-            throw new Exception( 'Nothing to do!' );
+        if (trim($this->lastExecuteResult) == 'Nothing to do!') {
+            throw new Exception('Nothing to do!');
         }
 
         return $this->lastExecuteResult;
     }
 }
-?>

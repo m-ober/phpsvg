@@ -11,6 +11,7 @@
 </html>
 
 <?php
+
 /**
  *
  * Description: upload and convertion examples
@@ -39,46 +40,41 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 //to SVG convert
-ini_set('max_execution_time','0');
+ini_set('max_execution_time', '0');
 
 require_once "../svglib/svglib.php";
 
-if ( $_FILES )
-{
-    $target_path = 'output/'. basename( $_FILES['uploadedfile']['name']);
+if ($_FILES) {
+    $target_path = 'output/' . basename($_FILES['uploadedfile']['name']);
     $mime = $_FILES['uploadedfile']['type'];
 
-    if ( $_FILES['uploadedfile']['error'] )
-    {
-        die( 'Error on upload.');
+    if ($_FILES['uploadedfile']['error']) {
+        die('Error on upload.');
     }
 
-    if ( $mime != SVGDocument::HEADER )
-    {
+    if ($mime != SVGDocument::HEADER) {
         die('Only SVG files can be converted.');
     }
 
-    if ( move_uploaded_file( $_FILES['uploadedfile']['tmp_name'], $target_path ) )
-    {
-        $svg = SVGDocument::getInstance( $target_path );
-        echo '<embed style="border:solid 1px gray;" src="'.$target_path.'" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" /><br / >';
+    if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+        $svg = SVGDocument::getInstance($target_path);
+        echo '<embed style="border:solid 1px gray;" src="' . $target_path . '" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" /><br / >';
         $svg->asXML('output/test.svgz'); //compacted svg
         $ok = $svg->export('output/upload.png');
-        $svg->export('output/upload16x16.png',16,16,true);
-        $svg->export('output/upload32x32.png',32,32,true);
-        $svg->export('output/upload64x64.png',64,64,true);
-        $svg->export('output/upload128x128.png',128,128,true);
-        $svg->export('output/upload256x256.png',256,256,true);
+        $svg->export('output/upload16x16.png', 16, 16, true);
+        $svg->export('output/upload32x32.png', 32, 32, true);
+        $svg->export('output/upload64x64.png', 64, 64, true);
+        $svg->export('output/upload128x128.png', 128, 128, true);
+        $svg->export('output/upload256x256.png', 256, 256, true);
         echo '<img src="output/upload.png"/><br/>';
         echo '<img src="output/upload16x16.png"/><br/>';
         echo '<img src="output/upload32x32.png"/><br/>';
         echo '<img src="output/upload64x64.png"/><br/>';
         echo '<img src="output/upload128x128.png"/><br/>';
         echo '<img src="output/upload256x256.png"/><br/>';
-    }
-    else
-    {
+    } else {
         echo "There was an error uploading the file, verify permission and try again!";
     }
 }

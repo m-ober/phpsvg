@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Style class.
@@ -28,7 +29,9 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGStyle
 {
     public $fill;
@@ -43,30 +46,23 @@ class SVGStyle
      *
      * @param array $style an array with styles
      */
-    public function __construct( $style = null )
+    public function __construct($style = null)
     {
-        if (is_string($style) )
-        {
+        if (is_string($style)) {
             $style = explode(';', $style);
 
-            if ( is_array($style))
-            {
-                foreach ( $style as $line => $info )
-                {
+            if (is_array($style)) {
+                foreach ($style as $line => $info) {
                     $styleElement = explode(':', $info);
 
-                    if ( $styleElement[0] )
-                    {
-                        $property = SVGStyle::toCamelCase( $styleElement[0]);
+                    if ($styleElement[0]) {
+                        $property = SVGStyle::toCamelCase($styleElement[0]);
                         $this->{$property} = $styleElement[1];
                     }
                 }
             }
-        }
-        else if ( is_array($style) )
-        {
-            foreach ( $style as $line => $info )
-            {
+        } else if (is_array($style)) {
+            foreach ($style as $line => $info) {
                 $this->$line = $info;
             }
         }
@@ -82,13 +78,10 @@ class SVGStyle
         $vars = get_object_vars($this);
         $result = '';
 
-        if ( is_array($vars) )
-        {
-            foreach ( $vars as $line => $info )
-            {
-                if ( isset($info) )
-                {
-                    $line  = SVGStyle::fromCamelCase( $line );
+        if (is_array($vars)) {
+            foreach ($vars as $line => $info) {
+                if (isset($info)) {
+                    $line  = SVGStyle::fromCamelCase($line);
                     $result .= "$line:$info;";
                 }
             }
@@ -99,7 +92,7 @@ class SVGStyle
     
     /**
      * Define the display of elemet
-     * 
+     *
      * @param string $display
      */
     public function setDisplay($display)
@@ -139,9 +132,8 @@ class SVGStyle
      */
     public function setFill($fill)
     {
-        if ( $fill instanceof SVGLinearGradient )
-        {
-            $fill = $this->url( $fill );
+        if ($fill instanceof SVGLinearGradient) {
+            $fill = $this->url($fill);
         }
         
         $this->fill = $fill;
@@ -149,7 +141,7 @@ class SVGStyle
 
     /**
      * Get the fill color
-     * 
+     *
      * @return string fill color
      */
     public function getFill()
@@ -162,7 +154,7 @@ class SVGStyle
      *
      * @param string $stroke the stroke color
      */
-    public function setStroke($stroke, $width = null )
+    public function setStroke($stroke, $width = null)
     {
         $this->stroke = $stroke;
         
@@ -171,20 +163,19 @@ class SVGStyle
     
     /**
      * Define the width of the stroke
-     * 
+     *
      * @param integer $width width of the stroke
-     */ 
-    public function setStrokeWidth( $width )
+     */
+    public function setStrokeWidth($width)
     {
-        if ( $width )
-        {
+        if ($width) {
             $this->strokeWidth = $width;
         }
     }
     
     /**
      * Return the stroke width
-     * 
+     *
      * @return type integer
      */
     public function getStrokeWidth()
@@ -197,7 +188,7 @@ class SVGStyle
      *
      * @return string
      */
-    public function getStroke( )
+    public function getStroke()
     {
         return $this->stroke;
     }
@@ -209,13 +200,12 @@ class SVGStyle
      *
      * @return string
      */
-    public function url( $content )
+    public function url($content)
     {
         $url = $content;
         
-        if ( $content instanceof XmlElement )
-        {
-            $url = '#'.$content->getId();
+        if ($content instanceof XmlElement) {
+            $url = '#' . $content->getId();
         }
         
         return "url({$url})";
@@ -234,20 +224,23 @@ class SVGStyle
     protected static function fromCamelCase($str)
     {
         $str[0] = strtolower($str[0]);
-        return preg_replace_callback('/([A-Z])/', function ($hit) {return "-".strtolower($hit[0]);}, $str);
+        return preg_replace_callback('/([A-Z])/', function ($hit) {
+            return "-" . strtolower($hit[0]);
+        }, $str);
     }
 
     /**
      * Converts a string to camelCase
      *
-     * stop-color turns stopColor 
+     * stop-color turns stopColor
      *
      * @param string $str
      * @return string
      */
     protected static function toCamelCase($str)
     {
-        return preg_replace_callback('/-([a-z])/', function ($hit) {return strtoupper($hit[0]);}, $str);
+        return preg_replace_callback('/-([a-z])/', function ($hit) {
+            return strtoupper($hit[0]);
+        }, $str);
     }
 }
-?>

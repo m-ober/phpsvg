@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of radial Gradient.
@@ -26,16 +27,17 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGRadialGradient extends SVGLinearGradient
 {
-    public static function getInstance( $id, array $stops )
+    public static function getInstance($id, array $stops)
     {
-        $gradient = new SVGRadialGradient( '<radialGradient></radialGradient>' );
-        $gradient->setId( $id );
-        $gradient->setStops( $stops );
+        $gradient = new SVGRadialGradient('<radialGradient></radialGradient>');
+        $gradient->setId($id);
+        $gradient->setStops($stops);
 
         return $gradient;
     }
 }
-?>

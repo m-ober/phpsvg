@@ -29,7 +29,9 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class XMLElement extends \SimpleXMLElement
 {
 
@@ -52,9 +54,9 @@ class XMLElement extends \SimpleXMLElement
      *
      * @param string $attribute name of attribute
      */
-    public function removeAttribute( $attribute )
+    public function removeAttribute($attribute)
     {
-        unset( $this->attributes()->$attribute );
+        unset($this->attributes()->$attribute);
     }
 
     /**
@@ -67,10 +69,10 @@ class XMLElement extends \SimpleXMLElement
      *
      * @example  $this->addAttribute("xlink:href", $filename, 'http://www.w3.org/1999/xlink');
      */
-    public function setAttribute( $attribute, $value, $namespace = null )
+    public function setAttribute($attribute, $value, $namespace = null)
     {
-        $this->removeAttribute( $attribute );
-        $this->addAttribute( $attribute, $value, $namespace );
+        $this->removeAttribute($attribute);
+        $this->addAttribute($attribute, $value, $namespace);
     }
 
     /**
@@ -80,21 +82,17 @@ class XMLElement extends \SimpleXMLElement
      * @return string return the value of passed attribute
      * @example $svg->g->image->getAttribute('xlink:href')
      */
-    public function getAttribute( $attribute )
+    public function getAttribute($attribute)
     {
-        $explode = explode( ":", $attribute );
+        $explode = explode(":", $attribute);
 
-        if ( count( $explode ) > 1 )
-        {
-            $attributes = $this->attributes( $explode[ 0 ], true );
+        if (count($explode) > 1) {
+            $attributes = $this->attributes($explode[ 0 ], true);
 
             //if the attribute exits with namespace return it
-            if ( $attributes[ $explode[ 1 ] ] )
-            {
+            if ($attributes[ $explode[ 1 ] ]) {
                 return $attributes[ $explode[ 1 ] ];
-            }
-            else
-            {
+            } else {
                 //otherwize will return the attribute without namespaces
                 $attribute = $explode[ 1 ];
             }
@@ -108,14 +106,13 @@ class XMLElement extends \SimpleXMLElement
      *
      * @param string $id
      */
-    public function setId( $id )
+    public function setId($id)
     {
-        if ( self::$useAutoId )
-        {
+        if (self::$useAutoId) {
             $id = $id ? $id : $this->getUniqueId();
         }
 
-        $this->setAttribute( 'id', $id );
+        $this->setAttribute('id', $id);
     }
 
     /**
@@ -125,7 +122,7 @@ class XMLElement extends \SimpleXMLElement
      */
     public function getId()
     {
-        return $this->getAttribute( 'id' );
+        return $this->getAttribute('id');
     }
 
     /**
@@ -143,42 +140,34 @@ class XMLElement extends \SimpleXMLElement
      *
      * @param XmlElement $append
      */
-    public function append( $append )
+    public function append($append)
     {
         //if ( $append ) not working for 'defs'
-        if ( isset( $append ) )
-        {
+        if (isset($append)) {
             //list all namespaces used in append object
             $namespaces = $append->getNameSpaces();
 
             //get all childs
-            if ( strlen( trim( ( string ) $append ) ) == 0 )
-            {
-                $xml = $this->addChild( $append->getName(), ' ' );
+            if (strlen(trim((string) $append)) == 0) {
+                $xml = $this->addChild($append->getName(), ' ');
 
-                foreach ( $append->children() as $child )
-                {
-                    $xml->append( $child );
+                foreach ($append->children() as $child) {
+                    $xml->append($child);
                 }
-            }
-            else
-            {
+            } else {
                 //add one child
-                $xml = $this->addChild( $append->getName(), ( string ) $append . ' ' );
+                $xml = $this->addChild($append->getName(), (string) $append . ' ');
             }
 
             //add simple attributes
-            foreach ( $append->attributes() as $attribute => $value )
-            {
-                $xml->addAttribute( $attribute, $value );
+            foreach ($append->attributes() as $attribute => $value) {
+                $xml->addAttribute($attribute, $value);
             }
 
             //add attributes with namespace example xlink:href
-            foreach ( $namespaces as $index => $namespace )
-            {
-                foreach ( $append->attributes( $namespace ) as $attribute => $value )
-                {
-                    $xml->addAttribute( $index . ':' . $attribute, $value, $namespace );
+            foreach ($namespaces as $index => $namespace) {
+                foreach ($append->attributes($namespace) as $attribute => $value) {
+                    $xml->addAttribute($index . ':' . $attribute, $value, $namespace);
                 }
             }
         }
@@ -191,9 +180,9 @@ class XMLElement extends \SimpleXMLElement
      * @param string $id the id to find
      * @return XmlElement
      */
-    public function getElementById( $id )
+    public function getElementById($id)
     {
-        return $this->getElementByAttribute( 'id', $id );
+        return $this->getElementByAttribute('id', $id);
     }
 
     /**
@@ -204,22 +193,16 @@ class XMLElement extends \SimpleXMLElement
      * @param string $value
      * @return XmlElement
      */
-    public function getElementByAttribute( $attribute, $value )
+    public function getElementByAttribute($attribute, $value)
     {
-        if ( $this->getAttribute( $attribute ) == $value )
-        {
+        if ($this->getAttribute($attribute) == $value) {
             return $this;
-        }
-        else
-        {
-            if ( count( $this->children() ) > 0 )
-            {
-                foreach ( $this->children() as $child )
-                {
-                    $element = $child->getElementByAttribute( $attribute, $value );
+        } else {
+            if (count($this->children()) > 0) {
+                foreach ($this->children() as $child) {
+                    $element = $child->getElementByAttribute($attribute, $value);
 
-                    if ( $element )
-                    {
+                    if ($element) {
                         return $element;
                     }
                 }
@@ -238,71 +221,47 @@ class XMLElement extends \SimpleXMLElement
      * @param string $condition possible values ==, != , >, >=, <, <=
      * @return array array of XmlElement
      */
-    public function getElementsByAttribute( $attribute, $value, $condition = '==' )
+    public function getElementsByAttribute($attribute, $value, $condition = '==')
     {
         $result = array( );
 
-        if ( $condition == '==' )
-        {
+        if ($condition == '==') {
             //treat the empty condition
-            if ( $value == '' )
-            {
-                if ( !$this->getAttribute( $attribute ) )
-                {
+            if ($value == '') {
+                if (!$this->getAttribute($attribute)) {
                     $result[ ] = $this;
                 }
             }
 
-            if ( $this->getAttribute( $attribute ) == $value )
-            {
+            if ($this->getAttribute($attribute) == $value) {
                 $result[ ] = $this;
             }
-        }
-        else if ( $condition == '!=' )
-        {
-            if ( $this->getAttribute( $attribute ) != $value )
-            {
+        } else if ($condition == '!=') {
+            if ($this->getAttribute($attribute) != $value) {
                 $result[ ] = $this;
             }
-        }
-        else if ( $condition == '>' )
-        {
-            if ( $this->getAttribute( $attribute ) > $value )
-            {
+        } else if ($condition == '>') {
+            if ($this->getAttribute($attribute) > $value) {
                 $result[ ] = $this;
             }
-        }
-        else if ( $condition == '>=' )
-        {
-            if ( $this->getAttribute( $attribute ) >= $value )
-            {
+        } else if ($condition == '>=') {
+            if ($this->getAttribute($attribute) >= $value) {
                 $result[ ] = $this;
             }
-        }
-        else if ( $condition == '<' )
-        {
-            if ( $this->getAttribute( $attribute ) < $value )
-            {
+        } else if ($condition == '<') {
+            if ($this->getAttribute($attribute) < $value) {
                 $result[ ] = $this;
             }
-        }
-        else if ( $condition == '<=' )
-        {
-            if ( $this->getAttribute( $attribute ) <= $value )
-            {
+        } else if ($condition == '<=') {
+            if ($this->getAttribute($attribute) <= $value) {
                 $result[ ] = $this;
             }
-        }
-        else
-        {
-            if ( $this->count() > 0 )
-            {
-                foreach ( $this->children() as $line => $child )
-                {
-                    $element = $child->getElementsByAttribute( $attribute, $value );
+        } else {
+            if ($this->count() > 0) {
+                foreach ($this->children() as $line => $child) {
+                    $element = $child->getElementsByAttribute($attribute, $value);
 
-                    if ( $element )
-                    {
+                    if ($element) {
                         $result[ ] = $element;
                     }
                 }
@@ -321,14 +280,11 @@ class XMLElement extends \SimpleXMLElement
      *
      * @param string $title
      */
-    public function setTitle( $title )
+    public function setTitle($title)
     {
-        if ( !$this->title )
-        {
-            $this->addChild( 'title', $title );
-        }
-        else
-        {
+        if (!$this->title) {
+            $this->addChild('title', $title);
+        } else {
             $this->title = $title;
         }
     }
@@ -347,14 +303,11 @@ class XMLElement extends \SimpleXMLElement
      * Define the description of the element
      * @param string $desc
      */
-    public function setDescription( $desc )
+    public function setDescription($desc)
     {
-        if ( !$this->desc )
-        {
-            $this->addChild( 'desc', $desc );
-        }
-        else
-        {
+        if (!$this->desc) {
+            $this->addChild('desc', $desc);
+        } else {
             $this->desc = $desc;
         }
     }
@@ -380,14 +333,14 @@ class XMLElement extends \SimpleXMLElement
      * @link http://forums.devnetwork.net/viewtopic.php?p=213989
      * @link http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
      */
-    protected function prettyXML( $xml )
+    protected function prettyXML($xml)
     {
         // add marker linefeeds to aid the pretty-tokeniser
         // adds a linefeed between all tag-end boundaries
-        $xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
+        $xml = preg_replace('/(>)(<)(\/*)/', "$1\n$2$3", $xml);
 
         // now pretty it up (indent the tags)
-        $tok = strtok( $xml, "\n" );
+        $tok = strtok($xml, "\n");
         $formatted = ''; // holds pretty version as it is built
         $pad = 0; // initial indent
         $matches = array( ); // returns from preg_matches()
@@ -396,51 +349,37 @@ class XMLElement extends \SimpleXMLElement
          * pre- and post- adjustments to the padding indent are made, so changes can be applied to
          * the current line or subsequent lines, or both
          */
-        while ( $tok !== false )// scan each line and adjust indent based on opening/closing tags
-        {
-            // test for the various tag states
-            if ( preg_match( '/.+<\/\w[^>]*>$/', $tok, $matches ) )// open and closing tags on same line
-            {
+        while ($tok !== false) {// scan each line and adjust indent based on opening/closing tags
+        // test for the various tag states
+            if (preg_match('/.+<\/\w[^>]*>$/', $tok, $matches)) {// open and closing tags on same line
                 $indent = 0; // no change
-            }
-            else if ( preg_match( '/^<\/\w/', $tok, $matches ) ) // closing tag
-            {
+            } else if (preg_match('/^<\/\w/', $tok, $matches)) { // closing tag
                 $pad--; //  outdent now
-            }
-            else if ( preg_match( '/^<\w[^>]*[^\/]>.*$/', $tok, $matches ) )// opening tag
-            {
+            } else if (preg_match('/^<\w[^>]*[^\/]>.*$/', $tok, $matches)) {// opening tag
                 $indent = 1; // don't pad this one, only subsequent tags
-            }
-            else
-            {
+            } else {
                 $indent = 0; // no indentation needed
             }
 
             // pad the line with the required number of leading spaces
-            $prettyLine = str_pad( $tok, strlen( $tok ) + $pad, ' ', STR_PAD_LEFT );
+            $prettyLine = str_pad($tok, strlen($tok) + $pad, ' ', STR_PAD_LEFT);
             $formatted .= $prettyLine . "\n"; // add to the cumulative result, with linefeed
-            $tok = strtok( "\n" ); // get the next token
+            $tok = strtok("\n"); // get the next token
             $pad += $indent; // update the pad size for subsequent lines
         }
 
         return $formatted; // pretty format
     }
 
-    public function asXML( $filename = null, $humanReadable = true )
+    public function asXML($filename = null, $humanReadable = true)
     {
-        if ( $filename )
-        {
-            parent::asXML( $filename );
-        }
-        else
-        {
+        if ($filename) {
+            parent::asXML($filename);
+        } else {
             //define if xml is humanReadable or not
-            if ( $humanReadable )
-            {
-                return $this->prettyXML( parent::asXML() );
-            }
-            else
-            {
+            if ($humanReadable) {
+                return $this->prettyXML(parent::asXML());
+            } else {
                 return parent::asXML();
             }
         }
@@ -451,24 +390,22 @@ class XMLElement extends \SimpleXMLElement
      *
      * @param string $id
      */
-    public function removeElementById( $id )
+    public function removeElementById($id)
     {
-        $this->removeElement( $this->getElementById( $id ) );
+        $this->removeElement($this->getElementById($id));
     }
 
-    public function removeElement( $node )
+    public function removeElement($node)
     {
-        $dom = dom_import_simplexml( $node );
-        $dom->parentNode->removeChild( $dom );
+        $dom = dom_import_simplexml($node);
+        $dom->parentNode->removeChild($dom);
     }
-
 }
 
 #create the function if it not exists php < 5.3
-if ( !function_exists( 'mime_content_type' ) )
-{
+if (!function_exists('mime_content_type')) {
 
-    function mime_content_type( $filename )
+    function mime_content_type($filename)
     {
         //TODO need better list
         $mime_types = array(
@@ -520,25 +457,19 @@ if ( !function_exists( 'mime_content_type' ) )
             'ods'  => 'application/vnd.oasis.opendocument.spreadsheet',
         );
 
-        $ext = explode( '.', $filename );
-        $ext = strtolower( array_pop( $ext ) );
+        $ext = explode('.', $filename);
+        $ext = strtolower(array_pop($ext));
 
-        if ( array_key_exists( $ext, $mime_types ) )
-        {
+        if (array_key_exists($ext, $mime_types)) {
             return $mime_types[ $ext ];
-        }
-        elseif ( function_exists( 'finfo_open' ) )
-        {
-            $finfo = finfo_open( FILEINFO_MIME );
-            $mimetype = finfo_file( $finfo, $filename );
-            finfo_close( $finfo );
+        } elseif (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME);
+            $mimetype = finfo_file($finfo, $filename);
+            finfo_close($finfo);
             return $mimetype;
-        }
-        else
-        {
+        } else {
             return 'application/octet-stream';
         }
     }
 
 }
-?>

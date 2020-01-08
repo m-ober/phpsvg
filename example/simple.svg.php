@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Very simple example
@@ -26,10 +27,10 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
-$svg = SVGDocument::getInstance( ); #start a svgDocument using default (minimal) svg document
+$svg = SVGDocument::getInstance(); #start a svgDocument using default (minimal) svg document
 $svg->setTitle("Simple example"); #define the title
-$rect = SVGRect::getInstance( 0, 5, 'myRect', 228, 185, new SVGStyle( array('fill'=>'blue', 'stroke' =>'gray' ) ) ); #create a new rect with, x and y position, id, width and heigth, and the style
-$svg->addShape( $rect ); #add the rect to svg
+$rect = SVGRect::getInstance(0, 5, 'myRect', 228, 185, new SVGStyle(array('fill' => 'blue', 'stroke' => 'gray' ))); #create a new rect with, x and y position, id, width and heigth, and the style
+$svg->addShape($rect); #add the rect to svg
 $svg->output(); #output to browser, with header
-?>

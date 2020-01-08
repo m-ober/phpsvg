@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Default example, show some usefull functions / adding elements
@@ -26,15 +27,15 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
 
 #start a svgDocument using apple.svg as base document
-$apple = SVGDocument::getInstance( 'resource/apple.svg' );
-$image = SVGDocument::getInstance( 'resource/image.svg' );
+$apple = SVGDocument::getInstance('resource/apple.svg');
+$image = SVGDocument::getInstance('resource/image.svg');
 
 #add some part of image.svg into apple.svg
-$apple->addShape( $image->path );
-$apple->addShape( $image->image );
+$apple->addShape($image->path);
+$apple->addShape($image->image);
 
 $apple->output();
-?>

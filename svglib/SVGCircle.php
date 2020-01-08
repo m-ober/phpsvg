@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Circle.
@@ -28,28 +29,30 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGCircle extends SVGShapeEx
 {
     /**
      * Construct a circle
-     * 
+     *
      * @param integer $cx the center x
      * @param integer $cy the center y
      * @param integer $radius the radius of circle
      * @param string $id the id of element
      * @param SVGStyle $style style of element
-     * 
-     * @return SVGCircle 
+     *
+     * @return SVGCircle
      */
-    public static function getInstance( $cx, $cy, $radius, $id = null, $style = null )
+    public static function getInstance($cx, $cy, $radius, $id = null, $style = null)
     {
         $circle = new SVGCircle('<circle></circle>');
 
-        $circle->setCx( $cx );
-        $circle->setCy( $cy );
+        $circle->setCx($cx);
+        $circle->setCy($cy);
         $circle->setRadius($radius);
-        $circle->setId( $id );
+        $circle->setId($id);
         $circle->setStyle($style);
 
         return $circle;
@@ -57,12 +60,12 @@ class SVGCircle extends SVGShapeEx
     
     /**
      * Define the center x
-     * 
-     * @param integer $cx 
+     *
+     * @param integer $cx
      */
-    public function setCx( $cx )
+    public function setCx($cx)
     {
-        $this->addAttribute('cx', $cx );
+        $this->addAttribute('cx', $cx);
     }
     
     /**
@@ -77,12 +80,12 @@ class SVGCircle extends SVGShapeEx
     
     /**
      * Define the center y
-     * 
-     * @param integer $cy 
+     *
+     * @param integer $cy
      */
-    public function setCy( $cy )
+    public function setCy($cy)
     {
-        $this->addAttribute('cy', $cy );
+        $this->addAttribute('cy', $cy);
     }
     
     /**
@@ -97,22 +100,21 @@ class SVGCircle extends SVGShapeEx
     
     /**
      * Define the radius of circle
-     * 
-     * @param integer $radius 
+     *
+     * @param integer $radius
      */
-    public function setRadius( $radius )
+    public function setRadius($radius)
     {
-        $this->addAttribute('r', $radius );
+        $this->addAttribute('r', $radius);
     }
 
     /**
      * Return the radius of circle
-     * 
+     *
      * @return integer the radius of circle
      */
-    public function getRadius( )
+    public function getRadius()
     {
         return $this->getAttribute('r');
     }
 }
-?>

@@ -7,27 +7,24 @@ require 'resource/function.php'; //convert color
 $imagePath = 'resource' . DIRECTORY_SEPARATOR . 'axel.png';
 $svgPath = 'output' . DIRECTORY_SEPARATOR . 'axel.svg';
 
-$imgContent = file_get_contents( $imagePath );
+$imgContent = file_get_contents($imagePath);
 
-$img = imagecreatefromstring( $imgContent );
-$imageSize = getimagesize( $imagePath );
+$img = imagecreatefromstring($imgContent);
+$imageSize = getimagesize($imagePath);
 $imgW = $imageSize[ 0 ];
 $imgH = $imageSize[ 1 ];
 
 $svg = SVGDocument::getInstance();
-$svg->setWidth( $imgW );
-$svg->setHeight( $imgH );
+$svg->setWidth($imgW);
+$svg->setHeight($imgH);
 
-for ( $x = 0; $x < $imgW; $x++ )
-{
-    for ( $y = 0; $y < $imgH; $y++ )
-    {
-        $rgb = imagecolorat( $img, $x, $y );
-        $color = imagecolorsforindex( $img, $rgb );
+for ($x = 0; $x < $imgW; $x++) {
+    for ($y = 0; $y < $imgH; $y++) {
+        $rgb = imagecolorat($img, $x, $y);
+        $color = imagecolorsforindex($img, $rgb);
 
-        if ( $color[ 'alpha' ] < 126 )
-        {
-            $hex = RGBToHex( $color[ 'red' ], $color[ 'green' ], $color[ 'blue' ] );
+        if ($color[ 'alpha' ] < 126) {
+            $hex = RGBToHex($color[ 'red' ], $color[ 'green' ], $color[ 'blue' ]);
             //$rect = SVGRect::getInstance( $x, $y, null, 1, 1, new SVGStyle( array( 'fill' => $hex ) ) );
             //$d = "m $x,$y 1,0 0,1 -1,0 z";
             $x1 = $x + 1;
@@ -48,15 +45,13 @@ for ( $x = 0; $x < $imgW; $x++ )
 }
 
 echo '<pre>';
-foreach ( $paths as $hex => $d )
-{
+foreach ($paths as $hex => $d) {
     //$d = implode( ' L ', $res );
-    $path = SVGPath::getInstance( $d . ' z', null, new SVGStyle( array( 'fill' => $hex ) ) );
-    $svg->append( $path );
+    $path = SVGPath::getInstance($d . ' z', null, new SVGStyle(array( 'fill' => $hex )));
+    $svg->append($path);
 }
 
-$svg->asXML( $svgPath, TRUE );
+$svg->asXML($svgPath, true);
 
 echo "<img src='$imagePath'/>";
 echo '<embed style="border:solid 1px gray;" src="' . $svgPath . '" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" /><br / >';
-?>

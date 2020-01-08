@@ -27,10 +27,11 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 #if inkscape is not in default system path you must define it's path
-define( 'INKSCAPE_PATH', '"C:\Program Files (x86)"\inkscape\\inkscape.exe' );
+define('INKSCAPE_PATH', '"C:\Program Files (x86)"\inkscape\\inkscape.exe');
 require_once '../svglib/inkscape.php';
-$inkscape = new Inkscape( getcwd() . '/resource/apple.svg' );
+$inkscape = new Inkscape(getcwd() . '/resource/apple.svg');
 echo '<pre>';
 echo "Testing inkscape..." . PHP_EOL;
 echo 'Version:' . PHP_EOL . $inkscape->getVersion() . PHP_EOL;
@@ -40,19 +41,14 @@ echo 'Usage:' . PHP_EOL . $inkscape->getUsage() . PHP_EOL;
 $inkscape->exportAreaSnap(); //better pixel art
 $inkscape->exportTextToPath();
 
-try
-{
-    $ok = $inkscape->export( 'png', getcwd() . '/output/apple.png' );
-    if ( $ok )
-    {
+try {
+    $ok = $inkscape->export('png', getcwd() . '/output/apple.png');
+    if ($ok) {
         echo 'Export sucess to output/apple.png!';
     }
-}
-catch ( Exception $exc )
-{
+} catch (Exception $exc) {
     echo $exc->getMessage();
     echo $exc->getTraceAsString();
 }
 
 echo '</pre>';
-?>

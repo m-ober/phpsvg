@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Show how to use image in svg, extract image from SVG and add image to SVG
@@ -26,21 +27,20 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
 //get one SVG with one image
-$svg = SVGDocument::getInstance( 'resource/image.svg' );
+$svg = SVGDocument::getInstance('resource/image.svg');
 //convert the image to SVGImage object
-$embed= $svg->getElementById('stickEmbed');
+$embed = $svg->getElementById('stickEmbed');
 //convert the element to an image
-$image = @new SVGImage( $embed->asXML() ) ;
+$image = @new SVGImage($embed->asXML()) ;
 //export the image to a file, if is png
-if ( $image->getImageData()->mime == 'image/png' )
-{
-    file_put_contents( 'output/test.png' , $image->getImage() );
+if ($image->getImageData()->mime == 'image/png') {
+    file_put_contents('output/test.png', $image->getImage());
     //chmod( 'output/test.png' , '0777');
 }
 //add a new image to SVG (embed)
-$svg->addShape( SVGImage::getInstance(50, 50, 'myImage', 'resource/stick.png') );
+$svg->addShape(SVGImage::getInstance(50, 50, 'myImage', 'resource/stick.png'));
 //make the output to browser
 $svg->output();
-?>

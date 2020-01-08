@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of Line.
@@ -26,66 +27,68 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGLine extends SVGShapeEx
 {
-    public static function getInstance( $x1, $y1, $x2, $y2, $id = null , $style = null )
+    public static function getInstance($x1, $y1, $x2, $y2, $id = null, $style = null)
     {
         $rect = new SVGLine('<line></line>');
 
-        $rect->setX1( $x1 );
-        $rect->setX2( $x2 );
-        $rect->setY1( $y1 );
-        $rect->setY2( $y2 );
-        $rect->setId( $id );
-        $rect->setStyle( $style );
+        $rect->setX1($x1);
+        $rect->setX2($x2);
+        $rect->setY1($y1);
+        $rect->setY2($y2);
+        $rect->setId($id);
+        $rect->setStyle($style);
 
         return $rect;
     }
 
     /**
      * Define the x 1 of line
-     * 
-     * @param int $x1 
+     *
+     * @param int $x1
      */
-    public function setX1( $x1 )
+    public function setX1($x1)
     {
-        $this->addAttribute('x1', $x1 );
+        $this->addAttribute('x1', $x1);
     }
     
     /**
      * Define the x 2 of line
-     * 
+     *
      * @param int $x2
      */
-    public function setX2( $x2 )
+    public function setX2($x2)
     {
-        $this->addAttribute('x2', $x2 );
+        $this->addAttribute('x2', $x2);
     }
     
     /**
      * Define the y 1 of line
-     * 
-     * @param int $y1 
+     *
+     * @param int $y1
      */
-    public function setY1( $y1 )
+    public function setY1($y1)
     {
-        $this->addAttribute('y1', $y1 );
+        $this->addAttribute('y1', $y1);
     }
     
     /**
      * Define the y 2 of line
-     * 
-     * @param int $y2 
+     *
+     * @param int $y2
      */
-    public function setY2( $y2 )
+    public function setY2($y2)
     {
-        $this->addAttribute('y2', $y2 );
+        $this->addAttribute('y2', $y2);
     }
     
     /**
      * Return x1 attribute
-     * 
+     *
      * @return integer x1 attribute
      */
     public function getX1()
@@ -95,7 +98,7 @@ class SVGLine extends SVGShapeEx
     
     /**
      * Return x2 attribute
-     * 
+     *
      * @return integer x2 attribute
      */
     public function getX2()
@@ -105,7 +108,7 @@ class SVGLine extends SVGShapeEx
     
     /**
      * Return y1 attribute
-     * 
+     *
      * @return integer y1 attribute
      */
     public function getY1()
@@ -115,7 +118,7 @@ class SVGLine extends SVGShapeEx
     
     /**
      * Return y2  attribute
-     * 
+     *
      * @return integer y2 attribute
      */
     public function getY2()
@@ -123,4 +126,3 @@ class SVGLine extends SVGShapeEx
         return $this->getAttribute('y2');
     }
 }
-?>

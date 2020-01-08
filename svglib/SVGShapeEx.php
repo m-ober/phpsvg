@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Implementation of ShapeEx, it is a shape with width.
@@ -28,7 +29,9 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGShapeEx extends SVGShape
 {
     /**
@@ -36,9 +39,9 @@ class SVGShapeEx extends SVGShape
      *
      * @param integer $width
      */
-    public function setWidth( $width )
+    public function setWidth($width)
     {
-        $this->setAttribute( 'width', $width );
+        $this->setAttribute('width', $width);
     }
 
     /**
@@ -48,7 +51,7 @@ class SVGShapeEx extends SVGShape
      */
     public function getWidth()
     {
-        return $this->getAttribute( 'width' );
+        return $this->getAttribute('width');
     }
 
     /**
@@ -56,9 +59,9 @@ class SVGShapeEx extends SVGShape
      *
      * @param integer $height
      */
-    public function setHeight( $height )
+    public function setHeight($height)
     {
-        $this->setAttribute( 'height', $height );
+        $this->setAttribute('height', $height);
     }
 
     /**
@@ -68,7 +71,6 @@ class SVGShapeEx extends SVGShape
      */
     public function getHeight()
     {
-        return $this->getAttribute( 'height' );
+        return $this->getAttribute('height');
     }
 }
-?>

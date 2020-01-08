@@ -27,12 +27,13 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
 $svg = SVGDocument::getInstance();
-$svg->setTitle( "Javascript example" );
+$svg->setTitle("Javascript example");
 
 #add some javascript functions
-$svg->addScript( "
+$svg->addScript("
     function changeColor(evt, element)
     {
         destination = document.getElementById('destination');
@@ -49,7 +50,7 @@ $svg->addScript( "
         evt.preventDefault();
         return false;
     }
-" );
+");
 
 #mount a simple color array
 $colors[ ] = 'red';
@@ -61,32 +62,30 @@ $colors[ ] = 'gray';
 $colors[ ] = 'black';
 $colors[ ] = 'white';
 
-$text = SVGText::getInstance( 10, 25, null, 'Left click for fill - control click for stroke' );
+$text = SVGText::getInstance(10, 25, null, 'Left click for fill - control click for stroke');
 
-$svg->addShape( $text );
+$svg->addShape($text);
 
-foreach ( $colors as $line => $color )
-{
-    $rect = SVGRect::getInstance( ( $line * 60 ) + 10, 40, null, 50, 50 );
+foreach ($colors as $line => $color) {
+    $rect = SVGRect::getInstance(( $line * 60 ) + 10, 40, null, 50, 50);
     $style = new SVGStyle();
-    $style->setFill( $color );
-    $style->setStroke( "darkGray", 1 );
-    $rect->setStyle( $style );
+    $style->setFill($color);
+    $style->setStroke("darkGray", 1);
+    $rect->setStyle($style);
 
-    $rect->addOnclick( "return changeColor(evt,this);" );
-    $rect->addAttribute( "onmouseover", "this.style.stroke = 'lightGray';" );
-    $rect->addAttribute( "onmouseout", "this.style.stroke = 'gray';" );
+    $rect->addOnclick("return changeColor(evt,this);");
+    $rect->addAttribute("onmouseover", "this.style.stroke = 'lightGray';");
+    $rect->addAttribute("onmouseout", "this.style.stroke = 'gray';");
 
-    $svg->addShape( $rect );
+    $svg->addShape($rect);
 }
 
-$rect = SVGRect::getInstance( 140, 100, 'destination', 200, 200 );
+$rect = SVGRect::getInstance(140, 100, 'destination', 200, 200);
 $style = new SVGStyle();
-$style->setFill( 'none' );
-$style->setStroke( "darkGray", 5 );
-$rect->setStyle( $style );
+$style->setFill('none');
+$style->setStroke("darkGray", 5);
+$rect->setStyle($style);
 
-$svg->addShape( $rect );
+$svg->addShape($rect);
 
 $svg->output();
-?>

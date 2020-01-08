@@ -29,21 +29,20 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGText extends SVGShape
 {
 
-    public static function getInstance( $x, $y, $id, $text, $style = null )
+    public static function getInstance($x, $y, $id, $text, $style = null)
     {
-        $t = new SVGText( '<text>'.$text.'</text>' );
-        $t->setX( $x );
-        $t->setY( $y );
-        $t->setId( $id );
-        $t->setAttribute( 'style', $style );
+        $t = new SVGText('<text>' . $text . '</text>');
+        $t->setX($x);
+        $t->setY($y);
+        $t->setId($id);
+        $t->setAttribute('style', $style);
 
         return $t;
     }
-
 }
-
-?>

@@ -27,25 +27,24 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 namespace Dampfklon\phpsvg;
+
 class SVGGroup extends SVGShape
 {
 
-    public static function getInstance( $id )
+    public static function getInstance($id)
     {
-        $rect = new SVGGroup( '<g></g>' );
-        $rect->setId( $id );
+        $rect = new SVGGroup('<g></g>');
+        $rect->setId($id);
 
         return $rect;
     }
 
-    public function addShape( $append )
+    public function addShape($append)
     {
-        $this->append( $append );
+        $this->append($append);
 
         return $this;
     }
-
 }
-
-?>

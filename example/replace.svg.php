@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Description: Default example, show some usefull functions / adding elements
@@ -26,15 +27,15 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
 require_once "../svglib/svglib.php";
 #open the image.svg
-$image = SVGDocument::getInstance( 'resource/image.svg' );
+$image = SVGDocument::getInstance('resource/image.svg');
 #converter to xml text
 $xml = $image->asXML();
 #execute the replace, you can use reg exp if you need
 $xml = str_replace('This is my stick boy!', 'Changed text!', $xml);
 #construct a new xml based in new xml content
-$svg = new SVGDocument( $xml );
+$svg = new SVGDocument($xml);
 #make the output
 $svg->output();
-?>

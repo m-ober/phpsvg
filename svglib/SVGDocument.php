@@ -36,6 +36,7 @@
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  * ----------------------------------------------------------------------
  */
+
 /**
  *
 
@@ -63,10 +64,10 @@ class SVGDocument extends SVGShape
      * @param string $filename the filename to get the extension
      * @return string the filename to get the extension
      */
-    protected static function getFileExtension( $filename )
+    protected static function getFileExtension($filename)
     {
-        $explode = explode( '.', $filename );
-        return strtolower( $explode[ count( $explode ) - 1 ] );
+        $explode = explode('.', $filename);
+        return strtolower($explode[ count($explode) - 1 ]);
     }
 
     /**
@@ -81,22 +82,18 @@ class SVGDocument extends SVGShape
      *
      * @return SVGDocument
      */
-    public static function getInstance( $filename = null, $SVGClass = 'Dampfklon\phpsvg\SVGDocument' )
+    public static function getInstance($filename = null, $SVGClass = 'Dampfklon\phpsvg\SVGDocument')
     {
-        if ( !$SVGClass )
-        {
+        if (!$SVGClass) {
             $SVGClass = 'SVGDocument';
         }
 
-        if ( $filename )
-        {
+        if ($filename) {
             //if is svgz use compres.zlib to load the compacted SVG
-            if ( SVGDocument::getFileExtension( $filename ) == self::EXTENSION_COMPACT )
-            {
+            if (SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
                 //verify if zlib is installed
-                if ( !function_exists( 'gzopen' ) )
-                {
-                    throw new Exception( 'GZip support not installed.' );
+                if (!function_exists('gzopen')) {
+                    throw new Exception('GZip support not installed.');
                     return false;
                 }
 
@@ -104,26 +101,23 @@ class SVGDocument extends SVGShape
             }
 
             //get the content
-            $content = file_get_contents( $filename );
+            $content = file_get_contents($filename);
 
             //throw error if not found
-            if ( !$content )
-            {
-                throw new Exception( 'Impossible to load content of file ' . $filename );
+            if (!$content) {
+                throw new Exception('Impossible to load content of file ' . $filename);
             }
 
-            $svg = new $SVGClass( $content );
-        }
-        else
-        {
+            $svg = new $SVGClass($content);
+        } else {
             //create clean SVG
-            $svg = new $SVGClass( '<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg></svg>' );
+            $svg = new $SVGClass('<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg></svg>');
 
             //define the default parameters A4 pageformat
-            $svg->setWidth( '210mm' );
-            $svg->setHeight( '297mm' );
-            $svg->setVersion( self::VERSION );
-            $svg->setAttribute( 'xmlns', self::XMLNS );
+            $svg->setWidth('210mm');
+            $svg->setHeight('297mm');
+            $svg->setVersion(self::VERSION);
+            $svg->setAttribute('xmlns', self::XMLNS);
         }
 
         return $svg;
@@ -136,7 +130,7 @@ class SVGDocument extends SVGShape
      */
     public function output()
     {
-        header( 'Content-type: ' . self::HEADER );
+        header('Content-type: ' . self::HEADER);
         echo $this->asXML();
     }
 
@@ -148,26 +142,23 @@ class SVGDocument extends SVGShape
      * @param string $filename the file to save, is optional, you can output to a var
      * @return string the xml string if filename is not passed
      */
-    public function asXML( $filename = null, $humanReadable = true )
+    public function asXML($filename = null, $humanReadable = true)
     {
         //if is svgz use compres.zlib to load the compacted SVG
-        if ( SVGDocument::getFileExtension( $filename ) == self::EXTENSION_COMPACT )
-        {
+        if (SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
             //verify if zlib is installed
-            if ( !function_exists( 'gzopen' ) )
-            {
-                throw new Exception( 'GZip support not installed.' );
+            if (!function_exists('gzopen')) {
+                throw new Exception('GZip support not installed.');
             }
 
             $filename = 'compress.zlib://' . $filename;
         }
 
-        $xml = parent::asXML( null, $humanReadable );
+        $xml = parent::asXML(null, $humanReadable);
 
         //need to do it, if pass a null filename it return an error
-        if ( $filename )
-        {
-            return file_put_contents( $filename, $xml );
+        if ($filename) {
+            return file_put_contents($filename, $xml);
         }
 
         return $xml;
@@ -178,9 +169,9 @@ class SVGDocument extends SVGShape
      *
      * @param string $version
      */
-    public function setVersion( $version )
+    public function setVersion($version)
     {
-        $this->setAttribute( 'version', $version );
+        $this->setAttribute('version', $version);
 
         return $this;
     }
@@ -192,7 +183,7 @@ class SVGDocument extends SVGShape
      */
     public function getVersion()
     {
-        return $this->getAttribute( 'version' );
+        return $this->getAttribute('version');
     }
 
     /**
@@ -203,9 +194,9 @@ class SVGDocument extends SVGShape
      *
      * @param string $width
      */
-    public function setWidth( $width )
+    public function setWidth($width)
     {
-        $this->setAttribute( 'width', $width );
+        $this->setAttribute('width', $width);
 
         return $this;
     }
@@ -218,10 +209,10 @@ class SVGDocument extends SVGShape
      * @param string $width width
      * @param string $height height
      */
-    public function setViewBox( $startX, $startY, $width, $height )
+    public function setViewBox($startX, $startY, $width, $height)
     {
-        $viewBox = str_replace( array( '%', 'px' ), '', "$startX $startY $width $height" );
-        $this->setAttribute( 'viewBox', $viewBox );
+        $viewBox = str_replace(array( '%', 'px' ), '', "$startX $startY $width $height");
+        $this->setAttribute('viewBox', $viewBox);
 
         return $this;
     }
@@ -233,7 +224,7 @@ class SVGDocument extends SVGShape
      */
     public function setDefaultViewBox()
     {
-        return $this->setViewBox( 0, 0, $this->getWidth(), $this->getHeight() );
+        return $this->setViewBox(0, 0, $this->getWidth(), $this->getHeight());
     }
 
     /**
@@ -243,7 +234,7 @@ class SVGDocument extends SVGShape
      */
     public function getWidth()
     {
-        return $this->getAttribute( 'width' );
+        return $this->getAttribute('width');
     }
 
     /**
@@ -254,9 +245,9 @@ class SVGDocument extends SVGShape
      * @example setHeight('350mm');
      * @example setHeight('350px');
      */
-    public function setHeight( $height )
+    public function setHeight($height)
     {
-        $this->setAttribute( 'height', $height );
+        $this->setAttribute('height', $height);
 
         return $this;
     }
@@ -268,7 +259,7 @@ class SVGDocument extends SVGShape
      */
     public function getHeight()
     {
-        return $this->getAttribute( 'height' );
+        return $this->getAttribute('height');
     }
 
     /**
@@ -276,9 +267,9 @@ class SVGDocument extends SVGShape
      *
      * @param XMLElement $append the element to append
      */
-    public function addShape( $append )
+    public function addShape($append)
     {
-        $this->append( $append );
+        $this->append($append);
 
         return $this;
     }
@@ -288,15 +279,14 @@ class SVGDocument extends SVGShape
      *
      * @param XMLElement $element
      */
-    public function addDefs( $element )
+    public function addDefs($element)
     {
-        if ( !$this->defs )
-        {
-            $defs = new XMLElement( '<defs></defs>' );
-            $this->append( $defs );
+        if (!$this->defs) {
+            $defs = new XMLElement('<defs></defs>');
+            $this->append($defs);
         }
 
-        $this->defs->append( $element );
+        $this->defs->append($element);
     }
 
     /**
@@ -304,10 +294,10 @@ class SVGDocument extends SVGShape
      *
      * @param text $script
      */
-    public function addScript( $script )
+    public function addScript($script)
     {
-        $element = new XMLElement( '<script>' . $script . '</script>' );
-        $this->append( $element );
+        $element = new XMLElement('<script>' . $script . '</script>');
+        $this->append($element);
 
         return $this;
     }
@@ -334,41 +324,26 @@ class SVGDocument extends SVGShape
      * @param boolean $respectRatio respect the ratio, image proportion
      * @param string $exportType the default export type
      */
-    public function export( $filename, $width = null, $height = null, $respectRatio = false, $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC )
+    public function export($filename, $width = null, $height = null, $respectRatio = false, $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC)
     {
-        if ( $exportType == SVGDocument::EXPORT_TYPE_IMAGE_MAGIC )
-        {
-            try
-            {
-                return $this->exportImagick( $filename, $width, $height, $respectRatio );
-            }
-            catch ( Exception $e )
-            {
-                try
-                {
-                    return $this->exportInkscape( $filename, $width, $height );
-                }
-                catch ( Exception $exc )
-                {
+        if ($exportType == SVGDocument::EXPORT_TYPE_IMAGE_MAGIC) {
+            try {
+                return $this->exportImagick($filename, $width, $height, $respectRatio);
+            } catch (Exception $e) {
+                try {
+                    return $this->exportInkscape($filename, $width, $height);
+                } catch (Exception $exc) {
                     $exc = null;
                     throw $e; //throw the first error
                 }
             }
-        }
-        else
-        {
-            try
-            {
-                return $this->exportInkscape( $filename, $width, $height );
-            }
-            catch ( Exception $e )
-            {
-                try
-                {
-                    return $this->exportImagick( $filename, $width, $height, $respectRatio );
-                }
-                catch ( Exception $exc )
-                {
+        } else {
+            try {
+                return $this->exportInkscape($filename, $width, $height);
+            } catch (Exception $e) {
+                try {
+                    return $this->exportImagick($filename, $width, $height, $respectRatio);
+                } catch (Exception $exc) {
                     $exc = null;
                     throw $e; //throw the original error
                 }
@@ -387,13 +362,13 @@ class SVGDocument extends SVGShape
      *
      * @return boolean ?
      */
-    public function exportInkscape( $filename, $width = null, $height = null )
+    public function exportInkscape($filename, $width = null, $height = null)
     {
-        $format = SVGDocument::getFileExtension( $filename );
-        $inkscape = new Inkscape( $this );
-        $inkscape->setSize( $width, $height );
+        $format = SVGDocument::getFileExtension($filename);
+        $inkscape = new Inkscape($this);
+        $inkscape->setSize($width, $height);
 
-        return $inkscape->export( $format, $filename );
+        return $inkscape->export($format, $filename);
     }
 
     /**
@@ -405,32 +380,26 @@ class SVGDocument extends SVGShape
      * @param integer $height the height of exported image
      * @param boolean $respectRatio respect the ratio, image proportion
      */
-    public function exportImagick( $filename, $width = null, $height = null, $respectRatio = false )
+    public function exportImagick($filename, $width = null, $height = null, $respectRatio = false)
     {
-        if ( !class_exists( 'Imagick' ) )
-        {
-            throw new Exception( 'Imagemagick class not found. Please install it.' );
+        if (!class_exists('Imagick')) {
+            throw new Exception('Imagemagick class not found. Please install it.');
         }
 
         $image = new \Imagick();
 
-        $ok = $image->readImageBlob( $this->asXML(null, false) );
+        $ok = $image->readImageBlob($this->asXML(null, false));
 
-        if ( $ok )
-        {
-            if ( $width && $height )
-            {
-                $image->thumbnailImage( $width, $height, $respectRatio );
+        if ($ok) {
+            if ($width && $height) {
+                $image->thumbnailImage($width, $height, $respectRatio);
             }
 
-            $image->writeImage( $filename );
+            $image->writeImage($filename);
 
             $ok = true;
         }
 
         return $ok;
     }
-
 }
-
-?>
