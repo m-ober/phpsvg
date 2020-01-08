@@ -395,8 +395,9 @@ class XMLElement extends \SimpleXMLElement
         $this->removeElement($this->getElementById($id));
     }
 
-    public function removeElement($node)
+    public function removeElement(\SimpleXMLElement $node)
     {
+        /** @noinspection PhpComposerExtensionStubsInspection */
         $dom = dom_import_simplexml($node);
         $dom->parentNode->removeChild($dom);
     }
