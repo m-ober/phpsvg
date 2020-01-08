@@ -2,26 +2,24 @@
     "name": "dampfklon/phpsvg",
     "version": "0.8.0",
     "description": "Edit and create SVG Documents using OO PHP",
-    "keywords": [ "SVG", "PHP"],
+    "keywords": ["SVG", "PHP"],
     "homepage": "https://github.com/dampfklon/phpsvg",
     "license": "GPL-3.0",
     "authors": [
-	{
-            "name": "Dampfklon",
-            "email": "me@dampfklon.de"
-        },        
-	{
-            "name": "Eduardo Bonfandini",
-            "email": "trialforce@gmail.com"
-        }
+        {"name": "Dampfklon", "email": "me@dampfklon.de" },
+        {"name": "Eduardo Bonfandini", "email": "trialforce@gmail.com" }
     ],
-    "minimum-stability": "stable",
-    "autoload": {
-        "psr-4": {"Dampfklon\\phpsvg\\": "svglib/"}
+    "require": {
+        "php": "^7.0",
+        "ext-SimpleXML": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
         "vimeo/psalm": "^3.8"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"Dampfklon\\phpsvg\\": "svglib/"}
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs -s --error-severity=1 --warning-severity=8 --ignore=vendor/* --standard=PSR12 --extensions=php .",
