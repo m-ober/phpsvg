@@ -386,6 +386,7 @@ class SVGDocument extends SVGShape
             throw new Exception('Imagemagick class not found. Please install it.');
         }
 
+        /** @noinspection PhpComposerExtensionStubsInspection */
         $image = new \Imagick();
 
         $ok = $image->readImageBlob($this->asXML(null, false));
