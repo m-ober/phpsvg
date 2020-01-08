@@ -38,15 +38,15 @@
  */
 
 /**
- *
-
- *
  * Reference site:
  * http://www.leftontheweb.com/message/A_small_SimpleXML_gotcha_with_namespaces
  * http://blog.jondh.me.uk/2010/10/resetting-namespaced-attributes-using-simplexml/
  * http://www.w3.org/TR/SVG/
  */
 namespace Dampfklon\phpsvg;
+use Exception;
+use RuntimeException;
+
 class SVGDocument extends SVGShape
 {
 
@@ -77,24 +77,19 @@ class SVGDocument extends SVGShape
      *
      * Supports gzipped content.
      *
-     * @param $filename the file to load
-     * @param $SVGClass class to construct the SVG, default SVGDocument, used for created using extended classes
+     * @param string $filename the file to load
+     * @param string $SVGClass class to construct the SVG, default SVGDocument, used for created using extended classes
      *
      * @return SVGDocument
      */
     public static function getInstance($filename = null, $SVGClass = 'Dampfklon\phpsvg\SVGDocument')
     {
-        if (!$SVGClass) {
-            $SVGClass = 'SVGDocument';
-        }
-
         if ($filename) {
             //if is svgz use compres.zlib to load the compacted SVG
             if (SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
                 //verify if zlib is installed
                 if (!function_exists('gzopen')) {
-                    throw new Exception('GZip support not installed.');
-                    return false;
+                    throw new RuntimeException('GZip support not installed.');
                 }
 
                 $filename = 'compress.zlib://' . $filename;
@@ -105,7 +100,7 @@ class SVGDocument extends SVGShape
 
             //throw error if not found
             if (!$content) {
-                throw new Exception('Impossible to load content of file ' . $filename);
+                throw new RuntimeException('Impossible to load content of file ' . $filename);
             }
 
             $svg = new $SVGClass($content);
@@ -139,16 +134,17 @@ class SVGDocument extends SVGShape
      *
      * If the file extension is svgz, the function will save it correctely;
      *
-     * @param string $filename the file to save, is optional, you can output to a var
+     * @param string|null $filename the file to save, is optional, you can output to a var
+     * @param bool $humanReadable
      * @return string the xml string if filename is not passed
      */
-    public function asXML($filename = null, $humanReadable = true)
+    public function asXML($filename = null, $humanReadable = false)
     {
         //if is svgz use compres.zlib to load the compacted SVG
         if (SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
             //verify if zlib is installed
             if (!function_exists('gzopen')) {
-                throw new Exception('GZip support not installed.');
+                throw new RuntimeException('GZip support not installed.');
             }
 
             $filename = 'compress.zlib://' . $filename;
@@ -157,7 +153,7 @@ class SVGDocument extends SVGShape
         $xml = parent::asXML(null, $humanReadable);
 
         //need to do it, if pass a null filename it return an error
-        if ($filename) {
+        if (!is_null($filename)) {
             return file_put_contents($filename, $xml);
         }
 
@@ -168,6 +164,7 @@ class SVGDocument extends SVGShape
      * Define the version of SVG document
      *
      * @param string $version
+     * @return SVGDocument
      */
     public function setVersion($version)
     {
@@ -179,7 +176,7 @@ class SVGDocument extends SVGShape
     /**
      * Get the version of SVG document
      *
-     * @param string $version
+     * @return string
      */
     public function getVersion()
     {
@@ -189,10 +186,10 @@ class SVGDocument extends SVGShape
     /**
      * Define the page dimension , width.
      *
+     * @param string $width
+     * @return SVGDocument
      * @example setWidth('350px');
      * @example setWidth('350mm');
-     *
-     * @param string $width
      */
     public function setWidth($width)
     {
@@ -208,6 +205,7 @@ class SVGDocument extends SVGShape
      * @param string $startY start y coordinate
      * @param string $width width
      * @param string $height height
+     * @return SVGDocument
      */
     public function setViewBox($startX, $startY, $width, $height)
     {
@@ -242,8 +240,9 @@ class SVGDocument extends SVGShape
      *
      * @param string $height
      *
-     * @example setHeight('350mm');
+     * @return SVGDocument
      * @example setHeight('350px');
+     * @example setHeight('350mm');
      */
     public function setHeight($height)
     {
@@ -266,6 +265,7 @@ class SVGDocument extends SVGShape
      * Add a shape to SVG graphics
      *
      * @param XMLElement $append the element to append
+     * @return SVGDocument
      */
     public function addShape($append)
     {
@@ -292,7 +292,8 @@ class SVGDocument extends SVGShape
     /**
      * Add some script content to svg
      *
-     * @param text $script
+     * @param string $script
+     * @return SVGDocument
      */
     public function addScript($script)
     {
@@ -305,7 +306,7 @@ class SVGDocument extends SVGShape
     /**
      * Return the definitions of the document, normally has gradients.
      *
-     * @return SVGElement
+     * @return XMLElement
      */
     public function getDefs()
     {
@@ -323,6 +324,8 @@ class SVGDocument extends SVGShape
      * @param integer $height the height of exported image
      * @param boolean $respectRatio respect the ratio, image proportion
      * @param string $exportType the default export type
+     * @return bool
+     * @throws Exception usually \ImagickException
      */
     public function export($filename, $width = null, $height = null, $respectRatio = false, $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC)
     {
@@ -379,14 +382,16 @@ class SVGDocument extends SVGShape
      * @param integer $width the width of exported image
      * @param integer $height the height of exported image
      * @param boolean $respectRatio respect the ratio, image proportion
+     * @return bool
+     * @throws \ImagickException
+     * @noinspection PhpComposerExtensionStubsInspection
      */
     public function exportImagick($filename, $width = null, $height = null, $respectRatio = false)
     {
         if (!class_exists('Imagick')) {
-            throw new Exception('Imagemagick class not found. Please install it.');
+            throw new RuntimeException('Imagemagick class not found. Please install it.');
         }
 
-        /** @noinspection PhpComposerExtensionStubsInspection */
         $image = new \Imagick();
 
         $ok = $image->readImageBlob($this->asXML(null, false));

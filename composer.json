@@ -10,7 +10,7 @@
         {"name": "Eduardo Bonfandini", "email": "trialforce@gmail.com" }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "ext-SimpleXML": "*",
         "ext-fileinfo": "*"
     },
@@ -20,7 +20,8 @@
     },
     "suggest": {
         "ext-imagick": "Required to export images using Imagick",
-        "ext-dom": "Required to use XMLElement::removeElement()"
+        "ext-dom": "Required to use XMLElement::removeElement()",
+        "ext-zlib": "To open compressed files"
     },
     "minimum-stability": "stable",
     "autoload": {

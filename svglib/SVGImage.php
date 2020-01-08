@@ -48,7 +48,7 @@ class SVGImage extends SVGShapeEX
     /**
      * Return the binary data of image
      *
-     * @return bin the binary data of image
+     * @return string the binary data of image
      * @example file_put_contents( 'output/test.png' , $image->getImage() );
      */
     public function getImage()
@@ -68,7 +68,7 @@ class SVGImage extends SVGShapeEX
      * Explode embed image string returning a stdClass with, mime, encode e binary properties
      *
      * @param string $image
-     * @return stdClass a stdClass with, mime, encode e binary properties
+     * @return \stdClass a stdClass with, mime, encode e binary properties
      */
     public function getImageData()
     {
@@ -78,7 +78,7 @@ class SVGImage extends SVGShapeEX
             $explode = explode(',', $image);
             $mime = explode(';', $explode[ 0 ]);
 
-            $img = new stdClass();
+            $img = new \stdClass();
             $img->mime = str_replace('data:', '', $mime[ 0 ]);
             $img->encode = $mime[ 1 ];
             $img->binary = $explode[ 1 ];

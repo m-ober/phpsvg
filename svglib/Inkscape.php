@@ -204,6 +204,8 @@
  */
 namespace Dampfklon\phpsvg;
 
+use RuntimeException;
+
 class Inkscape
 {
     /**
@@ -439,11 +441,11 @@ class Inkscape
     public function export($format, $filename)
     {
         if (!$format) {
-            throw new \RuntimeException('Need to inform a format.');
+            throw new RuntimeException('Need to inform a format.');
         }
 
         if (!$filename) {
-            throw new \RuntimeException('Need to inform a file path to save.');
+            throw new RuntimeException('Need to inform a file path to save.');
         }
 
         $availableFormat = array( 'png', 'ps', 'eps', 'pdf', 'plain-svg' );
@@ -461,10 +463,10 @@ class Inkscape
                     $msg = ' Define INKSCAPE_PATH is not defined. Try to define it.';
                 }
 
-                throw new \RuntimeException('Impossible to save file in path : ' . $filename . PHP_EOL . '  Inkcape cmd: ' . $this->lastCmd . PHP_EOL . 'Inkscape Error Message = ' . $this->lastExecuteResult . $msg);
+                throw new RuntimeException('Impossible to save file in path : ' . $filename . PHP_EOL . '  Inkcape cmd: ' . $this->lastCmd . PHP_EOL . 'Inkscape Error Message = ' . $this->lastExecuteResult . $msg);
             }
         } else {
-            throw new \RuntimeException('Format not available:' . $format . '.');
+            throw new RuntimeException('Format not available:' . $format . '.');
         }
     }
 
@@ -517,7 +519,7 @@ class Inkscape
         $this->lastExecuteResult = shell_exec($this->lastCmd);
 
         if (trim($this->lastExecuteResult) == 'Nothing to do!') {
-            throw new \RuntimeException('Nothing to do!');
+            throw new RuntimeException('Nothing to do!');
         }
 
         return $this->lastExecuteResult;

@@ -32,7 +32,9 @@
 
 namespace Dampfklon\phpsvg;
 
-class XMLElement extends \SimpleXMLElement
+use SimpleXMLElement;
+
+class XMLElement extends SimpleXMLElement
 {
 
     /**
@@ -371,10 +373,15 @@ class XMLElement extends \SimpleXMLElement
         return $formatted; // pretty format
     }
 
-    public function asXML($filename = null, $humanReadable = true)
+    /**
+     * @param string|null $filename
+     * @param bool $humanReadable
+     * @return string|bool
+     */
+    public function asXML($filename = null, $humanReadable = false)
     {
-        if ($filename) {
-            parent::asXML($filename);
+        if (!is_null($filename)) {
+            return parent::asXML($filename);
         } else {
             //define if xml is humanReadable or not
             if ($humanReadable) {
@@ -395,7 +402,7 @@ class XMLElement extends \SimpleXMLElement
         $this->removeElement($this->getElementById($id));
     }
 
-    public function removeElement(\SimpleXMLElement $node)
+    public function removeElement(SimpleXMLElement $node)
     {
         /** @noinspection PhpComposerExtensionStubsInspection */
         $dom = dom_import_simplexml($node);
