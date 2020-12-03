@@ -43,7 +43,7 @@
  * http://blog.jondh.me.uk/2010/10/resetting-namespaced-attributes-using-simplexml/
  * http://www.w3.org/TR/SVG/
  */
-namespace Dampfklon\phpsvg;
+namespace mober\phpsvg;
 use Exception;
 use RuntimeException;
 
@@ -82,7 +82,7 @@ class SVGDocument extends SVGShape
      *
      * @return SVGDocument
      */
-    public static function getInstance($filename = null, $SVGClass = 'Dampfklon\phpsvg\SVGDocument')
+    public static function getInstance($filename = null, $SVGClass = 'mober\phpsvg\SVGDocument')
     {
         if ($filename) {
             //if is svgz use compres.zlib to load the compacted SVG

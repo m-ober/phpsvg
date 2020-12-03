@@ -28,7 +28,7 @@
  *----------------------------------------------------------------------
  */
 
-namespace Dampfklon\phpsvg;
+namespace mober\phpsvg;
 
 class SVGRect extends SVGShapeEx
 {

@@ -28,7 +28,7 @@
  *----------------------------------------------------------------------
  */
 
-namespace Dampfklon\phpsvg;
+namespace mober\phpsvg;
 
 class SVGRadialGradient extends SVGLinearGradient
 {

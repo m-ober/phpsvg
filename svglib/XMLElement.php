@@ -30,7 +30,7 @@
  * ----------------------------------------------------------------------
  */
 
-namespace Dampfklon\phpsvg;
+namespace mober\phpsvg;
 
 use SimpleXMLElement;
 
