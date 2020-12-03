@@ -1,12 +1,13 @@
 {
-    "name": "dampfklon/phpsvg",
+    "name": "mober/phpsvg",
     "version": "0.8.0",
     "description": "Edit and create SVG Documents using OO PHP",
     "keywords": ["SVG", "PHP"],
-    "homepage": "https://github.com/dampfklon/phpsvg",
+    "homepage": "https://github.com/m-ober/phpsvg",
     "license": "GPL-3.0",
     "authors": [
         {"name": "Dampfklon", "email": "me@dampfklon.de" },
+        {"name": "Micha Ober", "email": "packages@ober-mail.de" },
         {"name": "Eduardo Bonfandini", "email": "trialforce@gmail.com" }
     ],
     "require": {
@@ -25,7 +26,7 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": {"Dampfklon\\phpsvg\\": "svglib/"}
+        "psr-4": {"mober\\phpsvg\\": "svglib/"}
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs -s --error-severity=1 --warning-severity=8 --ignore=vendor/* --standard=PSR12 --extensions=php .",
