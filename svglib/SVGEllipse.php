@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Ellipse.
@@ -37,15 +39,16 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Construct a circle
      *
-     * @param integer $cx the center x
-     * @param integer $cy the center y
-     * @param integer $radius the radius of circle
-     * @param string $id the id of element
-     * @param SVGStyle $style style of element
+     * @param int|float|string $cx the center x
+     * @param int|float|string $cy the center y
+     * @param int|float|string $radiusX
+     * @param int|float|string $radiusY
+     * @param null|string $id the id of element
+     * @param null|string $style style of element
      *
-     * @return SVGCircle
+     * @return SVGEllipse
      */
-    public static function getInstance($cx, $cy, $radiusX, $radiusY, $id = null, $style = null)
+    public static function getInstance($cx, $cy, $radiusX, $radiusY, $id = null, $style = null): SVGEllipse
     {
         $circle = new SVGEllipse('<ellipse></ellipse>');
 
@@ -61,39 +64,29 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Define the center x
      *
-     * @param integer $cx
+     * @param int|float|string $cx
      */
-    public function setCx($cx)
+    public function setCx($cx): void
     {
-        $this->addAttribute('cx', $cx);
-    }
-
-    /**
-     * Return the center x
-     *
-     * @return integer cx attribute
-     */
-    public function getCx()
-    {
-        return $this->getAttribute('cx');
+        $this->addAttribute('cx', (string) $cx);
     }
 
     /**
      * Define the center y
      *
-     * @param integer $cy
+     * @param int|float|string $cy
      */
-    public function setCy($cy)
+    public function setCy($cy): void
     {
-        $this->addAttribute('cy', $cy);
+        $this->addAttribute('cy', (string) $cy);
     }
 
     /**
      * Return the center y
      *
-     * @return integer cy attribute
+     * @return string cy attribute
      */
-    public function getCy()
+    public function getCy(): string
     {
         return $this->getAttribute('cy');
     }
@@ -101,20 +94,23 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Define the radius of circle
      *
-     * @param integer $radius
+     * @param int|float|string $radiusX
+     * @param int|float|string $radiusY
+     *
+     * @return void
      */
-    public function setRadius($radiusX, $radiusY)
+    public function setRadius($radiusX, $radiusY): void
     {
-        $this->addAttribute('rx', $radiusX);
-        $this->addAttribute('ry', $radiusY);
+        $this->addAttribute('rx', (string) $radiusX);
+        $this->addAttribute('ry', (string) $radiusY);
     }
 
     /**
      * Return the x radius of circle
      *
-     * @return integer the radius of circle
+     * @return string the radius of circle
      */
-    public function getRadiusX()
+    public function getRadiusX(): string
     {
         return $this->getAttribute('rx');
     }
@@ -122,9 +118,9 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Return the y radius of circle
      *
-     * @return integer the radius of circle
+     * @return string the radius of circle
      */
-    public function getRadiusY()
+    public function getRadiusY(): string
     {
         return $this->getAttribute('ry');
     }

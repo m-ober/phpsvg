@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of text object
@@ -35,7 +37,15 @@ namespace mober\phpsvg;
 class SVGText extends SVGShape
 {
 
-    public static function getInstance($x, $y, $id, $text, $style = null)
+    /**
+     * @param $x
+     * @param $y
+     * @param $id
+     * @param $text
+     * @param null $style
+     * @return SVGText
+     */
+    public static function getInstance($x, $y, $id, $text, $style = null): SVGText
     {
         $t = new SVGText('<text></text>');
         $t->setX($x);

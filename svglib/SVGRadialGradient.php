@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of radial Gradient.
@@ -32,7 +34,12 @@ namespace mober\phpsvg;
 
 class SVGRadialGradient extends SVGLinearGradient
 {
-    public static function getInstance($id, array $stops)
+    /**
+     * @param string $id
+     * @param SVGStop[] $stops
+     * @return SVGRadialGradient
+     */
+    public static function getInstance(string $id, array $stops): parent
     {
         $gradient = new SVGRadialGradient('<radialGradient></radialGradient>');
         $gradient->setId($id);

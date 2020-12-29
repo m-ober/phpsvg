@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Rect.
@@ -32,7 +34,16 @@ namespace mober\phpsvg;
 
 class SVGRect extends SVGShapeEx
 {
-    public static function getInstance($x, $y, $id, $width, $height, $style = null)
+    /**
+     * @param int|float|string $x
+     * @param int|float|string $y
+     * @param null|string $id
+     * @param int|float|string $width
+     * @param int|float|string $height
+     * @param null|string $style
+     * @return SVGRect
+     */
+    public static function getInstance($x, $y, ?string $id, $width, $height, $style = null): SVGRect
     {
         $rect = new SVGRect('<rect></rect>');
 
@@ -49,19 +60,21 @@ class SVGRect extends SVGShapeEx
     /**
      * Define the round of rect
      *
-     * @param integer $rx the round
+     * @param int|float|string $rx the round
+     *
+     * @return void
      */
-    public function setRound($rx)
+    public function setRound($rx): void
     {
-        $this->addAttribute('rx', $rx);
+        $this->addAttribute('rx', (string) $rx);
     }
 
     /**
      * Return the round of rect
      *
-     * @return integer return the round
+     * @return string return the round
      */
-    public function getRound()
+    public function getRound(): string
     {
         return $this->getAttribute('rx');
     }

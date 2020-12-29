@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Shape, is a generic class with basic shape functions.
@@ -39,9 +41,9 @@ class SVGShape extends XMLElement
     /**
      * Define the x coordinate of position
      *
-     * @param float $x the x coordinate of position
+     * @param int|float|string $x the x coordinate of position
      */
-    public function setX($x)
+    public function setX($x): void
     {
         $this->setAttribute('x', $x);
     }
@@ -49,9 +51,9 @@ class SVGShape extends XMLElement
     /**
      * Return the x coordinate of position
      *
-     * @return float the x coordinate of position
+     * @return string the x coordinate of position
      */
-    public function getX()
+    public function getX(): string
     {
         return $this->getAttribute('x');
     }
@@ -59,9 +61,9 @@ class SVGShape extends XMLElement
     /**
      * Define the y coordinate of position
      *
-     * @param float $y the y coordinate of position
+     * @param int|float|string $y the y coordinate of position
      */
-    public function setY($y)
+    public function setY($y): void
     {
         $this->setAttribute('y', $y);
     }
@@ -69,9 +71,9 @@ class SVGShape extends XMLElement
     /**
      * Return the y coordinate of position
      *
-     * @return float the y coordinate of position
+     * @return string the y coordinate of position
      */
-    public function getY()
+    public function getY(): string
     {
         return $this->getAttribute('y');
     }
@@ -79,24 +81,22 @@ class SVGShape extends XMLElement
     /**
      * Define the style of element, can be a SVGStyle element or an string
      *
-     * @param SVGStyle $style SVGStyle element or an string
+     * @param null|SVGStyle|string $style SVGStyle element or an string
      */
-    public function setStyle($style)
+    public function setStyle($style): void
     {
-        if (!$style) {
+        if (empty($style)) {
             $style = new SVGStyle();
         }
-
         $this->setAttribute('style', $style);
     }
 
     /**
      * Return the style element
      *
-     *
      * @return SVGStyle style of element
      */
-    public function getStyle()
+    public function getStyle(): SVGStyle
     {
         return new SVGStyle($this->getAttribute('style'));
     }
@@ -104,7 +104,7 @@ class SVGShape extends XMLElement
     /**
      * Show element
      */
-    public function show()
+    public function show(): void
     {
         $style = $this->getStyle();
         $style->show();
@@ -114,7 +114,7 @@ class SVGShape extends XMLElement
     /**
      * Hide the element
      */
-    public function hide()
+    public function hide(): void
     {
         $style = $this->getStyle();
         $style->hide();
@@ -126,7 +126,7 @@ class SVGShape extends XMLElement
      *
      * @return string the transformation of shape
      */
-    public function getTransform()
+    public function getTransform(): string
     {
         return $this->getAttribute('transform');
     }
@@ -136,7 +136,7 @@ class SVGShape extends XMLElement
      *
      * @return array transform dados
      */
-    public function getTranformList()
+    public function getTranformList(): array
     {
         return explode(self::TRANSFORM_SEPARATOR, $this->getTransform());
     }
@@ -146,9 +146,8 @@ class SVGShape extends XMLElement
      *
      * @param string $transform the transformation command
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
-     *
      */
-    public function setTransform($transform)
+    public function setTransform(string $transform): void
     {
         $this->setAttribute('transform', $transform);
     }
@@ -158,14 +157,12 @@ class SVGShape extends XMLElement
      *
      * @param string $transform the transformation command
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
-     *
      */
-    public function addTransform($transform)
+    public function addTransform(string $transform): void
     {
         if ($this->getTransform()) {
             $transform = trim($this->getTransform()) . self::TRANSFORM_SEPARATOR . $transform;
         }
-
         $this->setAttribute('transform', $transform);
     }
 
@@ -182,9 +179,9 @@ class SVGShape extends XMLElement
      * @param float $cy y of rotation point
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
      */
-    public function rotate($angle, $cx = null, $cy = null)
+    public function rotate(float $angle, float $cx = 0, float $cy = 0): void
     {
-        if ($cx && $cy) {
+        if ($cx > 0 && $cy > 0) {
             $this->addTransform("rotate($angle,$cx,$cy)");
         } else {
             $this->addTransform("rotate($angle)");
@@ -197,16 +194,14 @@ class SVGShape extends XMLElement
      * @param float $sy If <sy> is not provided, it is assumed to be equal to <sx>.
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
      */
-    public function scale($sx, $sy = null)
+    public function scale(float $sx, float $sy = 0): void
     {
-        if ($sx && $sy) {
+        if ($sx > 0 && $sy > 0) {
             $this->addTransform("scale($sx, $sy)");
         } else {
             $this->addTransform("scale($sx)");
         }
     }
-
-    /*
 
     /**
      * translate(<tx> [<ty>]), which specifies a translation by tx and ty
@@ -216,9 +211,9 @@ class SVGShape extends XMLElement
      * @param float $tx translate x
      * @param float $ty translate y If <ty> is not provided, it is assumed to be zero
      */
-    public function translate($tx, $ty = null)
+    public function translate(float $tx, float $ty = 0): void
     {
-        if ($ty) {
+        if ($ty > 0) {
             $this->addTransform("translate($tx,$ty)");
         } else {
             $this->addTransform("translate($tx);");
@@ -230,7 +225,7 @@ class SVGShape extends XMLElement
      *
      * @param float $angle the skewX angle
      */
-    public function skewX($angle)
+    public function skewX(float $angle): void
     {
          $this->addTransform("skewX($angle)");
     }
@@ -240,7 +235,7 @@ class SVGShape extends XMLElement
      *
      * @param float $angle the skewY angle
      */
-    public function skewY($angle)
+    public function skewY(float $angle): void
     {
          $this->addTransform("skewY($angle)");
     }
@@ -257,7 +252,7 @@ class SVGShape extends XMLElement
      * @param float $e
      * @param float $f
      */
-    public function matrix($a, $b, $c, $d, $e, $f)
+    public function matrix(float $a, float $b, float $c, float $d, float $e, float $f): void
     {
         $this->addTransform("matrix($a,$b,$c,$d,$e,$f)");
     }
@@ -267,7 +262,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnclick($script)
+    public function addOnclick(string $script): void
     {
         $this->addAttribute('onclick', $script);
     }
@@ -277,7 +272,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnFocusIn($script)
+    public function addOnFocusIn(string $script): void
     {
         $this->addAttribute('onfocusin', $script);
     }
@@ -287,7 +282,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnFocusOut($script)
+    public function addOnFocusOut(string $script): void
     {
         $this->addAttribute('onfocusout', $script);
     }
@@ -297,7 +292,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnActivate($script)
+    public function addOnActivate(string $script): void
     {
         $this->addAttribute('onactivate', $script);
     }
@@ -307,7 +302,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseDown($script)
+    public function addOnMouseDown(string $script): void
     {
         $this->addAttribute('onmousedown', $script);
     }
@@ -317,7 +312,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseUp($script)
+    public function addOnMouseUp(string $script): void
     {
         $this->addAttribute('onmouseup', $script);
     }
@@ -327,7 +322,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseOver($script)
+    public function addOnMouseOver(string $script): void
     {
         $this->addAttribute('onmouseover', $script);
     }
@@ -337,7 +332,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseMove($script)
+    public function addOnMouseMove(string $script): void
     {
         $this->addAttribute('onmousemove', $script);
     }
@@ -347,7 +342,7 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseOut($script)
+    public function addOnMouseOut(string $script): void
     {
         $this->addAttribute('onmouseout', $script);
     }

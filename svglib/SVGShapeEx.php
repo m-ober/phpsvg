@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of ShapeEx, it is a shape with width.
@@ -37,19 +39,21 @@ class SVGShapeEx extends SVGShape
     /**
      * Define the width of the object
      *
-     * @param integer $width
+     * @param int|float|string $width
+     *
+     * @return void
      */
-    public function setWidth($width)
+    public function setWidth($width): void
     {
-        $this->setAttribute('width', $width);
+        $this->setAttribute('width', (string) $width);
     }
 
     /**
      * Return the width of element
      *
-     * @return integer the width of element
+     * @return string the width of element
      */
-    public function getWidth()
+    public function getWidth(): string
     {
         return $this->getAttribute('width');
     }
@@ -57,19 +61,21 @@ class SVGShapeEx extends SVGShape
     /**
      * Define the height of the object
      *
-     * @param integer $height
+     * @param int|float|string $height
+     *
+     * @return void
      */
-    public function setHeight($height)
+    public function setHeight($height): void
     {
-        $this->setAttribute('height', $height);
+        $this->setAttribute('height', (string) $height);
     }
 
     /**
      * Return the height of element
      *
-     * @return integer the height of element
+     * @return string the height of element
      */
-    public function getHeight()
+    public function getHeight(): string
     {
         return $this->getAttribute('height');
     }

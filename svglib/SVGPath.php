@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Path.
@@ -37,13 +39,12 @@ class SVGPath extends SVGShape
     /**
      * Get a instance of a Path.
      *
-     * @param string or array $d the points
+     * @param array|string $d
      * @param string $id of element
-     * @param string or SVGStyle object $style of element
-     *
+     * @param string $style
      * @return SVGPath
      */
-    public static function getInstance($d, $id, $style)
+    public static function getInstance($d, string $id, string $style): self
     {
         $path = new SVGPath('<path></path>');
 

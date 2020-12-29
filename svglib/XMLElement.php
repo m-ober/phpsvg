@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Extends SimpleXMlElement funcionalities
@@ -55,8 +57,10 @@ class XMLElement extends SimpleXMLElement
      * Remove a attribute
      *
      * @param string $attribute name of attribute
+     *
+     * @return void
      */
-    public function removeAttribute($attribute)
+    public function removeAttribute(string $attribute): void
     {
         unset($this->attributes()->$attribute);
     }
@@ -66,15 +70,21 @@ class XMLElement extends SimpleXMLElement
      * Define overwrite existent attribute
      *
      * @param string $attribute attribute to set
-     * @param string $value value to set
-     * @param string $namespace the namespace of attribute
+     * @param mixed $value value to set (converted to string)
+     * @param null|string $namespace the namespace of attribute
      *
-     * @example  $this->addAttribute("xlink:href", $filename, 'http://www.w3.org/1999/xlink');
+     * @example $this->addAttribute("xlink:href", $filename, 'http://www.w3.org/1999/xlink');
+     *
+     * @return void
      */
-    public function setAttribute($attribute, $value, $namespace = null)
+    public function setAttribute(string $attribute, $value, ?string $namespace = null): void
     {
         $this->removeAttribute($attribute);
-        $this->addAttribute($attribute, $value, $namespace);
+        if (!empty($namespace)) {
+            $this->addAttribute($attribute, (string) $value, $namespace);
+        } else {
+            $this->addAttribute($attribute, (string) $value);
+        }
     }
 
     /**
@@ -84,36 +94,35 @@ class XMLElement extends SimpleXMLElement
      * @return string return the value of passed attribute
      * @example $svg->g->image->getAttribute('xlink:href')
      */
-    public function getAttribute($attribute)
+    public function getAttribute(string $attribute): string
     {
         $explode = explode(":", $attribute);
 
         if (count($explode) > 1) {
-            $attributes = $this->attributes($explode[ 0 ], true);
+            $attributes = $this->attributes($explode[0], true);
 
             //if the attribute exits with namespace return it
-            if ($attributes[ $explode[ 1 ] ]) {
-                return $attributes[ $explode[ 1 ] ];
+            if ($attributes[$explode[1]]) {
+                return (string) $attributes[$explode[1]];
             } else {
                 //otherwize will return the attribute without namespaces
-                $attribute = $explode[ 1 ];
+                $attribute = $explode[1];
             }
         }
 
-        return $this->attributes()->$attribute . '';
+        return (string) $this->attributes()->$attribute;
     }
 
     /**
      * Define identificator of element
      *
-     * @param string $id
+     * @param null|string $id
      */
-    public function setId($id)
+    public function setId(?string $id): void
     {
         if (self::$useAutoId) {
-            $id = $id ? $id : $this->getUniqueId();
+            $id = !empty($id) ? $id : $this->getUniqueId();
         }
-
         $this->setAttribute('id', $id);
     }
 
@@ -122,7 +131,7 @@ class XMLElement extends SimpleXMLElement
      *
      * @return string identificator of element
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->getAttribute('id');
     }
@@ -132,48 +141,47 @@ class XMLElement extends SimpleXMLElement
      *
      * @return string a unique, never used before  identificator
      */
-    public function getUniqueId()
+    public function getUniqueId(): string
     {
-        return $this->getName() . self::$uniqueId++;
+        return $this->getName() . (string) self::$uniqueId++;
     }
 
     /**
      * Append other XMLElement, support namespaces.
      *
-     * @param XmlElement $append
+     * @param XMLElement $append
+     *
+     * @return void
      */
-    public function append($append)
+    public function append(XMLElement $append): void
     {
-        //if ( $append ) not working for 'defs'
-        if (isset($append)) {
-            //list all namespaces used in append object
-            $namespaces = $append->getNameSpaces();
+        //list all namespaces used in append object
+        $namespaces = $append->getNameSpaces();
 
-            //get all childs
-            if ($append->count() > 0) {
-                $xml = $this->addChild($append->getName());
+        //get all childs
+        if ($append->count() > 0) {
+            $xml = $this->addChild($append->getName());
 
-                foreach ($append->children() as $child) {
-                    $xml->append($child);
-                }
-            } else {
-                //add one child
-                $xml = $this->addChild(
-                    $append->getName(),
-                    htmlspecialchars((string) $append, ENT_XML1)
-                );
+            foreach ($append->children() as $child) {
+                $xml->append($child);
             }
+        } else {
+            //add one child
+            $xml = $this->addChild(
+                $append->getName(),
+                htmlspecialchars((string) $append, ENT_XML1)
+            );
+        }
 
-            //add simple attributes
-            foreach ($append->attributes() as $attribute => $value) {
-                $xml->addAttribute($attribute, $value);
-            }
+        //add simple attributes
+        foreach ($append->attributes() as $attribute => $value) {
+            $xml->addAttribute($attribute, (string) $value);
+        }
 
-            //add attributes with namespace example xlink:href
-            foreach ($namespaces as $index => $namespace) {
-                foreach ($append->attributes($namespace) as $attribute => $value) {
-                    $xml->addAttribute($index . ':' . $attribute, $value, $namespace);
-                }
+        //add attributes with namespace example xlink:href
+        foreach ($namespaces as $index => $namespace) {
+            foreach ($append->attributes($namespace) as $attribute => $value) {
+                $xml->addAttribute($index . ':' . $attribute, $value, $namespace);
             }
         }
     }
@@ -183,9 +191,9 @@ class XMLElement extends SimpleXMLElement
      * This function will return only one element, the first
      *
      * @param string $id the id to find
-     * @return XmlElement
+     * @return XMLElement
      */
-    public function getElementById($id)
+    public function getElementById(string $id): ?XMLElement
     {
         return $this->getElementByAttribute('id', $id);
     }
@@ -196,9 +204,9 @@ class XMLElement extends SimpleXMLElement
      *
      * @param string $attribute
      * @param string $value
-     * @return XmlElement
+     * @return XMLElement
      */
-    public function getElementByAttribute($attribute, $value)
+    public function getElementByAttribute(string $attribute, string $value): ?XMLElement
     {
         if ($this->getAttribute($attribute) == $value) {
             return $this;
@@ -224,42 +232,42 @@ class XMLElement extends SimpleXMLElement
      * @param string $attribute the attribute to search
      * @param string $value the value to search
      * @param string $condition possible values ==, != , >, >=, <, <=
-     * @return array array of XmlElement
+     * @return XMLElement[] array of XMLElement
      */
-    public function getElementsByAttribute($attribute, $value, $condition = '==')
+    public function getElementsByAttribute(string $attribute, string $value, string $condition = '=='): array
     {
-        $result = [ ];
+        $result = [];
 
         if ($condition == '==') {
             //treat the empty condition
             if ($value == '') {
                 if (!$this->getAttribute($attribute)) {
-                    $result[ ] = $this;
+                    $result[] = $this;
                 }
             }
 
             if ($this->getAttribute($attribute) == $value) {
-                $result[ ] = $this;
+                $result[] = $this;
             }
         } elseif ($condition == '!=') {
             if ($this->getAttribute($attribute) != $value) {
-                $result[ ] = $this;
+                $result[] = $this;
             }
         } elseif ($condition == '>') {
             if ($this->getAttribute($attribute) > $value) {
-                $result[ ] = $this;
+                $result[] = $this;
             }
         } elseif ($condition == '>=') {
             if ($this->getAttribute($attribute) >= $value) {
-                $result[ ] = $this;
+                $result[] = $this;
             }
         } elseif ($condition == '<') {
             if ($this->getAttribute($attribute) < $value) {
-                $result[ ] = $this;
+                $result[] = $this;
             }
         } elseif ($condition == '<=') {
             if ($this->getAttribute($attribute) <= $value) {
-                $result[ ] = $this;
+                $result[] = $this;
             }
         } else {
             if ($this->count() > 0) {
@@ -267,7 +275,7 @@ class XMLElement extends SimpleXMLElement
                     $element = $child->getElementsByAttribute($attribute, $value);
 
                     if ($element) {
-                        $result[ ] = $element;
+                        $result[] = $element;
                     }
                 }
             }
@@ -278,20 +286,16 @@ class XMLElement extends SimpleXMLElement
 
     /**
      * Define the title of the shape
-     *
      * The first title element will be considered as document title.
-     *
      * Is defined as alternative text in browser.
      *
      * @param string $title
+     * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
-        if (!$this->title) {
-            $this->addChild('title', $title);
-        } else {
-            $this->title = $title;
-        }
+        /** @psalm-suppress UndefinedThisPropertyAssignment */
+        $this->title = $title;
     }
 
     /**
@@ -299,22 +303,22 @@ class XMLElement extends SimpleXMLElement
      *
      * @return string the title of element
      */
-    public function getTitle()
+    public function getTitle(): string
     {
+        /** @psalm-suppress UndefinedThisPropertyFetch */
         return $this->title;
     }
 
     /**
      * Define the description of the element
+     *
      * @param string $desc
+     * @return void
      */
-    public function setDescription($desc)
+    public function setDescription(string $desc): void
     {
-        if (!$this->desc) {
-            $this->addChild('desc', $desc);
-        } else {
-            $this->desc = $desc;
-        }
+        /** @psalm-suppress UndefinedThisPropertyAssignment */
+        $this->desc = $desc;
     }
 
     /**
@@ -322,8 +326,9 @@ class XMLElement extends SimpleXMLElement
      *
      * @return string the description of element
      */
-    public function getDescription()
+    public function getDescription(): string
     {
+        /** @psalm-suppress UndefinedThisPropertyFetch */
         return $this->desc;
     }
 
@@ -344,34 +349,36 @@ class XMLElement extends SimpleXMLElement
      * @param string|null $filename
      * @param bool $humanReadable
      * @return string|bool
+     * @psalm-suppress ImplementedReturnTypeMismatch
      */
     public function asXML($filename = null, $humanReadable = false)
     {
+        // branching is required here because null cannot be passed to parent::asXML()
         if (!is_null($filename)) {
             return parent::asXML($filename);
         } else {
-            //define if xml is humanReadable or not
-            if ($humanReadable) {
-                return $this->prettyXML(parent::asXML());
-            } else {
-                return parent::asXML();
+            $xml = parent::asXML();
+            /** @psalm-suppress TypeDoesNotContainType */
+            if (is_string($xml)) {
+                return $humanReadable ? $this->prettyXML($xml) : $xml;
             }
         }
+        return false;
     }
 
     /**
      * Remove an element by it's id.
      *
      * @param string $id
+     * @return void
      */
-    public function removeElementById($id)
+    public function removeElementById(string $id): void
     {
         $this->removeElement($this->getElementById($id));
     }
 
-    public function removeElement(SimpleXMLElement $node)
+    public function removeElement(SimpleXMLElement $node): void
     {
-        /** @noinspection PhpComposerExtensionStubsInspection */
         $dom = dom_import_simplexml($node);
         $dom->parentNode->removeChild($dom);
     }

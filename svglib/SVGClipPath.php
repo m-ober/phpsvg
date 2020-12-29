@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Rect.
@@ -33,7 +35,11 @@ namespace mober\phpsvg;
 class SVGClipPath extends SVGShape
 {
 
-    public static function getInstance($id)
+    /**
+     * @param null|string $id
+     * @return SVGClipPath
+     */
+    public static function getInstance(?string $id = null): SVGClipPath
     {
         $rect = new SVGClipPath('<clippath></clippath>');
         $rect->setId($id);
@@ -41,10 +47,11 @@ class SVGClipPath extends SVGShape
         return $rect;
     }
 
-    public function addShape($append)
+    /**
+     * @param XMLElement $append
+     */
+    public function addShape(XMLElement $append): void
     {
         $this->append($append);
-
-        return $this;
     }
 }

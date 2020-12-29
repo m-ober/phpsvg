@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Circle.
@@ -37,15 +39,17 @@ class SVGCircle extends SVGShapeEx
     /**
      * Construct a circle
      *
-     * @param integer $cx the center x
-     * @param integer $cy the center y
-     * @param integer $radius the radius of circle
-     * @param string $id the id of element
-     * @param SVGStyle $style style of element
+     * @param int|float|string $cx the center x
+     * @param int|float|string $cy the center y
+     * @param int|float|string $radius the radius of circle
+     * @param null|string $id the id of element
+     * @param null|string $style style of element
      *
      * @return SVGCircle
+     *
+     * @see https://www.w3.org/TR/SVG11/shapes.html#CircleElement
      */
-    public static function getInstance($cx, $cy, $radius, $id = null, $style = null)
+    public static function getInstance($cx, $cy, $radius, ?string $id = null, ?string $style = null): SVGCircle
     {
         $circle = new SVGCircle('<circle></circle>');
 
@@ -61,19 +65,19 @@ class SVGCircle extends SVGShapeEx
     /**
      * Define the center x
      *
-     * @param integer $cx
+     * @param int|float|string $cx
      */
-    public function setCx($cx)
+    public function setCx($cx): void
     {
-        $this->addAttribute('cx', $cx);
+        $this->addAttribute('cx', (string) $cx);
     }
 
     /**
      * Return the center x
      *
-     * @return integer cx attribute
+     * @return string cx attribute
      */
-    public function getCx()
+    public function getCx(): string
     {
         return $this->getAttribute('cx');
     }
@@ -81,19 +85,19 @@ class SVGCircle extends SVGShapeEx
     /**
      * Define the center y
      *
-     * @param integer $cy
+     * @param int|float|string $cy
      */
-    public function setCy($cy)
+    public function setCy($cy): void
     {
-        $this->addAttribute('cy', $cy);
+        $this->addAttribute('cy', (string) $cy);
     }
 
     /**
      * Return the center y
      *
-     * @return integer cy attribute
+     * @return string cy attribute
      */
-    public function getCy()
+    public function getCy(): string
     {
         return $this->getAttribute('cy');
     }
@@ -101,19 +105,19 @@ class SVGCircle extends SVGShapeEx
     /**
      * Define the radius of circle
      *
-     * @param integer $radius
+     * @param int|float|string $radius
      */
-    public function setRadius($radius)
+    public function setRadius($radius): void
     {
-        $this->addAttribute('r', $radius);
+        $this->addAttribute('r', (string) $radius);
     }
 
     /**
      * Return the radius of circle
      *
-     * @return integer the radius of circle
+     * @return string the radius of circle
      */
-    public function getRadius()
+    public function getRadius(): string
     {
         return $this->getAttribute('r');
     }
