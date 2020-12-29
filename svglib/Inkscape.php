@@ -31,7 +31,8 @@
  * it will be possible to use SVG files in a sizeable number of programs and for a wide range of uses.
  *
  * Inkscape uses SVG as its native document format,
- * and has the goal of becoming the most fully compliant drawing program for SVG files available in the Open Source community.
+ * and has the goal of becoming the most fully compliant drawing program for SVG files available in the Open Source
+ * community.
  *
  * List of not implement options:
  *
@@ -59,96 +60,128 @@
  * OPTIONS
  *
  *       -a x0:y0:x1:y1, --export-area=x0:y0:x1:y1
- *              In PNG export, set the exported area in SVG user units (anonymous length units normally used in Inkscape SVG).  The default is to export the entire document page.  The
+ *              In PNG export, set the exported area in SVG user units (anonymous length units normally used in Inkscape
+ *              SVG).  The default is to export the entire document page.  The
  *              point (0,0) is the lower-left corner.
  *
  *       -C, --export-area-page
- *              In PNG, PDF, PS, and EPS export, exported area is the page. This is the default for PNG, PDF, and PS, so you don't need to specify this unless you are using --export-id to
- *              export a specific object. In EPS, however, this is not the default; moreover, for EPS, the specification of the format does not allow its bounding box to extend beyond its
- *              content.  This means that when --export-area-page is used with EPS export, the page bounding box will be trimmed inwards to the bounding box of the content if it is
+ *              In PNG, PDF, PS, and EPS export, exported area is the page. This is the default for PNG, PDF, and PS,
+ *              so you don't need to specify this unless you are using --export-id to export a specific object. In EPS,
+ *              however, this is not the default; moreover, for EPS, the specification of the format does not allow its
+ *              bounding box to extend beyond its content.  This means that when --export-area-page is used with EPS
+ *              export, the page bounding box will be trimmed inwards to the bounding box of the content if it is
  *              smaller.
  *
  *       -D, --export-area-drawing
- *              In PNG, PDF, PS, and EPS export, exported area is the drawing (not page), i.e. the bounding box of all objects of the document (or of the exported object if --export-id is
- *              used).  With this option, the exported image will display all the visible objects of the document without margins or cropping. This is the default export area for EPS. For
- *              PNG, it can be used in combination with --export-use-hints.
+ *              In PNG, PDF, PS, and EPS export, exported area is the drawing (not page), i.e. the bounding box of all
+ *              objects of the document (or of the exported object if --export-id is used).  With this option, the
+ *              exported image will display all the visible objects of the document without margins or cropping.
+ *              This is the default export area for EPS. For PNG, it can be used in combination with --export-use-hints.
  *
  *
  *       -x, --extension-directory
- *              Lists the current extension directory that Inkscape is configured to use and then exits.  This is used for external extension to use the same configuration as the original
+ *              Lists the current extension directory that Inkscape is configured to use and then exits.
+ *              This is used for external extension to use the same configuration as the original
  *              Inkscape installation.
  *
  *       --verb-list
- *              Lists all the verbs that are available in Inkscape by ID.  This ID can be used in defining keymaps or menus.  It can also be used with the --verb command line option.
+ *              Lists all the verbs that are available in Inkscape by ID.  This ID can be used in defining keymaps
+ *              or menus.  It can also be used with the --verb command line option.
  *
  *       --verb=VERB-ID, --select=OBJECT-ID
- *              These two options work together to provide some basic scripting for Inkscape from the command line.  They both can occur as many times as needed on the command line and are
+ *              These two options work together to provide some basic scripting for Inkscape from the command line.
+ *              They both can occur as many times as needed on the command line and are
  *              executed in order on every document that is specified.
  *
- *              The --verb command will execute a specific verb as if it was called from a menu or button.  Dialogs will appear if that is part of the verb.  To get a list of the verb IDs
+ *              The --verb command will execute a specific verb as if it was called from a menu or button.
+ *              Dialogs will appear if that is part of the verb.  To get a list of the verb IDs
  *              available, use the --verb-list command line option.
  *
- *              The --select command will cause objects that have the ID specified to be selected.  This allows various verbs to act upon them.  To remove all the selections use
+ *              The --select command will cause objects that have the ID specified to be selected.
+ *              This allows various verbs to act upon them.  To remove all the selections use
  *              --verb=EditDeselect.  The object IDs available are dependent on the document specified to load.
  *
  *       -p PRINTER, --print=PRINTER
- *                             Print document(s) to the specified printer using `lpr -P PRINTER'.  Alternatively, use `| COMMAND' to specify a different command to pipe to, or use `> FILENAME' to write
- *               the PostScript output to a file instead of printing.  Remember to do appropriate quoting for your shell, e.g.
+ *               Print document(s) to the specified printer using `lpr -P PRINTER'.  Alternatively,
+ *               use `| COMMAND' to specify a different command to pipe to, or use `> FILENAME' to write
+ *               the PostScript output to a file instead of printing.  Remember to do appropriate quoting for your
+ *               shell, e.g.
  *
  *               inkscape --print='| ps2pdf - mydoc.pdf' mydoc.svg
  *
  *       -t, --export-use-hints
- *               Use export filename and DPI hints stored in the exported object (only with --export-id).  These hints are set automatically when you export selection from within Inkscape.
- *               So, for example, if you export a shape with id="path231" as /home/me/shape.png at 300 dpi from document.svg using Inkscape GUI, and save the document, then later you will
+ *               Use export filename and DPI hints stored in the exported object (only with --export-id).
+ *               These hints are set automatically when you export selection from within Inkscape.
+ *               So, for example, if you export a shape with id="path231" as /home/me/shape.png at 300 dpi from
+ *               document.svg using Inkscape GUI, and save the document, then later you will
  *               be able to reexport that shape to the same file with the same resolution simply with
  *
  *               inkscape -i path231 -t document.svg
  *
- *               If you use --export-dpi, --export-width, or --export-height with this option, then the DPI hint will be ignored and the value from the command line will be used.  If you
- *               use --export-png with this option, then the filename hint will be ignored and the filename from the command line will be used.
+ *               If you use --export-dpi, --export-width, or --export-height with this option, then the DPI hint will
+ *               be ignored and the value from the command line will be used.  If you
+ *               use --export-png with this option, then the filename hint will be ignored and the filename from the
+ *               command line will be used.
  *
  *
  *       --export-latex
- *               (for PS, EPS, and PDF export) Used for creating images for LaTeX documents, where the image's text is typeset by LaTeX.  When exporting to PDF/PS/EPS format, this option
- *               splits the output into a PDF/PS/EPS file (e.g. as specified by --export-pdf) and a LaTeX file. Text will not be output in the PDF/PS/EPS file, but instead will appear in
- *               the LaTeX file. This LaTeX file includes the PDF/PS/EPS. Inputting (\input{image.tex}) the LaTeX file in your LaTeX document will show the image and all text will be
- *               typeset by LaTeX. See the resulting LaTeX file for more information.  Also see GNUPlot's `epslatex' output terminal.
+ *               (for PS, EPS, and PDF export) Used for creating images for LaTeX documents, where the image's text is
+ *               typeset by LaTeX.  When exporting to PDF/PS/EPS format, this option
+ *               splits the output into a PDF/PS/EPS file (e.g. as specified by --export-pdf) and a LaTeX file. Text
+ *               will not be output in the PDF/PS/EPS file, but instead will appear in
+ *               the LaTeX file. This LaTeX file includes the PDF/PS/EPS. Inputting (\input{image.tex}) the LaTeX file
+ *               in your LaTeX document will show the image and all text will be
+ *               typeset by LaTeX. See the resulting LaTeX file for more information.  Also see GNUPlot's `epslatex'
+ *               output terminal.
  *
  *       --export-ignore-filters
- *               Export filtered objects (e.g. those with blur) as vectors, ignoring the filters (for PS, EPS, and PDF export).  By default, all filtered objects are rasterized at
+ *               Export filtered objects (e.g. those with blur) as vectors, ignoring the filters (for PS, EPS,
+ *               and PDF export).  By default, all filtered objects are rasterized at
  *               --export-dpi (default 90 dpi), preserving the appearance.
  *
  *       -X, --query-x
- *               Query the X coordinate of the drawing or, if specified, of the object with --query-id. The returned value is in px (SVG user units).
+ *               Query the X coordinate of the drawing or, if specified, of the object with --query-id. The returned
+ *               value is in px (SVG user units).
  *
  *      -Y, --query-y
- *               Query the Y coordinate of the drawing or, if specified, of the object with --query-id. The returned value is in px (SVG user units).
+ *               Query the Y coordinate of the drawing or, if specified, of the object with --query-id. The returned
+ *               value is in px (SVG user units).
  *
  *       -W, --query-width
- *               Query the width of the drawing or, if specified, of the object with --query-id. The returned value is in px (SVG user units).
+ *               Query the width of the drawing or, if specified, of the object with --query-id. The returned value
+ *               is in px (SVG user units).
  *
  *       -H, --query-height
- *               Query the height of the drawing or, if specified, of the object with --query-id. The returned value is in px (SVG user units).
+ *               Query the height of the drawing or, if specified, of the object with --query-id. The returned value
+ *               is in px (SVG user units).
  *
  *       -S, --query-all
- *               Prints a comma delimited listing of all objects in the SVG document with IDs defined, along with their x, y, width, and height values.
+ *               Prints a comma delimited listing of all objects in the SVG document with IDs defined, along with
+ *               their x, y, width, and height values.
  *
- *       --shell With this parameter, Inkscape will enter an interactive command line shell mode. In this mode, you type in commands at the prompt and Inkscape executes them, without you
- *               having to run a new copy of Inkscape for each command. This feature is mostly useful for scripting and server uses: it adds no new capabilities but allows you to improve
- *               the speed and memory requirements of any script that repeatedly calls Inkscape to perform command line tasks (such as export or conversions). Each command in shell mode
- *               must be a complete valid Inkscape command line but without the Inkscape program name, for example "file.svg --export-pdf=file.pdf".
+ *       --shell With this parameter, Inkscape will enter an interactive command line shell mode. In this mode, you
+ *               type in commands at the prompt and Inkscape executes them, without you
+ *               having to run a new copy of Inkscape for each command. This feature is mostly useful for scripting
+ *               and server uses: it adds no new capabilities but allows you to improve
+ *               the speed and memory requirements of any script that repeatedly calls Inkscape to perform command
+ *               line tasks (such as export or conversions). Each command in shell mode
+ *               must be a complete valid Inkscape command line but without the Inkscape program name, for example
+ *               "file.svg --export-pdf=file.pdf".
  *
  *       --vacuum-defs
- *               Remove all unused items from the <lt>defs<gt> section of the SVG file.  If this option is invoked in conjunction with --export-plain-svg, only the exported file will be
+ *               Remove all unused items from the <lt>defs<gt> section of the SVG file.  If this option is invoked
+ *               in conjunction with --export-plain-svg, only the exported file will be
  *               affected.  If it is used alone, the specified file will be modified in place.
  *
  *       --g-fatal-warnings
- *               This standard GTK option forces any warnings, usually harmless, to cause Inkscape to abort (useful for debugging).
+ *               This standard GTK option forces any warnings, usually harmless, to cause Inkscape to abort
+ *               (useful for debugging).
  *
  *       --usage Display a brief usage message.
  *
  * EXAMPLES
- *       While obviously Inkscape is primarily intended as a GUI application, it can be used for doing SVG processing on the command line as well.
+ *       While obviously Inkscape is primarily intended as a GUI application, it can be used for doing SVG
+ *       processing on the command line as well.
  *
  *       Print an SVG file from the command line:
  *
@@ -162,11 +195,13 @@
  *
  *           inkscape filename.svg --export-png=filename.png --export-area-drawing
  *
- *       Export to PNG the object with id="text1555", using the output filename and the resolution that were used for that object last time when it was exported from the GUI:
+ *       Export to PNG the object with id="text1555", using the output filename and the resolution that were used for
+ *       that object last time when it was exported from the GUI:
  *
  *           inkscape filename.svg --export-id=text1555 --export-use-hints
  *
- *       Same, but use the default 90 dpi resolution, specify the filename, and snap the exported area outwards to the nearest whole SVG user unit values (to preserve pixel-alignment of
+ *       Same, but use the default 90 dpi resolution, specify the filename, and snap the exported area outwards to the
+ *       nearest whole SVG user unit values (to preserve pixel-alignment of
  *       objects and thus minimize aliasing):
  *
  *           inkscape filename.svg --export-id=text1555 --export-png=text.png --export-area-snap
@@ -181,7 +216,8 @@
  *
  *       Duplicate the object with id="path1555", rotate the duplicate 90 degrees, save SVG, and quit:
  *
- *           inkscape filename.svg --select=path1555 --verb=EditDuplicate --verb=ObjectRotate90 --verb=FileSave --verb=FileClose
+ *           inkscape filename.svg --select=path1555 --verb=EditDuplicate --verb=ObjectRotate90 --verb=FileSave \
+ *           --verb=FileClose
  *
  * -----------------------------------------------------------------------
  *   This program is free software; you can redistribute it and/or modify
@@ -448,7 +484,7 @@ class Inkscape
             throw new RuntimeException('Need to inform a file path to save.');
         }
 
-        $availableFormat = array( 'png', 'ps', 'eps', 'pdf', 'plain-svg' );
+        $availableFormat = [ 'png', 'ps', 'eps', 'pdf', 'plain-svg' ];
 
         if (in_array($format, $availableFormat)) {
             $this->addParam('export-' . $format, $filename);
@@ -463,7 +499,11 @@ class Inkscape
                     $msg = ' Define INKSCAPE_PATH is not defined. Try to define it.';
                 }
 
-                throw new RuntimeException('Impossible to save file in path : ' . $filename . PHP_EOL . '  Inkcape cmd: ' . $this->lastCmd . PHP_EOL . 'Inkscape Error Message = ' . $this->lastExecuteResult . $msg);
+                throw new RuntimeException(
+                    'Impossible to save file in path : ' . $filename . PHP_EOL .
+                    '  Inkcape cmd: ' . $this->lastCmd . PHP_EOL . 'Inkscape Error Message = ' .
+                    $this->lastExecuteResult . $msg
+                );
             }
         } else {
             throw new RuntimeException('Format not available:' . $format . '.');
@@ -479,7 +519,7 @@ class Inkscape
     {
         return $this->lastExecuteResult;
     }
-    
+
     /**
      * Returns the last executed cmd
      *

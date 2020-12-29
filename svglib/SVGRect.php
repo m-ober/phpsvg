@@ -45,7 +45,7 @@ class SVGRect extends SVGShapeEx
 
         return $rect;
     }
-    
+
     /**
      * Define the round of rect
      *
@@ -55,7 +55,7 @@ class SVGRect extends SVGShapeEx
     {
         $this->addAttribute('rx', $rx);
     }
-    
+
     /**
      * Return the round of rect
      *

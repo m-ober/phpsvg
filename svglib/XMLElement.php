@@ -230,7 +230,7 @@ class XMLElement extends SimpleXMLElement
      */
     public function getElementsByAttribute($attribute, $value, $condition = '==')
     {
-        $result = array( );
+        $result = [ ];
 
         if ($condition == '==') {
             //treat the empty condition
@@ -243,23 +243,23 @@ class XMLElement extends SimpleXMLElement
             if ($this->getAttribute($attribute) == $value) {
                 $result[ ] = $this;
             }
-        } else if ($condition == '!=') {
+        } elseif ($condition == '!=') {
             if ($this->getAttribute($attribute) != $value) {
                 $result[ ] = $this;
             }
-        } else if ($condition == '>') {
+        } elseif ($condition == '>') {
             if ($this->getAttribute($attribute) > $value) {
                 $result[ ] = $this;
             }
-        } else if ($condition == '>=') {
+        } elseif ($condition == '>=') {
             if ($this->getAttribute($attribute) >= $value) {
                 $result[ ] = $this;
             }
-        } else if ($condition == '<') {
+        } elseif ($condition == '<') {
             if ($this->getAttribute($attribute) < $value) {
                 $result[ ] = $this;
             }
-        } else if ($condition == '<=') {
+        } elseif ($condition == '<=') {
             if ($this->getAttribute($attribute) <= $value) {
                 $result[ ] = $this;
             }
@@ -350,7 +350,7 @@ class XMLElement extends SimpleXMLElement
         $tok = strtok($xml, "\n");
         $formatted = ''; // holds pretty version as it is built
         $pad = 0; // initial indent
-        $matches = array( ); // returns from preg_matches()
+        $matches = [ ]; // returns from preg_matches()
 
         /*
          * pre- and post- adjustments to the padding indent are made, so changes can be applied to
@@ -360,9 +360,9 @@ class XMLElement extends SimpleXMLElement
         // test for the various tag states
             if (preg_match('/.+<\/\w[^>]*>$/', $tok, $matches)) {// open and closing tags on same line
                 $indent = 0; // no change
-            } else if (preg_match('/^<\/\w/', $tok, $matches)) { // closing tag
+            } elseif (preg_match('/^<\/\w/', $tok, $matches)) { // closing tag
                 $pad--; //  outdent now
-            } else if (preg_match('/^<\w[^>]*[^\/]>.*$/', $tok, $matches)) {// opening tag
+            } elseif (preg_match('/^<\w[^>]*[^\/]>.*$/', $tok, $matches)) {// opening tag
                 $indent = 1; // don't pad this one, only subsequent tags
             } else {
                 $indent = 0; // no indentation needed

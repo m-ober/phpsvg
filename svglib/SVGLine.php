@@ -55,7 +55,7 @@ class SVGLine extends SVGShapeEx
     {
         $this->addAttribute('x1', $x1);
     }
-    
+
     /**
      * Define the x 2 of line
      *
@@ -65,7 +65,7 @@ class SVGLine extends SVGShapeEx
     {
         $this->addAttribute('x2', $x2);
     }
-    
+
     /**
      * Define the y 1 of line
      *
@@ -75,7 +75,7 @@ class SVGLine extends SVGShapeEx
     {
         $this->addAttribute('y1', $y1);
     }
-    
+
     /**
      * Define the y 2 of line
      *
@@ -85,7 +85,7 @@ class SVGLine extends SVGShapeEx
     {
         $this->addAttribute('y2', $y2);
     }
-    
+
     /**
      * Return x1 attribute
      *
@@ -95,7 +95,7 @@ class SVGLine extends SVGShapeEx
     {
         return $this->getAttribute('x1');
     }
-    
+
     /**
      * Return x2 attribute
      *
@@ -105,7 +105,7 @@ class SVGLine extends SVGShapeEx
     {
         return $this->getAttribute('x2');
     }
-    
+
     /**
      * Return y1 attribute
      *
@@ -115,7 +115,7 @@ class SVGLine extends SVGShapeEx
     {
         return $this->getAttribute('y1');
     }
-    
+
     /**
      * Return y2  attribute
      *

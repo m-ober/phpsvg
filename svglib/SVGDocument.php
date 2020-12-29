@@ -45,18 +45,19 @@
  */
 namespace mober\phpsvg;
 use Exception;
+use Imagick;
 use RuntimeException;
 
 class SVGDocument extends SVGShape
 {
 
-    const VERSION = '1.1';
-    const XMLNS = 'http://www.w3.org/2000/svg';
-    const EXTENSION = 'svg';
-    const EXTENSION_COMPACT = 'svgz';
-    const HEADER = 'image/svg+xml';
-    const EXPORT_TYPE_IMAGE_MAGIC = 'imagick';
-    const EXPORT_TYPE_INKSCAPE = 'inkscape';
+    private const VERSION = '1.1';
+    private const XMLNS = 'http://www.w3.org/2000/svg';
+    private const EXTENSION = 'svg';
+    private const EXTENSION_COMPACT = 'svgz';
+    private const HEADER = 'image/svg+xml';
+    private const EXPORT_TYPE_IMAGE_MAGIC = 'imagick';
+    private const EXPORT_TYPE_INKSCAPE = 'inkscape';
 
     /**
      * Return the extension of a filename
@@ -209,7 +210,7 @@ class SVGDocument extends SVGShape
      */
     public function setViewBox($startX, $startY, $width, $height)
     {
-        $viewBox = str_replace(array( '%', 'px' ), '', "$startX $startY $width $height");
+        $viewBox = str_replace([ '%', 'px' ], '', "$startX $startY $width $height");
         $this->setAttribute('viewBox', $viewBox);
 
         return $this;
@@ -327,8 +328,13 @@ class SVGDocument extends SVGShape
      * @return bool
      * @throws Exception usually \ImagickException
      */
-    public function export($filename, $width = null, $height = null, $respectRatio = false, $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC)
-    {
+    public function export(
+        $filename,
+        $width = null,
+        $height = null,
+        $respectRatio = false,
+        $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC
+    ) {
         if ($exportType == SVGDocument::EXPORT_TYPE_IMAGE_MAGIC) {
             try {
                 return $this->exportImagick($filename, $width, $height, $respectRatio);
@@ -392,7 +398,7 @@ class SVGDocument extends SVGShape
             throw new RuntimeException('Imagemagick class not found. Please install it.');
         }
 
-        $image = new \Imagick();
+        $image = new Imagick();
 
         $ok = $image->readImageBlob($this->asXML(null, false));
 

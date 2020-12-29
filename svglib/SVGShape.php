@@ -34,7 +34,7 @@ namespace mober\phpsvg;
 
 class SVGShape extends XMLElement
 {
-    const TRANSFORM_SEPARATOR = ' ';
+    private const TRANSFORM_SEPARATOR = ' ';
 
     /**
      * Define the x coordinate of position
@@ -100,7 +100,7 @@ class SVGShape extends XMLElement
     {
         return new SVGStyle($this->getAttribute('style'));
     }
-    
+
     /**
      * Show element
      */
@@ -110,7 +110,7 @@ class SVGShape extends XMLElement
         $style->show();
         $this->setStyle($style);
     }
-    
+
     /**
      * Hide the element
      */
@@ -167,14 +167,17 @@ class SVGShape extends XMLElement
         {
             $transform = trim($this->getTransform()) . self::TRANSFORM_SEPARATOR . $transform;
         }
-        
+
         $this->setAttribute('transform', $transform);
     }
 
     /**
      * rotate(<rotate-angle> [<cx> <cy>]), which specifies a rotation by <rotate-angle> degrees about a given point.
-     * If optional parameters <cx> and <cy> are not supplied, the rotate is about the origin of the current user coordinate system. The operation corresponds to the matrix [cos(a) sin(a) -sin(a) cos(a) 0 0].
-     * If optional parameters <cx> and <cy> are supplied, the rotate is about the point (cx, cy). The operation represents the equivalent of the following specification: translate(<cx>, <cy>) rotate(<rotate-angle>) translate(-<cx>, -<cy>)
+     * If optional parameters <cx> and <cy> are not supplied, the rotate is about the origin of the current user
+     * coordinate system. The operation corresponds to the matrix [cos(a) sin(a) -sin(a) cos(a) 0 0].
+     * If optional parameters <cx> and <cy> are supplied, the rotate is about the point (cx, cy). The operation
+     * represents the equivalent of the following specification:
+     * translate(<cx>, <cy>) rotate(<rotate-angle>) translate(-<cx>, -<cy>)
      *
      * @param float $angle the rotation angle
      * @param float $cx x of rotation point
@@ -245,7 +248,8 @@ class SVGShape extends XMLElement
     }
 
     /**
-     * matrix(<a> <b> <c> <d> <e> <f>), which specifies a transformation in the form of a transformation matrix of six values.
+     * matrix(<a> <b> <c> <d> <e> <f>), which specifies a transformation in the form of a
+     * transformation matrix of six values.
      * matrix(a,b,c,d,e,f) is equivalent to applying the transformation matrix [a b c d e f].
      *
      * @param float $a
@@ -259,7 +263,7 @@ class SVGShape extends XMLElement
     {
         $this->addTransform("matrix($a,$b,$c,$d,$e,$f)");
     }
-    
+
     /**
      * Define the script execute on click in this shape
      *
@@ -269,7 +273,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onclick', $script);
     }
-    
+
     /**
      * Define the script execute on focus in
      *
@@ -279,7 +283,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onfocusin', $script);
     }
-    
+
     /**
      * Define the script execute on focus out
      *
@@ -289,7 +293,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onfocusout', $script);
     }
-    
+
     /**
      * Define the script execute on active
      *
@@ -299,7 +303,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onactivate', $script);
     }
-    
+
     /**
      * Define the script execute on mouse down
      *
@@ -309,7 +313,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onmousedown', $script);
     }
-    
+
     /**
      * Define the script execute on mouse up
      *
@@ -319,7 +323,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onmouseup', $script);
     }
-    
+
     /**
      * Define the script execute on mouse over
      *
@@ -329,7 +333,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onmouseover', $script);
     }
-    
+
     /**
      * Define the script execute on mouse move
      *
@@ -339,7 +343,7 @@ class SVGShape extends XMLElement
     {
         $this->addAttribute('onmousemove', $script);
     }
-    
+
     /**
      * Define the script execute on mouse out
      *

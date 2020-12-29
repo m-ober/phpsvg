@@ -69,7 +69,7 @@ class SVGLinearGradient extends XmlElement
             foreach ($stops as $line => $stop) {
                 if ($stop instanceof SVGStop) {
                     if (!$stop->getOffset()) {
-                        $c = 1 * ( $offset / $stopCount );
+                        $c = 1 * ($offset / $stopCount);
                         $offset++;
                         $stop->setOffset($c);
                     }

@@ -57,7 +57,7 @@ class SVGEllipse extends SVGShapeEx
 
         return $circle;
     }
-    
+
     /**
      * Define the center x
      *
@@ -67,7 +67,7 @@ class SVGEllipse extends SVGShapeEx
     {
         $this->addAttribute('cx', $cx);
     }
-    
+
     /**
      * Return the center x
      *
@@ -77,7 +77,7 @@ class SVGEllipse extends SVGShapeEx
     {
         return $this->getAttribute('cx');
     }
-    
+
     /**
      * Define the center y
      *
@@ -87,7 +87,7 @@ class SVGEllipse extends SVGShapeEx
     {
         $this->addAttribute('cy', $cy);
     }
-    
+
     /**
      * Return the center y
      *
@@ -97,7 +97,7 @@ class SVGEllipse extends SVGShapeEx
     {
         return $this->getAttribute('cy');
     }
-    
+
     /**
      * Define the radius of circle
      *
@@ -118,7 +118,7 @@ class SVGEllipse extends SVGShapeEx
     {
         return $this->getAttribute('rx');
     }
-    
+
     /**
      * Return the y radius of circle
      *

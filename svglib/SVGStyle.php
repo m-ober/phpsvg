@@ -40,7 +40,7 @@ class SVGStyle
     public $stopColor;
     public $stopOpacity;
     public $display;
-    
+
     /**
      * Construct the style
      *
@@ -61,7 +61,7 @@ class SVGStyle
                     }
                 }
             }
-        } else if (is_array($style)) {
+        } elseif (is_array($style)) {
             foreach ($style as $line => $info) {
                 $this->$line = $info;
             }
@@ -89,7 +89,7 @@ class SVGStyle
 
         return $result;
     }
-    
+
     /**
      * Define the display of elemet
      *
@@ -99,7 +99,7 @@ class SVGStyle
     {
         $this->display = $display;
     }
-    
+
     /**
      * Return the display of element
      * @return string
@@ -108,7 +108,7 @@ class SVGStyle
     {
         return $this->display;
     }
-    
+
     /**
      * Show the element
      */
@@ -116,7 +116,7 @@ class SVGStyle
     {
         $this->display = 'inline';
     }
-    
+
     /**
      * Hide the element
      */
@@ -135,7 +135,7 @@ class SVGStyle
         if ($fill instanceof SVGLinearGradient) {
             $fill = $this->url($fill);
         }
-        
+
         $this->fill = $fill;
     }
 
@@ -157,10 +157,10 @@ class SVGStyle
     public function setStroke($stroke, $width = null)
     {
         $this->stroke = $stroke;
-        
+
         $this->setStrokeWidth($width);
     }
-    
+
     /**
      * Define the width of the stroke
      *
@@ -172,7 +172,7 @@ class SVGStyle
             $this->strokeWidth = $width;
         }
     }
-    
+
     /**
      * Return the stroke width
      *
@@ -203,11 +203,11 @@ class SVGStyle
     public function url($content)
     {
         $url = $content;
-        
+
         if ($content instanceof XmlElement) {
             $url = '#' . $content->getId();
         }
-        
+
         return "url({$url})";
     }
 
