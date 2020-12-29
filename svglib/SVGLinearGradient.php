@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Linear Gradient.
@@ -32,9 +34,14 @@
 
 namespace mober\phpsvg;
 
-class SVGLinearGradient extends XmlElement
+class SVGLinearGradient extends XMLElement
 {
-    public static function getInstance($id, array $stops)
+    /**
+     * @param string $id
+     * @param SVGStop[] $stops
+     * @return SVGLinearGradient
+     */
+    public static function getInstance(string $id, array $stops): self
     {
         $gradient = new SVGLinearGradient('<linearGradient></linearGradient>');
         $gradient->setId($id);
@@ -49,7 +56,7 @@ class SVGLinearGradient extends XmlElement
      *
      * @param SVGStop $stop
      */
-    public function addStop(SVGStop $stop)
+    public function addStop(SVGStop $stop): void
     {
         $this->append($stop);
     }
@@ -57,25 +64,23 @@ class SVGLinearGradient extends XmlElement
     /**
      * Define an array of SVGStop
      *
-     * @param array of SVGStop
+     * @param SVGStop[] $stops
      */
-    public function setStops($stops)
+    public function setStops(array $stops): void
     {
-        if (is_array($stops)) {
-            //automagic controls the offset
-            $offset = 0;
-            $stopCount = count($stops) - 1;
+        //automagic controls the offset
+        $offset = 0;
+        $stopCount = count($stops) - 1;
 
-            foreach ($stops as $line => $stop) {
-                if ($stop instanceof SVGStop) {
-                    if (!$stop->getOffset()) {
-                        $c = 1 * ($offset / $stopCount);
-                        $offset++;
-                        $stop->setOffset($c);
-                    }
-
-                    $this->addStop($stop);
+        foreach ($stops as $line => $stop) {
+            if ($stop instanceof SVGStop) {
+                if (!$stop->getOffset()) {
+                    $c = 1 * ($offset / $stopCount);
+                    $offset++;
+                    $stop->setOffset($c);
                 }
+
+                $this->addStop($stop);
             }
         }
     }

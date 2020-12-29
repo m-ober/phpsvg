@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of stop, used inside Linear Gradient.
@@ -32,9 +34,15 @@
 
 namespace mober\phpsvg;
 
-class SVGStop extends XmlElement
+class SVGStop extends XMLElement
 {
-    public static function getInstance($id = null, $style = null, $offset = null)
+    /**
+     * @param null|string $id
+     * @param null|string $style
+     * @param float $offset
+     * @return SVGStop
+     */
+    public static function getInstance($id = null, $style = null, float $offset = 0): SVGStop
     {
         $stop = new SVGStop('<stop></stop>');
 
@@ -48,9 +56,11 @@ class SVGStop extends XmlElement
     /**
      * Define the style of element, can be a SVGStyle element or an string
      *
-     * @param SVGStyle $style SVGStyle element or an string
+     * @param null|string|SVGStyle $style SVGStyle element or an string
+     *
+     * @return void
      */
-    public function setStyle($style)
+    public function setStyle($style): void
     {
         if (!$style) {
             $style = new SVGStyle();
@@ -73,8 +83,10 @@ class SVGStop extends XmlElement
      * Define the color of the stop
      *
      * @param string $color
+     *
+     * @return void
      */
-    public function setColor($color)
+    public function setColor(string $color): void
     {
         $style = $this->getStyle();
         $style->stopColor = $color;
@@ -87,7 +99,7 @@ class SVGStop extends XmlElement
      *
      * @return string
      */
-    public function getColor()
+    public function getColor(): string
     {
         return $this->getStyle()->stopColor;
     }
@@ -96,12 +108,14 @@ class SVGStop extends XmlElement
      * Define the opacity off this stop
      * The make it 100% visible set opacity to 1.
      *
-     * @param int $opacity
+     * @param float $opacity
+     *
+     * @return void
      */
-    public function setOpacity($opacity = 1)
+    public function setOpacity(float $opacity = 1): void
     {
         $style = $this->getStyle();
-        $style->stopOpacity = intval($opacity);
+        $style->stopOpacity = $opacity;
 
         $this->setStyle($style);
     }
@@ -109,11 +123,12 @@ class SVGStop extends XmlElement
     /**
      * Return the opacity off this stop
      *
-     * @return int return the opacity off this stop, 1 means 100% visible
+     * @return float return the opacity off this stop, 1 means 100% visible
+     *
      */
     public function getOpacity()
     {
-        return intval($this->getStyle()->opacity);
+        return $this->getStyle()->opacity;
     }
 
     /**
@@ -121,10 +136,12 @@ class SVGStop extends XmlElement
      * Offset variates from 0 to 1, passing by floating value between it.
      *
      * @param float $offset
+     *
+     * @return void
      */
-    public function setOffset($offset)
+    public function setOffset(float $offset): void
     {
-        $this->setAttribute('offset', floatval($offset));
+        $this->setAttribute('offset', (string) $offset);
     }
 
     /**
@@ -134,8 +151,8 @@ class SVGStop extends XmlElement
      *
      * @return float
      */
-    public function getOffset()
+    public function getOffset(): float
     {
-        return intval($this->getAttribute('offset'));
+        return (float) $this->getAttribute('offset');
     }
 }

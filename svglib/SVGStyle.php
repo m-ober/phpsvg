@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  *
  * Description: Implementation of Style class.
@@ -40,25 +42,24 @@ class SVGStyle
     public $stopColor;
     public $stopOpacity;
     public $display;
+    public $opacity;
 
     /**
      * Construct the style
      *
-     * @param array $style an array with styles
+     * @param null|string|array $style an array with styles
      */
     public function __construct($style = null)
     {
         if (is_string($style)) {
             $style = explode(';', $style);
 
-            if (is_array($style)) {
-                foreach ($style as $line => $info) {
-                    $styleElement = explode(':', $info);
+            foreach ($style as $line => $info) {
+                $styleElement = explode(':', $info);
 
-                    if ($styleElement[0]) {
-                        $property = SVGStyle::toCamelCase($styleElement[0]);
-                        $this->{$property} = $styleElement[1];
-                    }
+                if ($styleElement[0]) {
+                    $property = SVGStyle::toCamelCase($styleElement[0]);
+                    $this->{$property} = $styleElement[1];
                 }
             }
         } elseif (is_array($style)) {
@@ -78,12 +79,10 @@ class SVGStyle
         $vars = get_object_vars($this);
         $result = '';
 
-        if (is_array($vars)) {
-            foreach ($vars as $line => $info) {
-                if (isset($info)) {
-                    $line  = SVGStyle::fromCamelCase($line);
-                    $result .= "$line:$info;";
-                }
+        foreach ($vars as $line => $info) {
+            if (isset($info)) {
+                $line = SVGStyle::fromCamelCase($line);
+                $result .= "$line:$info;";
             }
         }
 
@@ -94,8 +93,10 @@ class SVGStyle
      * Define the display of elemet
      *
      * @param string $display
+     *
+     * @return void
      */
-    public function setDisplay($display)
+    public function setDisplay($display): void
     {
         $this->display = $display;
     }
@@ -111,16 +112,20 @@ class SVGStyle
 
     /**
      * Show the element
+     *
+     * @return void
      */
-    public function show()
+    public function show(): void
     {
         $this->display = 'inline';
     }
 
     /**
      * Hide the element
+     *
+     * @return void
      */
-    public function hide()
+    public function hide(): void
     {
         $this->display = 'none';
     }
@@ -129,8 +134,10 @@ class SVGStyle
      * Set the fill color
      *
      * @param string $fill color
+     *
+     * @return void
      */
-    public function setFill($fill)
+    public function setFill(string $fill): void
     {
         if ($fill instanceof SVGLinearGradient) {
             $fill = $this->url($fill);
@@ -144,7 +151,7 @@ class SVGStyle
      *
      * @return string fill color
      */
-    public function getFill()
+    public function getFill(): string
     {
         return $this->fill;
     }
@@ -153,22 +160,26 @@ class SVGStyle
      * Set the stroke (contour) color
      *
      * @param string $stroke the stroke color
+     * @param int|float|string $width
+     *
+     * @return void
      */
-    public function setStroke($stroke, $width = null)
+    public function setStroke(string $stroke, $width = 0): void
     {
         $this->stroke = $stroke;
-
         $this->setStrokeWidth($width);
     }
 
     /**
      * Define the width of the stroke
      *
-     * @param integer $width width of the stroke
+     * @param int|float|string $width width of the stroke
+     *
+     * @return void
      */
-    public function setStrokeWidth($width)
+    public function setStrokeWidth($width): void
     {
-        if ($width) {
+        if (!empty($width)) {
             $this->strokeWidth = $width;
         }
     }
@@ -176,9 +187,9 @@ class SVGStyle
     /**
      * Return the stroke width
      *
-     * @return type integer
+     * @return string
      */
-    public function getStrokeWidth()
+    public function getStrokeWidth(): string
     {
         return $this->strokeWidth;
     }
@@ -188,7 +199,7 @@ class SVGStyle
      *
      * @return string
      */
-    public function getStroke()
+    public function getStroke(): string
     {
         return $this->stroke;
     }
@@ -196,7 +207,7 @@ class SVGStyle
     /**
      * Make the url in some param
      *
-     * @param XmlElement or string $content
+     * @param XMLElement|string $content
      *
      * @return string
      */
@@ -204,7 +215,7 @@ class SVGStyle
     {
         $url = $content;
 
-        if ($content instanceof XmlElement) {
+        if ($content instanceof XMLElement) {
             $url = '#' . $content->getId();
         }
 
@@ -221,7 +232,7 @@ class SVGStyle
      * @param string $str
      * @return string the new string
      */
-    protected static function fromCamelCase($str)
+    protected static function fromCamelCase(string $str): string
     {
         $str[0] = strtolower($str[0]);
         return preg_replace_callback('/([A-Z])/', function ($hit) {
@@ -237,7 +248,7 @@ class SVGStyle
      * @param string $str
      * @return string
      */
-    protected static function toCamelCase($str)
+    protected static function toCamelCase(string $str): string
     {
         return preg_replace_callback('/-([a-z])/', function ($hit) {
             return strtoupper($hit[0]);
