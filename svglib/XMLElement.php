@@ -330,52 +330,16 @@ class XMLElement extends SimpleXMLElement
     }
 
     /**
-     * Returns s formated xml
-     *
-     * @param   string $xml the xml text to format
-     * @param   boolean $debug set to get debug-prints of RegExp matches
-     * @returns string formatted XML
-     * @copyright TJ
-     * @link kml.tjworld.net
-     * @link http://forums.devnetwork.net/viewtopic.php?p=213989
-     * @link http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
+     * @param string $xml the xml text to format
+     * @return string
      */
-    protected function prettyXML($xml)
+    protected function prettyXML(string $xml): string
     {
-        // add marker linefeeds to aid the pretty-tokeniser
-        // adds a linefeed between all tag-end boundaries
-        $xml = preg_replace('/(>)(<)(\/*)/', "$1\n$2$3", $xml);
-
-        // now pretty it up (indent the tags)
-        $tok = strtok($xml, "\n");
-        $formatted = ''; // holds pretty version as it is built
-        $pad = 0; // initial indent
-        $matches = [ ]; // returns from preg_matches()
-
-        /*
-         * pre- and post- adjustments to the padding indent are made, so changes can be applied to
-         * the current line or subsequent lines, or both
-         */
-        while ($tok !== false) {// scan each line and adjust indent based on opening/closing tags
-        // test for the various tag states
-            if (preg_match('/.+<\/\w[^>]*>$/', $tok, $matches)) {// open and closing tags on same line
-                $indent = 0; // no change
-            } elseif (preg_match('/^<\/\w/', $tok, $matches)) { // closing tag
-                $pad--; //  outdent now
-            } elseif (preg_match('/^<\w[^>]*[^\/]>.*$/', $tok, $matches)) {// opening tag
-                $indent = 1; // don't pad this one, only subsequent tags
-            } else {
-                $indent = 0; // no indentation needed
-            }
-
-            // pad the line with the required number of leading spaces
-            $prettyLine = str_pad($tok, strlen($tok) + $pad, ' ', STR_PAD_LEFT);
-            $formatted .= $prettyLine . "\n"; // add to the cumulative result, with linefeed
-            $tok = strtok("\n"); // get the next token
-            $pad += $indent; // update the pad size for subsequent lines
-        }
-
-        return $formatted; // pretty format
+        $domxml = new \DOMDocument('1.0');
+        $domxml->preserveWhiteSpace = false;
+        $domxml->formatOutput = true;
+        $domxml->loadXML($xml);
+        return $domxml->saveXML();
     }
 
     /**
