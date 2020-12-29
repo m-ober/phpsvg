@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    name="phpsvg"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>The coding standard for phpsvg.</description>
+
+    <!-- Directories to scan -->
+    <file>svglib</file>
+
+    <arg name="basepath" value="." />
+
+    <!-- Only scan php files (no js, css, ...) -->
+    <arg name="extensions" value="php" />
+
+    <!-- Use colors in output -->
+    <arg name="colors" />
+
+    <arg name="parallel" value="1" />
+
+    <!-- s: Show sniff codes in all reports -->
+    <!-- p: Show progress of the run -->
+    <arg value="sp" />
+
+    <rule ref="PSR12" />
+
+    <!-- Use // or /* */ instead of # for comments -->
+    <rule ref="PEAR.Commenting.InlineComment.WrongStyle">
+        <type>error</type>
+    </rule>
+
+    <!-- Use [] instead of array() -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+        <type>error</type>
+    </rule>
+
+    <!-- rule ref="Generic.PHP.RequireStrictTypes">
+        <type>error</type>
+    </rule -->
+
+    <rule ref="Generic.Formatting.SpaceAfterCast">
+        <type>error</type>
+        <properties>
+            <property name="spacing" value="1" />
+        </properties>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+        <type>error</type>
+        <properties>
+            <property name="ignoreNewlines" value="true" />
+            <property name="spacing" value="0" />
+        </properties>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.SpreadOperatorSpacingAfter">
+        <type>error</type>
+        <properties>
+            <property name="spacing" value="0" />
+        </properties>
+    </rule>
+
+    <!-- Optional function args must be last -->
+    <rule ref="PEAR.Functions.ValidDefaultValue">
+        <type>error</type>
+    </rule>
+
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.Operators.ValidLogicalOperators">
+        <type>error</type>
+    </rule>
+</ruleset>
