@@ -37,11 +37,12 @@ class SVGText extends SVGShape
 
     public static function getInstance($x, $y, $id, $text, $style = null)
     {
-        $t = new SVGText('<text>' . $text . '</text>');
+        $t = new SVGText('<text></text>');
         $t->setX($x);
         $t->setY($y);
         $t->setId($id);
         $t->setAttribute('style', $style);
+        $t[0] = $text;
 
         return $t;
     }

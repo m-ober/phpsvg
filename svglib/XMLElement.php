@@ -149,8 +149,10 @@ class XMLElement extends SimpleXMLElement
             //list all namespaces used in append object
             $namespaces = $append->getNameSpaces();
 
+            $stringval = (string) $append;
+
             //get all childs
-            if (strlen(trim((string) $append)) == 0) {
+            if (strlen(trim($stringval)) == 0) {
                 $xml = $this->addChild($append->getName(), ' ');
 
                 foreach ($append->children() as $child) {
@@ -158,7 +160,10 @@ class XMLElement extends SimpleXMLElement
                 }
             } else {
                 //add one child
-                $xml = $this->addChild($append->getName(), (string) $append . ' ');
+                $xml = $this->addChild(
+                    $append->getName(),
+                    htmlspecialchars($stringval, ENT_XML1) . ' '
+                );
             }
 
             //add simple attributes
