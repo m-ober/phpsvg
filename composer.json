@@ -12,7 +12,8 @@
     "require": {
         "php": "^7.1",
         "ext-SimpleXML": "*",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
+        "ext-dom": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
@@ -20,7 +21,6 @@
     },
     "suggest": {
         "ext-imagick": "Required to export images using Imagick",
-        "ext-dom": "Required to use XMLElement::removeElement()",
         "ext-zlib": "To open compressed files"
     },
     "minimum-stability": "stable",
