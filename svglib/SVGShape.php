@@ -163,8 +163,6 @@ class SVGShape extends XMLElement
     public function addTransform($transform)
     {
         if ($this->getTransform()) {
-        }
-        {
             $transform = trim($this->getTransform()) . self::TRANSFORM_SEPARATOR . $transform;
         }
 
