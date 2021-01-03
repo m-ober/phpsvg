@@ -1,47 +1,16 @@
 # phpsvg
-Edit and create SVG Documents using OO PHP
+Edit and create SVG documents using PHP.
+This library is a fork of `mewebstudio/phpsvg`, which was last updated in 2013.
 
-## Features:
+## Features
 
 - Open and edit SVG and SVGZ (GZipped)
-- Generate thumbnails or export to PNG, JPG, GIF,PS,EPS,PDF
-- Support embebed or linked images.
-- Use php features: SimpleXMLElement, GZip, Gd, Imagemagick.
-- Can use inkscape to export some image formats.
+- Generate thumbnails or export to PNG, JPG, GIF, PS, EPS, PDF
+- Support embebed or linked images
+- Strict typing, i.e. `declare(strict_types=1);`
 
-Is in development.
-## Code example:
-
-```php
-require_once "svglib.php";
-
-
-
-$svg = SVGDocument::getInstance( 'resource/apple.svg' ); //open to edit
-
-//$svg = SVGDocument::getInstance( ); //default read to use
-
-
-
-$rect = #create a new rect with, x and y position, id, width and heigth, and the style
-
-$rect = SVGRect::getInstance( 0, 5, 'myRect', 228, 185, new SVGStyle( array( 'fill'   => 'red', 'stroke' => 'blue' ) ) );
-
-$svg->addShape( $rect );
-
-
-
-$text = SVGText::getInstance( 22, 50, 'myText', 'This is a text', $style );
-
-
-
-$svg->asXML('output/output.svg'); //output to svg file
-
-$svg->export('output/output.png'); //export as png
-
-$svg->export('output/thumb32x32.png',32,32); //export thumbnail
-
-$svg->output(); //echo with header to browser
-
-?>
+## Installation
+PHP 7.1 or newer is required. Install using composer:
+```
+composer require mober/phpsvg
 ```
