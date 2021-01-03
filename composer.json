@@ -20,8 +20,8 @@
         "vimeo/psalm": "^4.0"
     },
     "suggest": {
-        "ext-imagick": "Required to export images using Imagick",
-        "ext-zlib": "To open compressed files"
+        "ext-imagick": "Export images using Imagick",
+        "ext-zlib": "Read/write compressed files"
     },
     "minimum-stability": "stable",
     "autoload": {

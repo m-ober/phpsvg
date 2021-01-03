@@ -70,8 +70,7 @@ class SVGDocument extends SVGShape
      */
     protected static function getFileExtension(string $filename): string
     {
-        $explode = explode('.', $filename);
-        return strtolower($explode[ count($explode) - 1 ]);
+        return pathinfo($filename, PATHINFO_EXTENSION);
     }
 
     /**
@@ -88,10 +87,9 @@ class SVGDocument extends SVGShape
             //if is svgz use compres.zlib to load the compacted SVG
             if (SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
                 //verify if zlib is installed
-                if (!function_exists('gzopen')) {
-                    throw new RuntimeException('GZip support not installed.');
+                if (!extension_loaded('zlib')) {
+                    throw new RuntimeException('Please install "ext-zlib" extension.');
                 }
-
                 $filename = 'compress.zlib://' . $filename;
             }
 
@@ -99,7 +97,7 @@ class SVGDocument extends SVGShape
             $content = file_get_contents($filename);
 
             //throw error if not found
-            if (!$content) {
+            if ($content === false) {
                 throw new RuntimeException('Impossible to load content of file ' . $filename);
             }
 
@@ -145,10 +143,9 @@ class SVGDocument extends SVGShape
         //if is svgz use compres.zlib to load the compacted SVG
         if (!empty($filename) && SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
             //verify if zlib is installed
-            if (!function_exists('gzopen')) {
-                throw new RuntimeException('GZip support not installed.');
+            if (!extension_loaded('zlib')) {
+                throw new RuntimeException('Please install "ext-zlib" extension.');
             }
-
             $filename = 'compress.zlib://' . $filename;
         }
 
@@ -380,7 +377,7 @@ class SVGDocument extends SVGShape
     public function exportImagick(string $filename, $width = 0, $height = 0, bool $respectRatio = false): bool
     {
         if (!extension_loaded('imagick')) {
-            throw new RuntimeException('Imagick extension missing.');
+            throw new RuntimeException('Please install "ext-imagick" extension.');
         }
 
         $image = new \Imagick();
