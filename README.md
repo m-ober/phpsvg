@@ -6,7 +6,7 @@ This library is a fork of `mewebstudio/phpsvg`, which was last updated in 2013.
 
 - Open and edit SVG and SVGZ (GZipped)
 - Generate thumbnails or export to PNG, JPG, GIF, PS, EPS, PDF
-- Support embebed or linked images
+- Support embedded or linked images
 - Strict typing, i.e. `declare(strict_types=1);`
 
 ## Installation
