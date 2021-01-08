@@ -43,7 +43,7 @@ class SVGLine extends SVGShapeEx
      * @param null|string|SVGStyle $style
      * @return SVGLine
      */
-    public static function getInstance($x1, $y1, $x2, $y2, ?string $id = null, $style = null): self
+    public static function getInstance($x1, $y1, $x2, $y2, $style = null, ?string $id = null): self
     {
         $rect = new SVGLine('<line></line>');
 

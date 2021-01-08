@@ -49,7 +49,7 @@ class SVGCircle extends SVGShapeEx
      *
      * @see https://www.w3.org/TR/SVG11/shapes.html#CircleElement
      */
-    public static function getInstance($cx, $cy, $radius, ?string $id = null, $style = null): SVGCircle
+    public static function getInstance($cx, $cy, $radius, $style = null, ?string $id = null): SVGCircle
     {
         $circle = new SVGCircle('<circle></circle>');
 

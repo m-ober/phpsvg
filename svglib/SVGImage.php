@@ -43,7 +43,7 @@ class SVGImage extends SVGShapeEx
      * @param bool $embed
      * @return SVGImage
      */
-    public static function getInstance($x, $y, ?string $id, string $filename, bool $embed = true): SVGImage
+    public static function getInstance($x, $y, string $filename, bool $embed = true, ?string $id = null): SVGImage
     {
         $image = new SVGImage('<image></image>');
 

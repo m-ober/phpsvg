@@ -43,7 +43,7 @@ class SVGRect extends SVGShapeEx
      * @param null|SVGStyle|string $style
      * @return SVGRect
      */
-    public static function getInstance($x, $y, ?string $id, $width, $height, $style = null): SVGRect
+    public static function getInstance($x, $y, $width, $height, $style = null, ?string $id = null): SVGRect
     {
         $rect = new SVGRect('<rect></rect>');
 

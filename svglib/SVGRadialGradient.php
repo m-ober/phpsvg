@@ -35,11 +35,11 @@ namespace mober\phpsvg;
 class SVGRadialGradient extends SVGLinearGradient
 {
     /**
-     * @param string $id
+     * @param null|string $id
      * @param SVGStop[] $stops
      * @return SVGRadialGradient
      */
-    public static function getInstance(string $id, array $stops): parent
+    public static function getInstance(array $stops, ?string $id = null): parent
     {
         $gradient = new SVGRadialGradient('<radialGradient></radialGradient>');
         $gradient->setId($id);

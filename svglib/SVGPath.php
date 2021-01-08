@@ -44,7 +44,7 @@ class SVGPath extends SVGShape
      * @param null|SVGStyle|string $style
      * @return SVGPath
      */
-    public static function getInstance($d, ?string $id = null, $style = null): self
+    public static function getInstance($d, $style = null, ?string $id = null): self
     {
         $path = new SVGPath('<path></path>');
 

@@ -37,11 +37,11 @@ namespace mober\phpsvg;
 class SVGLinearGradient extends XMLElement
 {
     /**
-     * @param string $id
+     * @param null|string $id
      * @param SVGStop[] $stops
      * @return SVGLinearGradient
      */
-    public static function getInstance(string $id, array $stops): self
+    public static function getInstance(array $stops, ?string $id = null): self
     {
         $gradient = new SVGLinearGradient('<linearGradient></linearGradient>');
         $gradient->setId($id);

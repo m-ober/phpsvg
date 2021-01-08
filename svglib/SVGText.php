@@ -45,7 +45,7 @@ class SVGText extends SVGShape
      * @param null|SVGStyle|string $style
      * @return SVGText
      */
-    public static function getInstance($x, $y, ?string $id, string $text, $style = null): SVGText
+    public static function getInstance($x, $y, string $text, $style = null, ?string $id = null): SVGText
     {
         $t = new SVGText('<text></text>');
         $t->setX($x);

@@ -38,11 +38,11 @@ class SVGStop extends XMLElement
 {
     /**
      * @param null|string $id
-     * @param null|string $style
+     * @param null|string|SVGStyle $style
      * @param float $offset
      * @return SVGStop
      */
-    public static function getInstance($id = null, $style = null, float $offset = 0): SVGStop
+    public static function getInstance(float $offset = 0, $style = null, ?string $id = null): SVGStop
     {
         $stop = new SVGStop('<stop></stop>');
 
