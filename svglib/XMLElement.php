@@ -181,7 +181,7 @@ class XMLElement extends SimpleXMLElement
         //add attributes with namespace example xlink:href
         foreach ($namespaces as $index => $namespace) {
             foreach ($append->attributes($namespace) as $attribute => $value) {
-                $xml->addAttribute($index . ':' . $attribute, $value, $namespace);
+                $xml->addAttribute($index . ':' . $attribute, (string) $value, $namespace);
             }
         }
     }
