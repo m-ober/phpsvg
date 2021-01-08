@@ -62,7 +62,10 @@ class SVGStop extends XMLElement
      */
     public function setStyle($style): void
     {
-        if (!$style) {
+        if (is_null($style)) {
+            return;
+        }
+        if (empty($style)) {
             $style = new SVGStyle();
         }
 

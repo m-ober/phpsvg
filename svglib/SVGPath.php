@@ -40,11 +40,11 @@ class SVGPath extends SVGShape
      * Get a instance of a Path.
      *
      * @param array|string $d
-     * @param string $id of element
-     * @param string $style
+     * @param string|null $id of element
+     * @param null|SVGStyle|string $style
      * @return SVGPath
      */
-    public static function getInstance($d, string $id, string $style): self
+    public static function getInstance($d, ?string $id = null, $style = null): self
     {
         $path = new SVGPath('<path></path>');
 
@@ -55,7 +55,10 @@ class SVGPath extends SVGShape
 
         $path->setAttribute('d', $d);
         $path->setId($id);
-        $path->setAttribute('style', $style);
+
+        if (!is_null($style)) {
+            $path->setAttribute('style', $style);
+        }
 
         return $path;
     }

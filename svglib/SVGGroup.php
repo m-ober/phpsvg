@@ -39,7 +39,7 @@ class SVGGroup extends SVGShape implements SVGCanvas
      * @param null|string $id
      * @return SVGGroup
      */
-    public static function getInstance($id = null): SVGGroup
+    public static function getInstance(?string $id = null): SVGGroup
     {
         $rect = new SVGGroup('<g></g>');
         $rect->setId($id);

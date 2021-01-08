@@ -43,13 +43,13 @@ class SVGCircle extends SVGShapeEx
      * @param int|float|string $cy the center y
      * @param int|float|string $radius the radius of circle
      * @param null|string $id the id of element
-     * @param null|string $style style of element
+     * @param null|SVGStyle|string $style style of element
      *
      * @return SVGCircle
      *
      * @see https://www.w3.org/TR/SVG11/shapes.html#CircleElement
      */
-    public static function getInstance($cx, $cy, $radius, ?string $id = null, ?string $style = null): SVGCircle
+    public static function getInstance($cx, $cy, $radius, ?string $id = null, $style = null): SVGCircle
     {
         $circle = new SVGCircle('<circle></circle>');
 

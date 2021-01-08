@@ -38,20 +38,22 @@ class SVGText extends SVGShape
 {
 
     /**
-     * @param $x
-     * @param $y
-     * @param $id
-     * @param $text
-     * @param null $style
+     * @param int|float|string $x
+     * @param int|float|string $y
+     * @param null|string $id
+     * @param string $text
+     * @param null|SVGStyle|string $style
      * @return SVGText
      */
-    public static function getInstance($x, $y, $id, $text, $style = null): SVGText
+    public static function getInstance($x, $y, ?string $id, string $text, $style = null): SVGText
     {
         $t = new SVGText('<text></text>');
         $t->setX($x);
         $t->setY($y);
         $t->setId($id);
-        $t->setAttribute('style', $style);
+        if (!is_null($style)) {
+            $t->setAttribute('style', $style);
+        }
         $t[0] = $text;
 
         return $t;

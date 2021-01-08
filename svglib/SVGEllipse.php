@@ -44,7 +44,7 @@ class SVGEllipse extends SVGShapeEx
      * @param int|float|string $radiusX
      * @param int|float|string $radiusY
      * @param null|string $id the id of element
-     * @param null|string $style style of element
+     * @param null|SVGStyle|string $style style of element
      *
      * @return SVGEllipse
      */

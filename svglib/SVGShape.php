@@ -85,6 +85,9 @@ class SVGShape extends XMLElement
      */
     public function setStyle($style): void
     {
+        if (is_null($style)) {
+            return;
+        }
         if (empty($style)) {
             $style = new SVGStyle();
         }
