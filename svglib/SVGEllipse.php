@@ -48,7 +48,7 @@ class SVGEllipse extends SVGShapeEx
      *
      * @return SVGEllipse
      */
-    public static function getInstance($cx, $cy, $radiusX, $radiusY, $id = null, $style = null): SVGEllipse
+    public static function getInstance($cx, $cy, $radiusX, $radiusY, ?string $id = null, $style = null): SVGEllipse
     {
         $circle = new SVGEllipse('<ellipse></ellipse>');
 
