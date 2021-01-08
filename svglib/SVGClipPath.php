@@ -32,7 +32,7 @@ declare(strict_types=1);
 
 namespace mober\phpsvg;
 
-class SVGClipPath extends SVGShape
+class SVGClipPath extends SVGShape implements SVGCanvas
 {
 
     /**

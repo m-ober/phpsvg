@@ -51,7 +51,7 @@ namespace mober\phpsvg;
 use Exception;
 use RuntimeException;
 
-class SVGDocument extends SVGShape
+class SVGDocument extends SVGShape implements SVGCanvas
 {
 
     private const VERSION = '1.1';

@@ -32,7 +32,7 @@ declare(strict_types=1);
 
 namespace mober\phpsvg;
 
-class SVGGroup extends SVGShape
+class SVGGroup extends SVGShape implements SVGCanvas
 {
 
     /**
