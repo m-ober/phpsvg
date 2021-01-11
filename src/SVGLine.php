@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  *
  * Description: Implementation of Line.
@@ -29,6 +27,8 @@ declare(strict_types=1);
  *   Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace mober\phpsvg;
 

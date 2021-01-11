@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  *
  * Description: Implementation SVGDocument include in all other libs
@@ -45,6 +43,8 @@ declare(strict_types=1);
  * http://blog.jondh.me.uk/2010/10/resetting-namespaced-attributes-using-simplexml/
  * http://www.w3.org/TR/SVG/
  */
+
+declare(strict_types=1);
 
 namespace mober\phpsvg;
 

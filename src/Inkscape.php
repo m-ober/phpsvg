@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-/*
+/**
  *
  * Description: Interface with command-line Inkscape
  * While obviously Inkscape is primarily intended as a GUI application,
@@ -240,6 +238,9 @@ declare(strict_types=1);
  *
  * Implemented for Inkscape-0.48.0
  */
+
+declare(strict_types=1);
+
 namespace mober\phpsvg;
 
 use RuntimeException;
@@ -565,7 +566,7 @@ class Inkscape
         $this->lastExecuteResult = shell_exec($this->lastCmd);
 
         if (is_null($this->lastExecuteResult)) {
-          throw new RuntimeException('Error executing command');
+            throw new RuntimeException('Error executing command');
         }
         if (trim($this->lastExecuteResult) == 'Nothing to do!') {
             throw new RuntimeException('Nothing to do!');
