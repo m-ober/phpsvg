@@ -163,6 +163,7 @@ class XMLElement extends SimpleXMLElement
             $xml = $this->addChild($append->getName());
 
             foreach ($append->children() as $child) {
+                /** @psalm-suppress UndefinedMethod */
                 $xml->append($child);
             }
         } else {
@@ -213,6 +214,7 @@ class XMLElement extends SimpleXMLElement
         } else {
             if ($this->count() > 0) {
                 foreach ($this->children() as $child) {
+                    /** @psalm-suppress UndefinedMethod */
                     $element = $child->getElementByAttribute($attribute, $value);
 
                     if ($element) {
@@ -272,6 +274,7 @@ class XMLElement extends SimpleXMLElement
         } else {
             if ($this->count() > 0) {
                 foreach ($this->children() as $line => $child) {
+                    /** @psalm-suppress UndefinedMethod */
                     $element = $child->getElementsByAttribute($attribute, $value);
 
                     if ($element) {

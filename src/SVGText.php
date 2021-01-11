@@ -54,6 +54,7 @@ class SVGText extends SVGShape
         if (!is_null($style)) {
             $t->setAttribute('style', $style);
         }
+        /** @psalm-suppress UndefinedMethod */
         $t[0] = $text;
 
         return $t;
