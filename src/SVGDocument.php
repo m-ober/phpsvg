@@ -134,11 +134,12 @@ class SVGDocument extends SVGShape implements SVGCanvas
      *
      * @param string|null $filename the file to save, is optional, you can output to a var
      * @param bool $humanReadable
+     * @param bool $prolog
      * @return bool|int|string if filename empty: xml as string, otherwise: bytes written as int or false on failure
      *
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
-    public function asXML($filename = null, $humanReadable = false)
+    public function asXML($filename = null, $humanReadable = false, $prolog = true)
     {
         //if is svgz use compres.zlib to load the compacted SVG
         if (!empty($filename) && SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
@@ -149,7 +150,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
             $filename = 'compress.zlib://' . $filename;
         }
 
-        $xml = parent::asXML(null, $humanReadable);
+        $xml = parent::asXML(null, $humanReadable, $prolog);
 
         //need to do it, if pass a null filename it return an error
         if (!empty($filename)) {
