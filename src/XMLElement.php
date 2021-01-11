@@ -336,37 +336,30 @@ class XMLElement extends SimpleXMLElement
     }
 
     /**
-     * @param string $xml the xml text to format
-     * @return string
-     */
-    protected function prettyXML(string $xml): string
-    {
-        $domxml = new \DOMDocument('1.0');
-        $domxml->preserveWhiteSpace = false;
-        $domxml->formatOutput = true;
-        $domxml->loadXML($xml);
-        return $domxml->saveXML();
-    }
-
-    /**
      * @param string|null $filename
      * @param bool $humanReadable
+     * @param bool $prolog
      * @return string|bool
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
-    public function asXML($filename = null, $humanReadable = false)
+    public function asXML($filename = null, $humanReadable = false, $prolog = true)
     {
         // branching is required here because null cannot be passed to parent::asXML()
         if (!is_null($filename)) {
             return parent::asXML($filename);
         } else {
-            $xml = parent::asXML();
-            /** @psalm-suppress TypeDoesNotContainType */
-            if (is_string($xml)) {
-                return $humanReadable ? $this->prettyXML($xml) : $xml;
+            $dom = dom_import_simplexml($this);
+
+            if ($humanReadable) {
+                $dom->ownerDocument->preserveWhiteSpace = false;
+                $dom->ownerDocument->formatOutput = true;
+            }
+            if ($prolog) {
+                return $dom->ownerDocument->saveXML();
+            } else {
+                return $dom->ownerDocument->saveXML($dom->ownerDocument->documentElement);
             }
         }
-        return false;
     }
 
     /**
