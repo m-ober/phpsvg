@@ -25,7 +25,7 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": {"mober\\phpsvg\\": "svglib/"}
+        "psr-4": {"mober\\phpsvg\\": "src/"}
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs -s --error-severity=1 --warning-severity=8 --ignore=vendor/* --standard=PSR12 --extensions=php .",
