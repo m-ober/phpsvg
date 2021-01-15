@@ -155,36 +155,10 @@ class XMLElement extends SimpleXMLElement
      */
     public function append(XMLElement $append): void
     {
-        //list all namespaces used in append object
-        $namespaces = $append->getNameSpaces();
-
-        //get all childs
-        if ($append->count() > 0) {
-            $xml = $this->addChild($append->getName());
-
-            foreach ($append->children() as $child) {
-                /** @psalm-suppress UndefinedMethod */
-                $xml->append($child);
-            }
-        } else {
-            //add one child
-            $xml = $this->addChild(
-                $append->getName(),
-                htmlspecialchars((string) $append, ENT_XML1)
-            );
-        }
-
-        //add simple attributes
-        foreach ($append->attributes() as $attribute => $value) {
-            $xml->addAttribute($attribute, (string) $value);
-        }
-
-        //add attributes with namespace example xlink:href
-        foreach ($namespaces as $index => $namespace) {
-            foreach ($append->attributes($namespace) as $attribute => $value) {
-                $xml->addAttribute($index . ':' . $attribute, (string) $value, $namespace);
-            }
-        }
+        $target = dom_import_simplexml($this);
+        $source = dom_import_simplexml($append);
+        $import = $target->ownerDocument->importNode($source, true);
+        $target->appendChild($import);
     }
 
     /**
