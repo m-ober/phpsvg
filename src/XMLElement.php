@@ -80,6 +80,10 @@ class XMLElement extends SimpleXMLElement
     public function setAttribute(string $attribute, $value, ?string $namespace = null): void
     {
         $this->removeAttribute($attribute);
+        if (empty($value)) {
+            return;
+        }
+
         if (!empty($namespace)) {
             $this->addAttribute($attribute, (string) $value, $namespace);
         } else {
