@@ -34,6 +34,7 @@ declare(strict_types=1);
 
 namespace mober\phpsvg;
 
+use RuntimeException;
 use SimpleXMLElement;
 
 class XMLElement extends SimpleXMLElement
@@ -317,26 +318,33 @@ class XMLElement extends SimpleXMLElement
      * @param string|null $filename
      * @param bool $humanReadable
      * @param bool $prolog
-     * @return string|bool
+     * @return string|int|false
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
     public function asXML($filename = null, $humanReadable = false, $prolog = true)
     {
-        // branching is required here because null cannot be passed to parent::asXML()
-        if (!is_null($filename)) {
-            return parent::asXML($filename);
-        } else {
-            $dom = dom_import_simplexml($this);
+        $dom = dom_import_simplexml($this);
 
-            if ($humanReadable) {
-                $dom->ownerDocument->preserveWhiteSpace = false;
-                $dom->ownerDocument->formatOutput = true;
+        if ($humanReadable) {
+            $dom->ownerDocument->preserveWhiteSpace = false;
+            $dom->ownerDocument->formatOutput = true;
+        }
+        if ($prolog) {
+            $payload = $dom->ownerDocument->saveXML();
+        } else {
+            $payload = $dom->ownerDocument->saveXML($dom->ownerDocument->documentElement);
+        }
+
+        if (empty($filename)) {
+            return $payload;
+        } else {
+            if (SVGDocument::getFileExtension($filename) == SVGDocument::EXTENSION_COMPACT) {
+                if (!extension_loaded('zlib')) {
+                    throw new RuntimeException('Please install "ext-zlib" extension.');
+                }
+                $filename = 'compress.zlib://' . $filename;
             }
-            if ($prolog) {
-                return $dom->ownerDocument->saveXML();
-            } else {
-                return $dom->ownerDocument->saveXML($dom->ownerDocument->documentElement);
-            }
+            return file_put_contents($filename, $payload);
         }
     }
 

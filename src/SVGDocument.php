@@ -54,10 +54,11 @@ use RuntimeException;
 class SVGDocument extends SVGShape implements SVGCanvas
 {
 
-    private const VERSION = '1.1';
-    private const XMLNS = 'http://www.w3.org/2000/svg';
-    private const EXTENSION = 'svg';
-    private const EXTENSION_COMPACT = 'svgz';
+    public const VERSION = '1.1';
+    public const XMLNS = 'http://www.w3.org/2000/svg';
+    public const EXTENSION = 'svg';
+    public const EXTENSION_COMPACT = 'svgz';
+
     private const HEADER = 'image/svg+xml';
     private const EXPORT_TYPE_IMAGE_MAGIC = 'imagick';
     private const EXPORT_TYPE_INKSCAPE = 'inkscape';
@@ -126,38 +127,6 @@ class SVGDocument extends SVGShape implements SVGCanvas
     {
         header('Content-type: ' . self::HEADER);
         echo $this->asXML();
-    }
-
-    /**
-     * Export the object as xml text, OR xml file.
-     * If the file extension is svgz, the function will save it correctely;
-     *
-     * @param string|null $filename the file to save, is optional, you can output to a var
-     * @param bool $humanReadable
-     * @param bool $prolog
-     * @return bool|int|string if filename empty: xml as string, otherwise: bytes written as int or false on failure
-     *
-     * @psalm-suppress ImplementedReturnTypeMismatch
-     */
-    public function asXML($filename = null, $humanReadable = false, $prolog = true)
-    {
-        //if is svgz use compres.zlib to load the compacted SVG
-        if (!empty($filename) && SVGDocument::getFileExtension($filename) == self::EXTENSION_COMPACT) {
-            //verify if zlib is installed
-            if (!extension_loaded('zlib')) {
-                throw new RuntimeException('Please install "ext-zlib" extension.');
-            }
-            $filename = 'compress.zlib://' . $filename;
-        }
-
-        $xml = parent::asXML(null, $humanReadable, $prolog);
-
-        //need to do it, if pass a null filename it return an error
-        if (!empty($filename)) {
-            return file_put_contents($filename, $xml);
-        }
-
-        return $xml;
     }
 
     /**
