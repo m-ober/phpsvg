@@ -69,7 +69,7 @@ class SVGCircle extends SVGShapeEx
      */
     public function setCx($cx): void
     {
-        $this->addAttribute('cx', (string) $cx);
+        $this->setAttribute('cx', (string) $cx);
     }
 
     /**
@@ -89,7 +89,7 @@ class SVGCircle extends SVGShapeEx
      */
     public function setCy($cy): void
     {
-        $this->addAttribute('cy', (string) $cy);
+        $this->setAttribute('cy', (string) $cy);
     }
 
     /**
@@ -109,7 +109,7 @@ class SVGCircle extends SVGShapeEx
      */
     public function setRadius($radius): void
     {
-        $this->addAttribute('r', (string) $radius);
+        $this->setAttribute('r', (string) $radius);
     }
 
     /**
