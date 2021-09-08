@@ -10,7 +10,7 @@
         {"name": "Eduardo Bonfandini", "email": "trialforce@gmail.com" }
     ],
     "require": {
-        "php": "^7.1 || ^8.0",
+        "php": "7.1 - 8.0",
         "ext-SimpleXML": "*",
         "ext-fileinfo": "*",
         "ext-dom": "*"
