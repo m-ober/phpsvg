@@ -255,6 +255,9 @@ class Inkscape
 
     protected $lastCmd;
 
+    /**
+     * @param SVGDocument|string $filename
+     */
     public function __construct($filename)
     {
         //treat if is a SVGDocument
@@ -553,25 +556,24 @@ class Inkscape
 
         if (is_array($this->params)) {
             foreach ($this->params as $param => $value) {
-                $exec .= ' --' . $param;
+                $arg = ' --' . $param;
 
                 if ($value) {
-                    $exec .= '=' . $value;
+                    $arg .= sprintf('="%s"', $value);
                 }
+                $exec .= $arg;
             }
         }
 
         $this->lastCmd = $exec . ' ' . $extraParam;
         /** @psalm-suppress ForbiddenCode */
-        $this->lastExecuteResult = shell_exec($this->lastCmd);
+        $res = exec($this->lastCmd, $output, $retcode);
 
-        if (is_null($this->lastExecuteResult)) {
-            throw new RuntimeException('Error executing command');
-        }
-        if (trim($this->lastExecuteResult) == 'Nothing to do!') {
-            throw new RuntimeException('Nothing to do!');
+        if ($res === false || $retcode !== 0) {
+            throw new RuntimeException('Error executing inkscape, return code ' . $retcode);
         }
 
+        $this->lastExecuteResult = join(PHP_EOL, $output);
         return $this->lastExecuteResult;
     }
 }
