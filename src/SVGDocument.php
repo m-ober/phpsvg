@@ -251,7 +251,9 @@ class SVGDocument extends SVGShape implements SVGCanvas
      */
     public function addScript(string $script): void
     {
-        $element = new XMLElement('<script>' . $script . '</script>');
+        $element = new XMLElement('<script></script>');
+        /** @psalm-suppress UndefinedMethod */
+        $element[0] = $script;
         $this->append($element);
     }
 
