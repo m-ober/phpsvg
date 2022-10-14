@@ -36,17 +36,21 @@ namespace mober\phpsvg;
 
 class SVGText extends SVGShape
 {
-
     /**
-     * @param int|float|string $x
-     * @param int|float|string $y
+     * @param float|int|string $x
+     * @param float|int|string $y
      * @param null|string $id
      * @param string $text
-     * @param null|SVGStyle|string $style
+     * @param string|SVGStyle|null $style
      * @return SVGText
      */
-    public static function getInstance($x, $y, string $text, $style = null, ?string $id = null): SVGText
-    {
+    public static function getInstance(
+        float|int|string $x,
+        float|int|string $y,
+        string $text,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ): SVGText {
         $t = new SVGText('<text></text>');
         $t->setX($x);
         $t->setY($y);

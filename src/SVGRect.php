@@ -35,16 +35,22 @@ namespace mober\phpsvg;
 class SVGRect extends SVGShapeEx
 {
     /**
-     * @param int|float|string $x
-     * @param int|float|string $y
+     * @param float|int|string $x
+     * @param float|int|string $y
      * @param null|string $id
-     * @param int|float|string $width
-     * @param int|float|string $height
-     * @param null|SVGStyle|string $style
+     * @param float|int|string $width
+     * @param float|int|string $height
+     * @param string|SVGStyle|null $style
      * @return SVGRect
      */
-    public static function getInstance($x, $y, $width, $height, $style = null, ?string $id = null): SVGRect
-    {
+    public static function getInstance(
+        float|int|string $x,
+        float|int|string $y,
+        float|int|string $width,
+        float|int|string $height,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ): SVGRect {
         $rect = new SVGRect('<rect></rect>');
 
         $rect->setX($x);
@@ -60,11 +66,11 @@ class SVGRect extends SVGShapeEx
     /**
      * Define the round of rect
      *
-     * @param int|float|string $rx the round
+     * @param float|int|string $rx the round
      *
      * @return void
      */
-    public function setRound($rx): void
+    public function setRound(float|int|string $rx): void
     {
         $this->addAttribute('rx', (string) $rx);
     }

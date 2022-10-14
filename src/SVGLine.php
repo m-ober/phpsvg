@@ -35,16 +35,22 @@ namespace mober\phpsvg;
 class SVGLine extends SVGShapeEx
 {
     /**
-     * @param int|float|string $x1
-     * @param int|float|string $y1
-     * @param int|float|string $x2
-     * @param int|float|string $y2
+     * @param float|int|string $x1
+     * @param float|int|string $y1
+     * @param float|int|string $x2
+     * @param float|int|string $y2
      * @param null|string $id
-     * @param null|string|SVGStyle $style
+     * @param string|SVGStyle|null $style
      * @return SVGLine
      */
-    public static function getInstance($x1, $y1, $x2, $y2, $style = null, ?string $id = null): self
-    {
+    public static function getInstance(
+        float|int|string $x1,
+        float|int|string $y1,
+        float|int|string $x2,
+        float|int|string $y2,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ): self {
         $rect = new SVGLine('<line></line>');
 
         $rect->setX1($x1);
@@ -60,9 +66,9 @@ class SVGLine extends SVGShapeEx
     /**
      * Define the x 1 of line
      *
-     * @param int|float|string $x1
+     * @param float|int|string $x1
      */
-    public function setX1($x1): void
+    public function setX1(float|int|string $x1): void
     {
         $this->addAttribute('x1', (string) $x1);
     }
@@ -70,9 +76,9 @@ class SVGLine extends SVGShapeEx
     /**
      * Define the x 2 of line
      *
-     * @param int|float|string $x2
+     * @param float|int|string $x2
      */
-    public function setX2($x2): void
+    public function setX2(float|int|string $x2): void
     {
         $this->addAttribute('x2', (string) $x2);
     }
@@ -80,9 +86,9 @@ class SVGLine extends SVGShapeEx
     /**
      * Define the y 1 of line
      *
-     * @param int|float|string $y1
+     * @param float|int|string $y1
      */
-    public function setY1($y1): void
+    public function setY1(float|int|string $y1): void
     {
         $this->addAttribute('y1', (string) $y1);
     }
@@ -90,9 +96,9 @@ class SVGLine extends SVGShapeEx
     /**
      * Define the y 2 of line
      *
-     * @param int|float|string $y2
+     * @param float|int|string $y2
      */
-    public function setY2($y2): void
+    public function setY2(float|int|string $y2): void
     {
         $this->addAttribute('y2', (string) $y2);
     }

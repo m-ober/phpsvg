@@ -39,17 +39,23 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Construct a circle
      *
-     * @param int|float|string $cx the center x
-     * @param int|float|string $cy the center y
-     * @param int|float|string $radiusX
-     * @param int|float|string $radiusY
+     * @param float|int|string $cx the center x
+     * @param float|int|string $cy the center y
+     * @param float|int|string $radiusX
+     * @param float|int|string $radiusY
      * @param null|string $id the id of element
-     * @param null|SVGStyle|string $style style of element
+     * @param string|SVGStyle|null $style style of element
      *
      * @return SVGEllipse
      */
-    public static function getInstance($cx, $cy, $radiusX, $radiusY, $style = null, ?string $id = null): SVGEllipse
-    {
+    public static function getInstance(
+        float|int|string $cx,
+        float|int|string $cy,
+        float|int|string $radiusX,
+        float|int|string $radiusY,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ): SVGEllipse {
         $circle = new SVGEllipse('<ellipse></ellipse>');
 
         $circle->setCx($cx);
@@ -64,9 +70,9 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Define the center x
      *
-     * @param int|float|string $cx
+     * @param float|int|string $cx
      */
-    public function setCx($cx): void
+    public function setCx(float|int|string $cx): void
     {
         $this->addAttribute('cx', (string) $cx);
     }
@@ -74,9 +80,9 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Define the center y
      *
-     * @param int|float|string $cy
+     * @param float|int|string $cy
      */
-    public function setCy($cy): void
+    public function setCy(float|int|string $cy): void
     {
         $this->addAttribute('cy', (string) $cy);
     }
@@ -94,12 +100,12 @@ class SVGEllipse extends SVGShapeEx
     /**
      * Define the radius of circle
      *
-     * @param int|float|string $radiusX
-     * @param int|float|string $radiusY
+     * @param float|int|string $radiusX
+     * @param float|int|string $radiusY
      *
      * @return void
      */
-    public function setRadius($radiusX, $radiusY): void
+    public function setRadius(float|int|string $radiusX, float|int|string $radiusY): void
     {
         $this->addAttribute('rx', (string) $radiusX);
         $this->addAttribute('ry', (string) $radiusY);

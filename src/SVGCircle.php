@@ -39,18 +39,21 @@ class SVGCircle extends SVGShapeEx
     /**
      * Construct a circle
      *
-     * @param int|float|string $cx the center x
-     * @param int|float|string $cy the center y
-     * @param int|float|string $radius the radius of circle
+     * @param float|int|string $cx the center x
+     * @param float|int|string $cy the center y
+     * @param float|int|string $radius the radius of circle
      * @param null|string $id the id of element
-     * @param null|SVGStyle|string $style style of element
-     *
-     * @return SVGCircle
+     * @param string|SVGStyle|null $style style of element
      *
      * @see https://www.w3.org/TR/SVG11/shapes.html#CircleElement
      */
-    public static function getInstance($cx, $cy, $radius, $style = null, ?string $id = null): SVGCircle
-    {
+    public static function getInstance(
+        float|int|string $cx,
+        float|int|string $cy,
+        float|int|string $radius,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ): SVGCircle {
         $circle = new SVGCircle('<circle></circle>');
 
         $circle->setCx($cx);
@@ -67,7 +70,7 @@ class SVGCircle extends SVGShapeEx
      *
      * @param int|float|string $cx
      */
-    public function setCx($cx): void
+    public function setCx(int|float|string $cx): void
     {
         $this->setAttribute('cx', (string) $cx);
     }
@@ -87,7 +90,7 @@ class SVGCircle extends SVGShapeEx
      *
      * @param int|float|string $cy
      */
-    public function setCy($cy): void
+    public function setCy(int|float|string $cy): void
     {
         $this->setAttribute('cy', (string) $cy);
     }
@@ -107,7 +110,7 @@ class SVGCircle extends SVGShapeEx
      *
      * @param int|float|string $radius
      */
-    public function setRadius($radius): void
+    public function setRadius(int|float|string $radius): void
     {
         $this->setAttribute('r', (string) $radius);
     }

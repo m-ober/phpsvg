@@ -34,17 +34,21 @@ namespace mober\phpsvg;
 
 class SVGImage extends SVGShapeEx
 {
-
     /**
-     * @param int|float|string $x
-     * @param int|float|string $y
+     * @param float|int|string $x
+     * @param float|int|string $y
      * @param null|string $id
      * @param string $filename
      * @param bool $embed
      * @return SVGImage
      */
-    public static function getInstance($x, $y, string $filename, bool $embed = true, ?string $id = null): SVGImage
-    {
+    public static function getInstance(
+        float|int|string $x,
+        float|int|string $y,
+        string $filename,
+        bool $embed = true,
+        ?string $id = null
+    ): SVGImage {
         $image = new SVGImage('<image></image>');
 
         $image->setX($x);
@@ -78,8 +82,7 @@ class SVGImage extends SVGShapeEx
     /**
      * Explode embed image string returning a stdClass with, mime, encode e binary properties
      *
-     * @param string $image
-     * @return \stdClass a stdClass with, mime, encode e binary properties
+     * @return \stdClass|null a stdClass with, mime, encode e binary properties
      */
     public function getImageData(): ?\stdClass
     {
@@ -110,7 +113,7 @@ class SVGImage extends SVGShapeEx
     {
         if ($embed) {
             //get the sizes of image using gd
-            $imageSize = getimagesize($filename, $imageSize);
+            getimagesize($filename, $imageSize);
             $mime = mime_content_type($filename);
             $file = base64_encode(file_get_contents($filename));
             $filename = 'data:' . $mime . ';base64,' . $file;

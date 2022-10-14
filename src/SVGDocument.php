@@ -53,7 +53,6 @@ use RuntimeException;
 
 class SVGDocument extends SVGShape implements SVGCanvas
 {
-
     public const VERSION = '1.1';
     public const XMLNS = 'http://www.w3.org/2000/svg';
     public const EXTENSION = 'svg';
@@ -81,8 +80,9 @@ class SVGDocument extends SVGShape implements SVGCanvas
      *
      * @param string|null $filename the file to load
      * @return SVGDocument
+     * @throws Exception
      */
-    public static function getInstance($filename = null)
+    public static function getInstance(?string $filename = null): SVGDocument
     {
         if ($filename) {
             //if is svgz use compres.zlib to load the compacted SVG
@@ -152,11 +152,11 @@ class SVGDocument extends SVGShape implements SVGCanvas
     /**
      * Define the page dimension , width.
      *
-     * @param int|float|string $width
+     * @param float|int|string $width
      * @example setWidth('350px');
      * @example setWidth('350mm');
      */
-    public function setWidth($width): void
+    public function setWidth(float|int|string $width): void
     {
         $this->setAttribute('width', (string) $width);
     }
@@ -198,13 +198,13 @@ class SVGDocument extends SVGShape implements SVGCanvas
     /**
      * Define the height of page.
      *
-     * @param int|float|string $height
+     * @param float|int|string $height
      *
      * @return void
      * @example setHeight('350px');
      * @example setHeight('350mm');
      */
-    public function setHeight($height): void
+    public function setHeight(float|int|string $height): void
     {
         $this->setAttribute('height', (string) $height);
     }
@@ -284,10 +284,10 @@ class SVGDocument extends SVGShape implements SVGCanvas
      */
     public function export(
         string $filename,
-        $width = 0,
-        $height = 0,
-        $respectRatio = false,
-        $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC
+        int $width = 0,
+        int $height = 0,
+        bool $respectRatio = false,
+        string $exportType = SVGDocument::EXPORT_TYPE_IMAGE_MAGIC
     ): bool {
         if ($exportType == SVGDocument::EXPORT_TYPE_IMAGE_MAGIC) {
             try {
@@ -296,8 +296,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
                 try {
                     $this->exportInkscape($filename, $width, $height);
                     return true;
-                } catch (Exception $exc) {
-                    $exc = null;
+                } catch (Exception) {
                     throw $e; //throw the first error
                 }
             }
@@ -308,8 +307,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
             } catch (Exception $e) {
                 try {
                     return $this->exportImagick($filename, $width, $height, $respectRatio);
-                } catch (Exception $exc) {
-                    $exc = null;
+                } catch (Exception) {
                     throw $e; //throw the original error
                 }
             }
@@ -346,7 +344,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
      * @noinspection PhpComposerExtensionStubsInspection
      * @noinspection PhpFullyQualifiedNameUsageInspection
      */
-    public function exportImagick(string $filename, $width = 0, $height = 0, bool $respectRatio = false): bool
+    public function exportImagick(string $filename, int $width = 0, int $height = 0, bool $respectRatio = false): bool
     {
         if (!extension_loaded('imagick')) {
             throw new RuntimeException('Please install "ext-imagick" extension.');

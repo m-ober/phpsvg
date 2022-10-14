@@ -36,9 +36,9 @@ namespace mober\phpsvg;
 
 class SVGStyle
 {
-    public $fill;
-    public $stroke;
-    public $strokeWidth;
+    public string $fill;
+    public string $stroke;
+    public string $strokeWidth;
     public $stopColor;
     public $stopOpacity;
     public $display;
@@ -47,14 +47,14 @@ class SVGStyle
     /**
      * Construct the style
      *
-     * @param null|string|array $style an array with styles
+     * @param array|string|null $style an array with styles
      */
-    public function __construct($style = null)
+    public function __construct(array|string $style = null)
     {
         if (is_string($style)) {
             $style = explode(';', $style);
 
-            foreach ($style as $line => $info) {
+            foreach ($style as $info) {
                 $styleElement = explode(':', $info);
 
                 if ($styleElement[0]) {
@@ -96,7 +96,7 @@ class SVGStyle
      *
      * @return void
      */
-    public function setDisplay($display): void
+    public function setDisplay(string $display): void
     {
         $this->display = $display;
     }
@@ -105,7 +105,7 @@ class SVGStyle
      * Return the display of element
      * @return string
      */
-    public function getDisplay()
+    public function getDisplay(): string
     {
         return $this->display;
     }
@@ -133,11 +133,11 @@ class SVGStyle
     /**
      * Set the fill color
      *
-     * @param string $fill color
+     * @param SVGLinearGradient|string $fill color
      *
      * @return void
      */
-    public function setFill(string $fill): void
+    public function setFill(SVGLinearGradient|string $fill): void
     {
         if ($fill instanceof SVGLinearGradient) {
             $fill = $this->url($fill);
@@ -160,11 +160,11 @@ class SVGStyle
      * Set the stroke (contour) color
      *
      * @param string $stroke the stroke color
-     * @param int|float|string $width
+     * @param float|int|string $width
      *
      * @return void
      */
-    public function setStroke(string $stroke, $width = 0): void
+    public function setStroke(string $stroke, float|int|string $width = 0): void
     {
         $this->stroke = $stroke;
         $this->setStrokeWidth($width);
@@ -173,11 +173,11 @@ class SVGStyle
     /**
      * Define the width of the stroke
      *
-     * @param int|float|string $width width of the stroke
+     * @param float|int|string $width width of the stroke
      *
      * @return void
      */
-    public function setStrokeWidth($width): void
+    public function setStrokeWidth(float|int|string $width): void
     {
         if (!empty($width)) {
             $this->strokeWidth = $width;
@@ -207,11 +207,11 @@ class SVGStyle
     /**
      * Make the url in some param
      *
-     * @param XMLElement|string $content
+     * @param string|XMLElement $content
      *
      * @return string
      */
-    public function url($content)
+    public function url(string|XMLElement $content): string
     {
         $url = $content;
 

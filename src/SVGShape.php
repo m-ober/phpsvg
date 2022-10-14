@@ -41,9 +41,9 @@ class SVGShape extends XMLElement
     /**
      * Define the x coordinate of position
      *
-     * @param int|float|string $x the x coordinate of position
+     * @param float|int|string $x the x coordinate of position
      */
-    public function setX($x): void
+    public function setX(float|int|string $x): void
     {
         $this->setAttribute('x', $x);
     }
@@ -61,9 +61,9 @@ class SVGShape extends XMLElement
     /**
      * Define the y coordinate of position
      *
-     * @param int|float|string $y the y coordinate of position
+     * @param float|int|string $y the y coordinate of position
      */
-    public function setY($y): void
+    public function setY(float|int|string $y): void
     {
         $this->setAttribute('y', $y);
     }
@@ -81,9 +81,9 @@ class SVGShape extends XMLElement
     /**
      * Define the style of element, can be a SVGStyle element or an string
      *
-     * @param null|SVGStyle|string $style SVGStyle element or an string
+     * @param string|SVGStyle|null $style SVGStyle element or an string
      */
-    public function setStyle($style): void
+    public function setStyle(SVGStyle|string|null $style): void
     {
         if (is_null($style)) {
             return;

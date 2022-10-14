@@ -39,20 +39,19 @@ use SimpleXMLElement;
 
 class XMLElement extends SimpleXMLElement
 {
-
     /**
      * Value used to control last used id
      *
      * @var integer
      */
-    protected static $uniqueId = 0;
+    protected static int $uniqueId = 0;
 
     /**
      * Define if is to generate identificator automagic
      *
      * @var boolean if is to generate identificator automagic
      */
-    public static $useAutoId = true;
+    public static bool $useAutoId = true;
 
     /**
      * Remove a attribute
@@ -78,7 +77,7 @@ class XMLElement extends SimpleXMLElement
      *
      * @return void
      */
-    public function setAttribute(string $attribute, $value, ?string $namespace = null): void
+    public function setAttribute(string $attribute, mixed $value, ?string $namespace = null): void
     {
         $this->removeAttribute($attribute);
         if (empty($value)) {
@@ -171,7 +170,7 @@ class XMLElement extends SimpleXMLElement
      * This function will return only one element, the first
      *
      * @param string $id the id to find
-     * @return XMLElement
+     * @return XMLElement|null
      */
     public function getElementById(string $id): ?XMLElement
     {
@@ -184,7 +183,7 @@ class XMLElement extends SimpleXMLElement
      *
      * @param string $attribute
      * @param string $value
-     * @return XMLElement
+     * @return XMLElement|null
      */
     public function getElementByAttribute(string $attribute, string $value): ?XMLElement
     {
@@ -252,7 +251,7 @@ class XMLElement extends SimpleXMLElement
             }
         } else {
             if ($this->count() > 0) {
-                foreach ($this->children() as $line => $child) {
+                foreach ($this->children() as $child) {
                     /** @psalm-suppress UndefinedMethod */
                     $element = $child->getElementsByAttribute($attribute, $value);
 
@@ -319,10 +318,13 @@ class XMLElement extends SimpleXMLElement
      * @param bool $humanReadable
      * @param bool $prolog
      * @return string|int|false
-     * @psalm-suppress ImplementedReturnTypeMismatch
+     * @psalm-suppress MethodSignatureMismatch
      */
-    public function asXML($filename = null, $humanReadable = false, $prolog = true)
-    {
+    public function asXML(
+        string|null $filename = null,
+        bool $humanReadable = false,
+        bool $prolog = true
+    ): bool|int|string {
         $dom = dom_import_simplexml($this);
 
         if ($humanReadable) {

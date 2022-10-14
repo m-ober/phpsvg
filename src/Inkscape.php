@@ -248,17 +248,17 @@ use RuntimeException;
 class Inkscape
 {
     /** @var array exec params */
-    protected $params;
+    protected array $params;
 
     /** @var null|string Last execute result string (null on error) */
-    protected $lastExecuteResult;
+    protected ?string $lastExecuteResult;
 
-    protected $lastCmd;
+    protected string $lastCmd;
 
     /**
-     * @param SVGDocument|string $filename
+     * @param string|SVGDocument $filename
      */
-    public function __construct($filename)
+    public function __construct(string|SVGDocument $filename)
     {
         //treat if is a SVGDocument
         if ($filename instanceof SVGDocument) {
@@ -294,7 +294,7 @@ class Inkscape
         return $this->params;
     }
 
-    public function setParams(array $params)
+    public function setParams(array $params): array
     {
         return $this->params = $params;
     }

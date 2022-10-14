@@ -34,7 +34,6 @@ namespace mober\phpsvg;
 
 class SVGGroup extends SVGShape implements SVGCanvas
 {
-
     /**
      * @param null|string $id
      * @return SVGGroup

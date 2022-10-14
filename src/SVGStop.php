@@ -38,11 +38,11 @@ class SVGStop extends XMLElement
 {
     /**
      * @param null|string $id
-     * @param null|string|SVGStyle $style
+     * @param string|SVGStyle|null $style
      * @param float $offset
      * @return SVGStop
      */
-    public static function getInstance(float $offset = 0, $style = null, ?string $id = null): SVGStop
+    public static function getInstance(float $offset = 0, SVGStyle|string $style = null, ?string $id = null): SVGStop
     {
         $stop = new SVGStop('<stop></stop>');
 
@@ -56,11 +56,11 @@ class SVGStop extends XMLElement
     /**
      * Define the style of element, can be a SVGStyle element or an string
      *
-     * @param null|string|SVGStyle $style SVGStyle element or an string
+     * @param string|SVGStyle|null $style SVGStyle element or an string
      *
      * @return void
      */
-    public function setStyle($style): void
+    public function setStyle(SVGStyle|string|null $style): void
     {
         if (is_null($style)) {
             return;
@@ -77,7 +77,7 @@ class SVGStop extends XMLElement
      *
      * @return SVGStyle style of element
      */
-    public function getStyle()
+    public function getStyle(): SVGStyle
     {
         return new SVGStyle($this->getAttribute('style'));
     }
@@ -129,7 +129,7 @@ class SVGStop extends XMLElement
      * @return float return the opacity off this stop, 1 means 100% visible
      *
      */
-    public function getOpacity()
+    public function getOpacity(): float
     {
         return $this->getStyle()->opacity;
     }
