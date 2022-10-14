@@ -65,9 +65,11 @@ class SVGLinearGradient extends XMLElement
      *
      * @param SVGStop $stop
      */
-    public function addStop(SVGStop $stop): void
+    public function addStop(SVGStop $stop): static
     {
         $this->append($stop);
+
+        return $this;
     }
 
     /**
@@ -75,7 +77,7 @@ class SVGLinearGradient extends XMLElement
      *
      * @param SVGStop[] $stops
      */
-    public function setStops(array $stops): void
+    public function setStops(array $stops): static
     {
         //automagic controls the offset
         $offset = 0;
@@ -92,6 +94,8 @@ class SVGLinearGradient extends XMLElement
                 $this->addStop($stop);
             }
         }
+
+        return $this;
     }
 
     /*public function setX1( $x1 )

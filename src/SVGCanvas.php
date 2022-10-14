@@ -6,5 +6,5 @@ namespace mober\phpsvg;
 
 interface SVGCanvas
 {
-    public function addShape(XMLElement $append): void;
+    public function addShape(XMLElement $append): static;
 }

@@ -228,9 +228,11 @@ class SVGDocument extends SVGShape implements SVGCanvas
      *
      * @param XMLElement $append the element to append
      */
-    public function addShape(XMLElement $append): void
+    public function addShape(XMLElement $append): static
     {
         $this->append($append);
+
+        return $this;
     }
 
     /**

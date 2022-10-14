@@ -93,12 +93,12 @@ class SVGStyle
      * Define the display of elemet
      *
      * @param string $display
-     *
-     * @return void
      */
-    public function setDisplay(string $display): void
+    public function setDisplay(string $display): static
     {
         $this->display = $display;
+
+        return $this;
     }
 
     /**
@@ -134,16 +134,16 @@ class SVGStyle
      * Set the fill color
      *
      * @param SVGLinearGradient|string $fill color
-     *
-     * @return void
      */
-    public function setFill(SVGLinearGradient|string $fill): void
+    public function setFill(SVGLinearGradient|string $fill): static
     {
         if ($fill instanceof SVGLinearGradient) {
             $fill = $this->url($fill);
         }
 
         $this->fill = $fill;
+
+        return $this;
     }
 
     /**
@@ -161,27 +161,27 @@ class SVGStyle
      *
      * @param string $stroke the stroke color
      * @param float|int|string $width
-     *
-     * @return void
      */
-    public function setStroke(string $stroke, float|int|string $width = 0): void
+    public function setStroke(string $stroke, float|int|string $width = 0): static
     {
         $this->stroke = $stroke;
         $this->setStrokeWidth($width);
+
+        return $this;
     }
 
     /**
      * Define the width of the stroke
      *
      * @param float|int|string $width width of the stroke
-     *
-     * @return void
      */
-    public function setStrokeWidth(float|int|string $width): void
+    public function setStrokeWidth(float|int|string $width): static
     {
         if (!empty($width)) {
             $this->strokeWidth = $width;
         }
+
+        return $this;
     }
 
     /**

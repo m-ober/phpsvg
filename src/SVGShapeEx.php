@@ -40,12 +40,12 @@ class SVGShapeEx extends SVGShape
      * Define the width of the object
      *
      * @param float|int|string $width
-     *
-     * @return void
      */
-    public function setWidth(float|int|string $width): void
+    public function setWidth(float|int|string $width): static
     {
         $this->setAttribute('width', (string) $width);
+
+        return $this;
     }
 
     /**
@@ -62,12 +62,12 @@ class SVGShapeEx extends SVGShape
      * Define the height of the object
      *
      * @param float|int|string $height
-     *
-     * @return void
      */
-    public function setHeight(float|int|string $height): void
+    public function setHeight(float|int|string $height): static
     {
         $this->setAttribute('height', (string) $height);
+
+        return $this;
     }
 
     /**

@@ -57,19 +57,17 @@ class SVGStop extends XMLElement
      * Define the style of element, can be a SVGStyle element or an string
      *
      * @param string|SVGStyle|null $style SVGStyle element or an string
-     *
-     * @return void
      */
-    public function setStyle(SVGStyle|string|null $style): void
+    public function setStyle(SVGStyle|string|null $style): static
     {
-        if (is_null($style)) {
-            return;
-        }
-        if (empty($style)) {
-            $style = new SVGStyle();
+        if (!is_null($style)) {
+            if (empty($style)) {
+                $style = new SVGStyle();
+            }
+            $this->setAttribute('style', $style);
         }
 
-        $this->setAttribute('style', $style);
+        return $this;
     }
 
     /**
@@ -86,15 +84,13 @@ class SVGStop extends XMLElement
      * Define the color of the stop
      *
      * @param string $color
-     *
-     * @return void
      */
-    public function setColor(string $color): void
+    public function setColor(string $color): static
     {
         $style = $this->getStyle();
         $style->stopColor = $color;
 
-        $this->setStyle($style);
+        return $this->setStyle($style);
     }
 
     /**
@@ -112,15 +108,13 @@ class SVGStop extends XMLElement
      * The make it 100% visible set opacity to 1.
      *
      * @param float $opacity
-     *
-     * @return void
      */
-    public function setOpacity(float $opacity = 1): void
+    public function setOpacity(float $opacity = 1): static
     {
         $style = $this->getStyle();
         $style->stopOpacity = $opacity;
 
-        $this->setStyle($style);
+        return $this->setStyle($style);
     }
 
     /**
@@ -139,12 +133,12 @@ class SVGStop extends XMLElement
      * Offset variates from 0 to 1, passing by floating value between it.
      *
      * @param float $offset
-     *
-     * @return void
      */
-    public function setOffset(float $offset): void
+    public function setOffset(float $offset): static
     {
         $this->setAttribute('offset', (string) $offset);
+
+        return $this;
     }
 
     /**

@@ -58,12 +58,12 @@ class XMLElement extends SimpleXMLElement
      * Remove a attribute
      *
      * @param string $attribute name of attribute
-     *
-     * @return void
      */
-    public function removeAttribute(string $attribute): void
+    public function removeAttribute(string $attribute): static
     {
         unset($this->attributes()->$attribute);
+
+        return $this;
     }
 
     /**
@@ -75,21 +75,19 @@ class XMLElement extends SimpleXMLElement
      * @param null|string $namespace the namespace of attribute
      *
      * @example $this->addAttribute("xlink:href", $filename, 'http://www.w3.org/1999/xlink');
-     *
-     * @return void
      */
-    public function setAttribute(string $attribute, mixed $value, ?string $namespace = null): void
+    public function setAttribute(string $attribute, mixed $value, ?string $namespace = null): static
     {
         $this->removeAttribute($attribute);
-        if (empty($value)) {
-            return;
+        if (!empty($value)) {
+            if (!empty($namespace)) {
+                $this->addAttribute($attribute, (string) $value, $namespace);
+            } else {
+                $this->addAttribute($attribute, (string) $value);
+            }
         }
 
-        if (!empty($namespace)) {
-            $this->addAttribute($attribute, (string) $value, $namespace);
-        } else {
-            $this->addAttribute($attribute, (string) $value);
-        }
+        return $this;
     }
 
     /**
@@ -123,12 +121,14 @@ class XMLElement extends SimpleXMLElement
      *
      * @param null|string $id
      */
-    public function setId(?string $id): void
+    public function setId(?string $id): static
     {
         if (self::$useAutoId) {
             $id = !empty($id) ? $id : $this->getUniqueId();
         }
         $this->setAttribute('id', $id);
+
+        return $this;
     }
 
     /**
@@ -155,15 +155,15 @@ class XMLElement extends SimpleXMLElement
      * Append other XMLElement, support namespaces.
      *
      * @param XMLElement $append
-     *
-     * @return void
      */
-    public function append(XMLElement $append): void
+    public function append(XMLElement $append): static
     {
         $target = dom_import_simplexml($this);
         $source = dom_import_simplexml($append);
         $import = $target->ownerDocument->importNode($source, true);
         $target->appendChild($import);
+
+        return $this;
     }
 
     /**
@@ -272,12 +272,13 @@ class XMLElement extends SimpleXMLElement
      * Is defined as alternative text in browser.
      *
      * @param string $title
-     * @return void
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title): static
     {
         /** @psalm-suppress UndefinedThisPropertyAssignment */
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -295,12 +296,13 @@ class XMLElement extends SimpleXMLElement
      * Define the description of the element
      *
      * @param string $desc
-     * @return void
      */
-    public function setDescription(string $desc): void
+    public function setDescription(string $desc): static
     {
         /** @psalm-suppress UndefinedThisPropertyAssignment */
         $this->desc = $desc;
+
+        return $this;
     }
 
     /**
@@ -355,16 +357,19 @@ class XMLElement extends SimpleXMLElement
      * Remove an element by it's id.
      *
      * @param string $id
-     * @return void
      */
-    public function removeElementById(string $id): void
+    public function removeElementById(string $id): static
     {
         $this->removeElement($this->getElementById($id));
+
+        return $this;
     }
 
-    public function removeElement(SimpleXMLElement $node): void
+    public function removeElement(SimpleXMLElement $node): static
     {
         $dom = dom_import_simplexml($node);
         $dom->parentNode->removeChild($dom);
+
+        return $this;
     }
 }

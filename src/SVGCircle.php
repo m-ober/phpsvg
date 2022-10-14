@@ -73,9 +73,11 @@ class SVGCircle extends SVGShapeEx
      *
      * @param int|float|string $cx
      */
-    public function setCx(int|float|string $cx): void
+    public function setCx(int|float|string $cx): static
     {
         $this->setAttribute('cx', (string) $cx);
+
+        return $this;
     }
 
     /**
@@ -93,9 +95,11 @@ class SVGCircle extends SVGShapeEx
      *
      * @param int|float|string $cy
      */
-    public function setCy(int|float|string $cy): void
+    public function setCy(int|float|string $cy): static
     {
         $this->setAttribute('cy', (string) $cy);
+
+        return $this;
     }
 
     /**
@@ -113,9 +117,11 @@ class SVGCircle extends SVGShapeEx
      *
      * @param int|float|string $radius
      */
-    public function setRadius(int|float|string $radius): void
+    public function setRadius(int|float|string $radius): static
     {
         $this->setAttribute('r', (string) $radius);
+
+        return $this;
     }
 
     /**

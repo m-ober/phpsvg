@@ -43,9 +43,11 @@ class SVGShape extends XMLElement
      *
      * @param float|int|string $x the x coordinate of position
      */
-    public function setX(float|int|string $x): void
+    public function setX(float|int|string $x): static
     {
         $this->setAttribute('x', $x);
+
+        return $this;
     }
 
     /**
@@ -63,9 +65,11 @@ class SVGShape extends XMLElement
      *
      * @param float|int|string $y the y coordinate of position
      */
-    public function setY(float|int|string $y): void
+    public function setY(float|int|string $y): static
     {
         $this->setAttribute('y', $y);
+
+        return $this;
     }
 
     /**
@@ -83,15 +87,16 @@ class SVGShape extends XMLElement
      *
      * @param string|SVGStyle|null $style SVGStyle element or an string
      */
-    public function setStyle(SVGStyle|string|null $style): void
+    public function setStyle(SVGStyle|string|null $style): static
     {
-        if (is_null($style)) {
-            return;
+        if (!is_null($style)) {
+            if (empty($style)) {
+                $style = new SVGStyle();
+            }
+            $this->setAttribute('style', $style);
         }
-        if (empty($style)) {
-            $style = new SVGStyle();
-        }
-        $this->setAttribute('style', $style);
+
+        return $this;
     }
 
     /**
@@ -107,21 +112,21 @@ class SVGShape extends XMLElement
     /**
      * Show element
      */
-    public function show(): void
+    public function show(): static
     {
         $style = $this->getStyle();
         $style->show();
-        $this->setStyle($style);
+        return $this->setStyle($style);
     }
 
     /**
      * Hide the element
      */
-    public function hide(): void
+    public function hide(): static
     {
         $style = $this->getStyle();
         $style->hide();
-        $this->setStyle($style);
+        return $this->setStyle($style);
     }
 
     /**
@@ -150,9 +155,11 @@ class SVGShape extends XMLElement
      * @param string $transform the transformation command
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
      */
-    public function setTransform(string $transform): void
+    public function setTransform(string $transform): static
     {
         $this->setAttribute('transform', $transform);
+
+        return $this;
     }
 
     /**
@@ -161,12 +168,14 @@ class SVGShape extends XMLElement
      * @param string $transform the transformation command
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
      */
-    public function addTransform(string $transform): void
+    public function addTransform(string $transform): static
     {
         if ($this->getTransform()) {
             $transform = trim($this->getTransform()) . self::TRANSFORM_SEPARATOR . $transform;
         }
         $this->setAttribute('transform', $transform);
+
+        return $this;
     }
 
     /**
@@ -182,13 +191,15 @@ class SVGShape extends XMLElement
      * @param float $cy y of rotation point
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
      */
-    public function rotate(float $angle, float $cx = 0, float $cy = 0): void
+    public function rotate(float $angle, float $cx = 0, float $cy = 0): static
     {
         if ($cx > 0 && $cy > 0) {
             $this->addTransform("rotate($angle,$cx,$cy)");
         } else {
             $this->addTransform("rotate($angle)");
         }
+
+        return $this;
     }
 
     /**
@@ -197,13 +208,15 @@ class SVGShape extends XMLElement
      * @param float $sy If <sy> is not provided, it is assumed to be equal to <sx>.
      * @see http://www.w3.org/TR/SVG/coords.html#TransformAttribute
      */
-    public function scale(float $sx, float $sy = 0): void
+    public function scale(float $sx, float $sy = 0): static
     {
         if ($sx > 0 && $sy > 0) {
             $this->addTransform("scale($sx, $sy)");
         } else {
             $this->addTransform("scale($sx)");
         }
+
+        return $this;
     }
 
     /**
@@ -214,13 +227,15 @@ class SVGShape extends XMLElement
      * @param float $tx translate x
      * @param float $ty translate y If <ty> is not provided, it is assumed to be zero
      */
-    public function translate(float $tx, float $ty = 0): void
+    public function translate(float $tx, float $ty = 0): static
     {
         if ($ty > 0) {
             $this->addTransform("translate($tx,$ty)");
         } else {
             $this->addTransform("translate($tx);");
         }
+
+        return $this;
     }
 
     /**
@@ -228,9 +243,11 @@ class SVGShape extends XMLElement
      *
      * @param float $angle the skewX angle
      */
-    public function skewX(float $angle): void
+    public function skewX(float $angle): static
     {
          $this->addTransform("skewX($angle)");
+
+         return $this;
     }
 
     /**
@@ -238,9 +255,11 @@ class SVGShape extends XMLElement
      *
      * @param float $angle the skewY angle
      */
-    public function skewY(float $angle): void
+    public function skewY(float $angle): static
     {
          $this->addTransform("skewY($angle)");
+
+         return $this;
     }
 
     /**
@@ -255,9 +274,11 @@ class SVGShape extends XMLElement
      * @param float $e
      * @param float $f
      */
-    public function matrix(float $a, float $b, float $c, float $d, float $e, float $f): void
+    public function matrix(float $a, float $b, float $c, float $d, float $e, float $f): static
     {
         $this->addTransform("matrix($a,$b,$c,$d,$e,$f)");
+
+        return $this;
     }
 
     /**
@@ -265,9 +286,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnclick(string $script): void
+    public function addOnclick(string $script): static
     {
         $this->addAttribute('onclick', $script);
+
+        return $this;
     }
 
     /**
@@ -275,9 +298,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnFocusIn(string $script): void
+    public function addOnFocusIn(string $script): static
     {
         $this->addAttribute('onfocusin', $script);
+
+        return $this;
     }
 
     /**
@@ -285,9 +310,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnFocusOut(string $script): void
+    public function addOnFocusOut(string $script): static
     {
         $this->addAttribute('onfocusout', $script);
+
+        return $this;
     }
 
     /**
@@ -295,9 +322,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnActivate(string $script): void
+    public function addOnActivate(string $script): static
     {
         $this->addAttribute('onactivate', $script);
+
+        return $this;
     }
 
     /**
@@ -305,9 +334,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseDown(string $script): void
+    public function addOnMouseDown(string $script): static
     {
         $this->addAttribute('onmousedown', $script);
+
+        return $this;
     }
 
     /**
@@ -315,9 +346,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseUp(string $script): void
+    public function addOnMouseUp(string $script): static
     {
         $this->addAttribute('onmouseup', $script);
+
+        return $this;
     }
 
     /**
@@ -325,9 +358,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseOver(string $script): void
+    public function addOnMouseOver(string $script): static
     {
         $this->addAttribute('onmouseover', $script);
+
+        return $this;
     }
 
     /**
@@ -335,9 +370,11 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseMove(string $script): void
+    public function addOnMouseMove(string $script): static
     {
         $this->addAttribute('onmousemove', $script);
+
+        return $this;
     }
 
     /**
@@ -345,8 +382,10 @@ class SVGShape extends XMLElement
      *
      * @param string $script
      */
-    public function addOnMouseOut(string $script): void
+    public function addOnMouseOut(string $script): static
     {
         $this->addAttribute('onmouseout', $script);
+
+        return $this;
     }
 }

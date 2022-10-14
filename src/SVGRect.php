@@ -70,12 +70,12 @@ class SVGRect extends SVGShapeEx
      * Define the round of rect
      *
      * @param float|int|string $rx the round
-     *
-     * @return void
      */
-    public function setRound(float|int|string $rx): void
+    public function setRound(float|int|string $rx): static
     {
         $this->addAttribute('rx', (string) $rx);
+
+        return $this;
     }
 
     /**

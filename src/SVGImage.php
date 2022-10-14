@@ -109,7 +109,7 @@ class SVGImage extends SVGShapeEx
      * @param string $filename
      * @param bool $embed if is to embed or not
      */
-    public function setImage(string $filename, bool $embed = true): void
+    public function setImage(string $filename, bool $embed = true): static
     {
         if ($embed) {
             //get the sizes of image using gd
@@ -121,5 +121,7 @@ class SVGImage extends SVGShapeEx
             $this->setHeight($imageSize[1]);
         }
         $this->addAttribute("xlink:href", $filename, 'http://www.w3.org/1999/xlink');
+
+        return $this;
     }
 }

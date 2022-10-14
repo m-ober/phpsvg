@@ -71,9 +71,11 @@ class SVGLine extends SVGShapeEx
      *
      * @param float|int|string $x1
      */
-    public function setX1(float|int|string $x1): void
+    public function setX1(float|int|string $x1): static
     {
         $this->addAttribute('x1', (string) $x1);
+
+        return $this;
     }
 
     /**
@@ -81,9 +83,11 @@ class SVGLine extends SVGShapeEx
      *
      * @param float|int|string $x2
      */
-    public function setX2(float|int|string $x2): void
+    public function setX2(float|int|string $x2): static
     {
         $this->addAttribute('x2', (string) $x2);
+
+        return $this;
     }
 
     /**
@@ -91,9 +95,11 @@ class SVGLine extends SVGShapeEx
      *
      * @param float|int|string $y1
      */
-    public function setY1(float|int|string $y1): void
+    public function setY1(float|int|string $y1): static
     {
         $this->addAttribute('y1', (string) $y1);
+
+        return $this;
     }
 
     /**
@@ -101,9 +107,11 @@ class SVGLine extends SVGShapeEx
      *
      * @param float|int|string $y2
      */
-    public function setY2(float|int|string $y2): void
+    public function setY2(float|int|string $y2): static
     {
         $this->addAttribute('y2', (string) $y2);
+
+        return $this;
     }
 
     /**

@@ -72,9 +72,11 @@ class SVGEllipse extends SVGShapeEx
      *
      * @param float|int|string $cx
      */
-    public function setCx(float|int|string $cx): void
+    public function setCx(float|int|string $cx): static
     {
         $this->addAttribute('cx', (string) $cx);
+
+        return $this;
     }
 
     /**
@@ -82,9 +84,11 @@ class SVGEllipse extends SVGShapeEx
      *
      * @param float|int|string $cy
      */
-    public function setCy(float|int|string $cy): void
+    public function setCy(float|int|string $cy): static
     {
         $this->addAttribute('cy', (string) $cy);
+
+        return $this;
     }
 
     /**
@@ -102,13 +106,13 @@ class SVGEllipse extends SVGShapeEx
      *
      * @param float|int|string $radiusX
      * @param float|int|string $radiusY
-     *
-     * @return void
      */
-    public function setRadius(float|int|string $radiusX, float|int|string $radiusY): void
+    public function setRadius(float|int|string $radiusX, float|int|string $radiusY): static
     {
         $this->addAttribute('rx', (string) $radiusX);
         $this->addAttribute('ry', (string) $radiusY);
+
+        return $this;
     }
 
     /**
