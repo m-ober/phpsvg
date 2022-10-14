@@ -250,8 +250,6 @@ class SVGStyle
      */
     protected static function toCamelCase(string $str): string
     {
-        return preg_replace_callback('/-([a-z])/', function ($hit) {
-            return strtoupper($hit[0]);
-        }, $str);
+        return strtr(lcfirst(ucwords($str, '-')), ['-' => '']);
     }
 }
