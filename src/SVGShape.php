@@ -38,6 +38,13 @@ class SVGShape extends XMLElement
 {
     private const TRANSFORM_SEPARATOR = ' ';
 
+    public function setClass(string $class): static
+    {
+        $this->setAttribute('class', $class);
+
+        return $this;
+    }
+
     /**
      * Define the x coordinate of position
      *
