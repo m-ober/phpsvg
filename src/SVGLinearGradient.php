@@ -40,9 +40,9 @@ class SVGLinearGradient extends XMLElement
      * @param null|string $id
      * @param SVGStop[] $stops
      */
-    public function __construct(array $stops, ?string $id = null)
+    public function __construct(array $stops, ?string $id = null, $data = '<linearGradient></linearGradient>')
     {
-        parent::__construct('<linearGradient></linearGradient>');
+        parent::__construct($data);
 
         $this->setId($id);
         $this->setStops($stops);

@@ -36,10 +36,7 @@ class SVGRadialGradient extends SVGLinearGradient
 {
     public function __construct(array $stops, ?string $id = null)
     {
-        parent::__construct('<radialGradient></radialGradient>');
-
-        $this->setId($id);
-        $this->setStops($stops);
+        parent::__construct($stops, $id, '<radialGradient></radialGradient>');
     }
 
     /**
