@@ -34,14 +34,26 @@ namespace mober\phpsvg;
 
 class SVGRect extends SVGShapeEx
 {
+    public function __construct(
+        float|int|string $x,
+        float|int|string $y,
+        float|int|string $width,
+        float|int|string $height,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ) {
+        parent::__construct('<rect></rect>');
+
+        $this->setX($x);
+        $this->setY($y);
+        $this->setWidth($width);
+        $this->setHeight($height);
+        $this->setId($id);
+        $this->setStyle($style);
+    }
+
     /**
-     * @param float|int|string $x
-     * @param float|int|string $y
-     * @param null|string $id
-     * @param float|int|string $width
-     * @param float|int|string $height
-     * @param string|SVGStyle|null $style
-     * @return SVGRect
+     * @deprecated
      */
     public static function getInstance(
         float|int|string $x,
@@ -51,16 +63,7 @@ class SVGRect extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ): SVGRect {
-        $rect = new SVGRect('<rect></rect>');
-
-        $rect->setX($x);
-        $rect->setY($y);
-        $rect->setWidth($width);
-        $rect->setHeight($height);
-        $rect->setId($id);
-        $rect->setStyle($style);
-
-        return $rect;
+        return new SVGRect($x, $y, $width, $height, $style, $id);
     }
 
     /**

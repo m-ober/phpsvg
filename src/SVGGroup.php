@@ -34,16 +34,18 @@ namespace mober\phpsvg;
 
 class SVGGroup extends SVGShape implements SVGCanvas
 {
+    public function __construct(?string $id = null)
+    {
+        parent::__construct('<g></g>');
+        $this->setId($id);
+    }
+
     /**
-     * @param null|string $id
-     * @return SVGGroup
+     * @deprecated
      */
     public static function getInstance(?string $id = null): SVGGroup
     {
-        $rect = new SVGGroup('<g></g>');
-        $rect->setId($id);
-
-        return $rect;
+        return new SVGGroup($id);
     }
 
     /**

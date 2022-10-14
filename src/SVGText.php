@@ -36,13 +36,29 @@ namespace mober\phpsvg;
 
 class SVGText extends SVGShape
 {
+    public function __construct(
+        float|int|string $x,
+        float|int|string $y,
+        string $text,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ) {
+        parent::__construct('<text></text>');
+
+        $this->setX($x);
+        $this->setY($y);
+        $this->setId($id);
+
+        if (!is_null($style)) {
+            $this->setAttribute('style', $style);
+        }
+
+        /** @psalm-suppress UndefinedMethod */
+        $this[0] = $text;
+    }
+
     /**
-     * @param float|int|string $x
-     * @param float|int|string $y
-     * @param null|string $id
-     * @param string $text
-     * @param string|SVGStyle|null $style
-     * @return SVGText
+     * @deprecated
      */
     public static function getInstance(
         float|int|string $x,
@@ -51,16 +67,6 @@ class SVGText extends SVGShape
         SVGStyle|string $style = null,
         ?string $id = null
     ): SVGText {
-        $t = new SVGText('<text></text>');
-        $t->setX($x);
-        $t->setY($y);
-        $t->setId($id);
-        if (!is_null($style)) {
-            $t->setAttribute('style', $style);
-        }
-        /** @psalm-suppress UndefinedMethod */
-        $t[0] = $text;
-
-        return $t;
+        return new SVGText($x, $y, $text, $style, $id);
     }
 }

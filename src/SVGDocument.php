@@ -62,27 +62,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
     private const EXPORT_TYPE_IMAGE_MAGIC = 'imagick';
     private const EXPORT_TYPE_INKSCAPE = 'inkscape';
 
-    /**
-     * Return the extension of a filename
-     *
-     * @param string $filename the filename to get the extension
-     * @return string the filename to get the extension
-     */
-    protected static function getFileExtension(string $filename): string
-    {
-        return pathinfo($filename, PATHINFO_EXTENSION);
-    }
-
-    /**
-     * Return a SVGDocument
-     * If filename is not passed create a default svg.
-     * Supports gzipped content.
-     *
-     * @param string|null $filename the file to load
-     * @return SVGDocument
-     * @throws Exception
-     */
-    public static function getInstance(?string $filename = null): SVGDocument
+    public function __construct(?string $filename = null)
     {
         if ($filename) {
             //if is svgz use compres.zlib to load the compacted SVG
@@ -102,19 +82,43 @@ class SVGDocument extends SVGShape implements SVGCanvas
                 throw new RuntimeException('Impossible to load content of file ' . $filename);
             }
 
-            $svg = new SVGDocument($content);
+            parent::__construct($content);
         } else {
             //create clean SVG
-            $svg = new SVGDocument('<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg></svg>');
+            parent::__construct('<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg></svg>');
 
             //define the default parameters A4 pageformat
-            $svg->setWidth('210mm');
-            $svg->setHeight('297mm');
-            $svg->setVersion(self::VERSION);
-            $svg->setAttribute('xmlns', self::XMLNS);
+            $this->setWidth('210mm');
+            $this->setHeight('297mm');
+            $this->setVersion(self::VERSION);
+            $this->setAttribute('xmlns', self::XMLNS);
         }
+    }
 
-        return $svg;
+    /**
+     * Return the extension of a filename
+     *
+     * @param string $filename the filename to get the extension
+     * @return string the filename to get the extension
+     */
+    protected static function getFileExtension(string $filename): string
+    {
+        return pathinfo($filename, PATHINFO_EXTENSION);
+    }
+
+    /**
+     * Return a SVGDocument
+     * If filename is not passed create a default svg.
+     * Supports gzipped content.
+     *
+     * @param string|null $filename the file to load
+     * @return SVGDocument
+     * @throws Exception
+     * @deprecated
+     */
+    public static function getInstance(?string $filename = null): SVGDocument
+    {
+        return new SVGDocument($filename);
     }
 
     /**

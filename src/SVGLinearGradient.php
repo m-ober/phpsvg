@@ -39,15 +39,24 @@ class SVGLinearGradient extends XMLElement
     /**
      * @param null|string $id
      * @param SVGStop[] $stops
+     */
+    public function __construct(array $stops, ?string $id = null)
+    {
+        parent::__construct('<linearGradient></linearGradient>');
+
+        $this->setId($id);
+        $this->setStops($stops);
+    }
+
+    /**
+     * @param null|string $id
+     * @param SVGStop[] $stops
      * @return SVGLinearGradient
+     * @deprecated
      */
     public static function getInstance(array $stops, ?string $id = null): self
     {
-        $gradient = new SVGLinearGradient('<linearGradient></linearGradient>');
-        $gradient->setId($id);
-        $gradient->setStops($stops);
-
-        return $gradient;
+        return new SVGLinearGradient($stops, $id);
     }
 
     /**

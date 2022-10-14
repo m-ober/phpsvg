@@ -34,14 +34,26 @@ namespace mober\phpsvg;
 
 class SVGLine extends SVGShapeEx
 {
+    public function __construct(
+        float|int|string $x1,
+        float|int|string $y1,
+        float|int|string $x2,
+        float|int|string $y2,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ) {
+        parent::__construct('<line></line>');
+
+        $this->setX1($x1);
+        $this->setX2($x2);
+        $this->setY1($y1);
+        $this->setY2($y2);
+        $this->setId($id);
+        $this->setStyle($style);
+    }
+
     /**
-     * @param float|int|string $x1
-     * @param float|int|string $y1
-     * @param float|int|string $x2
-     * @param float|int|string $y2
-     * @param null|string $id
-     * @param string|SVGStyle|null $style
-     * @return SVGLine
+     * @deprecated
      */
     public static function getInstance(
         float|int|string $x1,
@@ -51,16 +63,7 @@ class SVGLine extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ): self {
-        $rect = new SVGLine('<line></line>');
-
-        $rect->setX1($x1);
-        $rect->setX2($x2);
-        $rect->setY1($y1);
-        $rect->setY2($y2);
-        $rect->setId($id);
-        $rect->setStyle($style);
-
-        return $rect;
+        return new SVGLine($x1, $y1, $x2, $y2, $style, $id);
     }
 
     /**

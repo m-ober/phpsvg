@@ -36,17 +36,25 @@ namespace mober\phpsvg;
 
 class SVGEllipse extends SVGShapeEx
 {
+    public function __construct(
+        float|int|string $cx,
+        float|int|string $cy,
+        float|int|string $radiusX,
+        float|int|string $radiusY,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ) {
+        parent::__construct('<ellipse></ellipse>');
+
+        $this->setCx($cx);
+        $this->setCy($cy);
+        $this->setRadius($radiusX, $radiusY);
+        $this->setId($id);
+        $this->setStyle($style);
+    }
+
     /**
-     * Construct a circle
-     *
-     * @param float|int|string $cx the center x
-     * @param float|int|string $cy the center y
-     * @param float|int|string $radiusX
-     * @param float|int|string $radiusY
-     * @param null|string $id the id of element
-     * @param string|SVGStyle|null $style style of element
-     *
-     * @return SVGEllipse
+     * @deprecated
      */
     public static function getInstance(
         float|int|string $cx,
@@ -56,15 +64,7 @@ class SVGEllipse extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ): SVGEllipse {
-        $circle = new SVGEllipse('<ellipse></ellipse>');
-
-        $circle->setCx($cx);
-        $circle->setCy($cy);
-        $circle->setRadius($radiusX, $radiusY);
-        $circle->setId($id);
-        $circle->setStyle($style);
-
-        return $circle;
+        return new SVGEllipse($cx, $cy, $radiusX, $radiusY, $style, $id);
     }
 
     /**

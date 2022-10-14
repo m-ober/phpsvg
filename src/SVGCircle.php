@@ -37,15 +37,26 @@ namespace mober\phpsvg;
 class SVGCircle extends SVGShapeEx
 {
     /**
-     * Construct a circle
-     *
-     * @param float|int|string $cx the center x
-     * @param float|int|string $cy the center y
-     * @param float|int|string $radius the radius of circle
-     * @param null|string $id the id of element
-     * @param string|SVGStyle|null $style style of element
-     *
      * @see https://www.w3.org/TR/SVG11/shapes.html#CircleElement
+     */
+    public function __construct(
+        float|int|string $cx,
+        float|int|string $cy,
+        float|int|string $radius,
+        SVGStyle|string $style = null,
+        ?string $id = null
+    ) {
+        parent::__construct('<circle></circle>');
+
+        $this->setCx($cx);
+        $this->setCy($cy);
+        $this->setRadius($radius);
+        $this->setId($id);
+        $this->setStyle($style);
+    }
+
+    /**
+     * @deprecated
      */
     public static function getInstance(
         float|int|string $cx,
@@ -54,15 +65,7 @@ class SVGCircle extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ): SVGCircle {
-        $circle = new SVGCircle('<circle></circle>');
-
-        $circle->setCx($cx);
-        $circle->setCy($cy);
-        $circle->setRadius($radius);
-        $circle->setId($id);
-        $circle->setStyle($style);
-
-        return $circle;
+        return new SVGCircle($cx, $cy, $radius, $style, $id);
     }
 
     /**

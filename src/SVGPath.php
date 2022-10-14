@@ -36,30 +36,23 @@ namespace mober\phpsvg;
 
 class SVGPath extends SVGShape
 {
-    /**
-     * Get a instance of a Path.
-     *
-     * @param array|string $d
-     * @param string|null $id of element
-     * @param string|SVGStyle|null $style
-     * @return SVGPath
-     */
-    public static function getInstance(array|string $d, SVGStyle|string $style = null, ?string $id = null): self
+    public function __construct(array|string $d, SVGStyle|string $style = null, ?string $id = null)
     {
-        $path = new SVGPath('<path></path>');
+        parent::__construct('<path></path>');
 
-        //if is as array make implode to glue it
-        if (is_array($d)) {
-            $d = implode(' ', $d);
-        }
-
-        $path->setAttribute('d', $d);
-        $path->setId($id);
+        $this->setAttribute('d', is_array($d) ? implode(' ', $d) : $d);
+        $this->setId($id);
 
         if (!is_null($style)) {
-            $path->setAttribute('style', $style);
+            $this->setAttribute('style', $style);
         }
+    }
 
-        return $path;
+    /**
+     * @deprecated
+     */
+    public static function getInstance(array|string $d, SVGStyle|string $style = null, ?string $id = null): SVGPath
+    {
+        return new SVGPath($d, $style, $id);
     }
 }
