@@ -558,7 +558,7 @@ class Inkscape
             $arg = ' --' . $param;
 
             if ($value) {
-                $arg .= sprintf('="%s"', $value);
+                $arg .= sprintf('=%s', escapeshellarg($value));
             }
             $exec .= $arg;
         }
