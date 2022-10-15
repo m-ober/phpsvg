@@ -39,10 +39,10 @@ class SVGStyle
     public string $fill;
     public string $stroke;
     public string $strokeWidth;
-    public $stopColor;
-    public $stopOpacity;
-    public $display;
-    public $opacity;
+    public string $stopColor;
+    public string $stopOpacity;
+    public string $display;
+    public string $opacity;
 
     /**
      * Construct the style
@@ -80,10 +80,8 @@ class SVGStyle
         $result = '';
 
         foreach ($vars as $line => $info) {
-            if (isset($info)) {
-                $line = SVGStyle::fromCamelCase($line);
-                $result .= "$line:$info;";
-            }
+            $line = SVGStyle::fromCamelCase($line);
+            $result .= "$line:$info;";
         }
 
         return $result;

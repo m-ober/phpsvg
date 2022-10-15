@@ -112,7 +112,7 @@ class SVGStop extends XMLElement
     public function setOpacity(float $opacity = 1): static
     {
         $style = $this->getStyle();
-        $style->stopOpacity = $opacity;
+        $style->stopOpacity = (string) $opacity;
 
         return $this->setStyle($style);
     }
@@ -125,7 +125,7 @@ class SVGStop extends XMLElement
      */
     public function getOpacity(): float
     {
-        return $this->getStyle()->opacity;
+        return (float) $this->getStyle()->stopOpacity;
     }
 
     /**
