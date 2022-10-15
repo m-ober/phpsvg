@@ -40,7 +40,7 @@ class SVGRadialGradient extends SVGLinearGradient
     }
 
     /**
-     * @param SVGStop $stops
+     * @param SVGStop[] $stops
      * @param null|string $id
      * @return SVGLinearGradient
      * @deprecated

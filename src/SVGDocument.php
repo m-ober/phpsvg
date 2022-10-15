@@ -258,7 +258,6 @@ class SVGDocument extends SVGShape implements SVGCanvas
     public function addScript(string $script): void
     {
         $element = new XMLElement('<script></script>');
-        /** @psalm-suppress UndefinedMethod */
         $element[0] = $script;
         $this->append($element);
     }
@@ -347,8 +346,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
      * @param bool $respectRatio respect the ratio, image proportion
      * @return bool
      * @throws \ImagickException
-     * @noinspection PhpComposerExtensionStubsInspection
-     * @noinspection PhpFullyQualifiedNameUsageInspection
+     * @psalm-suppress UndefinedDocblockClass
      */
     public function exportImagick(string $filename, int $width = 0, int $height = 0, bool $respectRatio = false): bool
     {
@@ -358,7 +356,6 @@ class SVGDocument extends SVGShape implements SVGCanvas
 
         $image = new \Imagick();
 
-        /** @psalm-suppress PossiblyInvalidArgument */
         $ok = $image->readImageBlob($this->asXML(null, false));
 
         if ($ok) {

@@ -554,19 +554,16 @@ class Inkscape
             $exec = 'inkscape';
         }
 
-        if (is_array($this->params)) {
-            foreach ($this->params as $param => $value) {
-                $arg = ' --' . $param;
+        foreach ($this->params as $param => $value) {
+            $arg = ' --' . $param;
 
-                if ($value) {
-                    $arg .= sprintf('="%s"', $value);
-                }
-                $exec .= $arg;
+            if ($value) {
+                $arg .= sprintf('="%s"', $value);
             }
+            $exec .= $arg;
         }
 
         $this->lastCmd = $exec . ' ' . $extraParam;
-        /** @psalm-suppress ForbiddenCode */
         $res = exec($this->lastCmd, $output, $retcode);
 
         if ($res === false || $retcode !== 0) {

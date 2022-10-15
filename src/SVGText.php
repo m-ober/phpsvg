@@ -53,7 +53,6 @@ class SVGText extends SVGShape
             $this->setAttribute('style', $style);
         }
 
-        /** @psalm-suppress UndefinedMethod */
         $this[0] = $text;
     }
 
