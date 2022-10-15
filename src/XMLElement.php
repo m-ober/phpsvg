@@ -39,7 +39,6 @@ use SimpleXMLElement;
 
 class XMLElement extends SimpleXMLElement
 {
-
     /**
      * Value used to control last used id
      *
