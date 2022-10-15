@@ -29,6 +29,6 @@
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs",
-        "psalm": "vendor/bin/psalm"
+        "psalm": "vendor/bin/psalm --find-unused-psalm-suppress --no-cache"
     }
 }
