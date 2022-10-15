@@ -247,7 +247,7 @@ use RuntimeException;
 
 class Inkscape
 {
-    /** @var array exec params */
+    /** @var array<string, string|null> exec params */
     protected array $params;
 
     /** @var null|string Last execute result string (null on error) */
@@ -271,20 +271,20 @@ class Inkscape
         $this->setFile($filename);
     }
 
-    public function addParam(string $param, $value = null): void
+    public function addParam(string $param, ?string $value = null): void
     {
         if ($param) {
             $this->params[$param] = $value;
         }
     }
 
-    public function setParam(string $param, $value = null): void
+    public function setParam(string $param, ?string $value = null): void
     {
         $this->clearParams();
         $this->params[$param] = $value;
     }
 
-    public function getParam($param)
+    public function getParam($param): ?string
     {
         return $this->params[$param];
     }
@@ -317,10 +317,10 @@ class Inkscape
     public function setSize(int $width, int $height): void
     {
         if ($width > 0) {
-            $this->addParam('export-width', $width);
+            $this->addParam('export-width', (string) $width);
         }
         if ($height > 0) {
-            $this->addParam('export-height', $width);
+            $this->addParam('export-height', (string) $width);
         }
     }
 
@@ -331,11 +331,11 @@ class Inkscape
      * in the Document Options dialog will be used (stored in the pagecolor= attribute of sodipodi:namedview).
      *
      * @param string $color
-     * @param null $opacity
+     * @param string|null $opacity
      *
      * @return void
      */
-    public function setBackground(string $color, $opacity = null): void
+    public function setBackground(string $color, ?string $opacity = null): void
     {
         $this->addParam('export-background', $color);
 
@@ -353,7 +353,7 @@ class Inkscape
      */
     public function setDpi(int $dpi): void
     {
-        $this->addParam('export-dpi', $dpi);
+        $this->addParam('export-dpi', (string) $dpi);
     }
 
     /*
@@ -462,11 +462,12 @@ class Inkscape
      * Without --export-id, this option is ignored
      *
      * @param string $id
-     * @param boolean All other objects are hidden and won't show in export even if they overlay the exported object.
+     * @param bool $exportIdOnly All other objects are hidden and won't show in export even if they overlay the
+     * exported object.
      *
      * @return void
      */
-    public function setExportId(string $id, $exportIdOnly = false): void
+    public function setExportId(string $id, bool $exportIdOnly = false): void
     {
         if ($exportIdOnly) {
             $this->addParam('export-id-only');
@@ -557,7 +558,7 @@ class Inkscape
         foreach ($this->params as $param => $value) {
             $arg = ' --' . $param;
 
-            if ($value) {
+            if (!is_null($value)) {
                 $arg .= sprintf('=%s', escapeshellarg($value));
             }
             $exec .= $arg;
