@@ -271,17 +271,21 @@ class Inkscape
         $this->setFile($filename);
     }
 
-    public function addParam(string $param, ?string $value = null): void
+    public function addParam(string $param, ?string $value = null): static
     {
         if ($param) {
             $this->params[$param] = $value;
         }
+
+        return $this;
     }
 
-    public function setParam(string $param, ?string $value = null): void
+    public function setParam(string $param, ?string $value = null): static
     {
         $this->clearParams();
         $this->params[$param] = $value;
+
+        return $this;
     }
 
     public function getParam($param): ?string
@@ -299,9 +303,11 @@ class Inkscape
         return $this->params = $params;
     }
 
-    public function clearParams(): void
+    public function clearParams(): static
     {
         $this->params = [];
+
+        return $this;
     }
 
     /**
@@ -311,10 +317,8 @@ class Inkscape
      *
      * @param int $width
      * @param int $height
-     *
-     * @return void
      */
-    public function setSize(int $width, int $height): void
+    public function setSize(int $width, int $height): static
     {
         if ($width > 0) {
             $this->addParam('export-width', (string) $width);
@@ -322,6 +326,8 @@ class Inkscape
         if ($height > 0) {
             $this->addParam('export-height', (string) $width);
         }
+
+        return $this;
     }
 
     /**
@@ -332,46 +338,48 @@ class Inkscape
      *
      * @param string $color
      * @param string|null $opacity
-     *
-     * @return void
      */
-    public function setBackground(string $color, ?string $opacity = null): void
+    public function setBackground(string $color, ?string $opacity = null): static
     {
         $this->addParam('export-background', $color);
 
         if ($opacity) {
             $this->addParam('export-background-opacity', $opacity);
         }
+
+        return $this;
     }
 
     /**
      * Define the quality of resulting image, only used in PNG export.
      *
      * @param integer $dpi the quality of resulting image
-     *
-     * @return void
      */
-    public function setDpi(int $dpi): void
+    public function setDpi(int $dpi): static
     {
         $this->addParam('export-dpi', (string) $dpi);
+
+        return $this;
     }
 
     /*
      *Define to export the total page area
      */
-    public function setExportAreaPage(): void
+    public function setExportAreaPage(): static
     {
         $this->addParam('export-area-page');
+
+        return $this;
     }
 
     /**
      * Convert text objects to paths on export, where applicable (for PS, EPS, and PDF export).
-     *
-     * @return void
      */
-    public function exportTextToPath(): void
+    public function exportTextToPath(): static
     {
         $this->addParam('export-text-to-path');
+
+        return $this;
     }
 
     /**
@@ -380,12 +388,12 @@ class Inkscape
      * are pixel-snapped to minimize antialfiasing, this switch allows you to preserve this alignment
      * even if you are exporting some object's bounding box (with --export-id or
      * --export-area-drawing) which is itself not pixel-aligned.
-     *
-     * @return void
      */
-    public function exportAreaSnap(): void
+    public function exportAreaSnap(): static
     {
         $this->addParam('export-area-snap');
+
+        return $this;
     }
 
     /**
@@ -442,14 +450,14 @@ class Inkscape
      * Option string may be omitted, i.e. you can list the filenames without -f.
      *
      * @param string $filename
-     *
-     * @return void
      */
-    public function setFile(string $filename): void
+    public function setFile(string $filename): static
     {
         if ($filename) {
             $this->addParam('file', $filename);
         }
+
+        return $this;
     }
 
     /**
@@ -464,16 +472,16 @@ class Inkscape
      * @param string $id
      * @param bool $exportIdOnly All other objects are hidden and won't show in export even if they overlay the
      * exported object.
-     *
-     * @return void
      */
-    public function setExportId(string $id, bool $exportIdOnly = false): void
+    public function setExportId(string $id, bool $exportIdOnly = false): static
     {
         if ($exportIdOnly) {
             $this->addParam('export-id-only');
         }
 
         $this->addParam('export-id', $id);
+
+        return $this;
     }
 
     /**
@@ -484,7 +492,7 @@ class Inkscape
      * @param string $format format to export
      * @param string $filename
      */
-    public function export(string $format, string $filename): void
+    public function export(string $format, string $filename): static
     {
         if (!$format) {
             throw new RuntimeException('Need to inform a format.');
@@ -500,9 +508,7 @@ class Inkscape
             $this->addParam('export-' . $format, $filename);
             $this->execute();
 
-            if (file_exists($filename)) {
-                return;
-            } else {
+            if (!file_exists($filename)) {
                 $msg = '';
 
                 if (!defined('INKSCAPE_PATH')) {
@@ -518,6 +524,8 @@ class Inkscape
         } else {
             throw new RuntimeException('Format not available:' . $format . '.');
         }
+
+        return $this;
     }
 
     /**
@@ -550,6 +558,7 @@ class Inkscape
     public function execute($extraParam = null): string
     {
         if (defined('INKSCAPE_PATH')) {
+            /** @noinspection PhpUndefinedConstantInspection */
             $exec = INKSCAPE_PATH;
         } else {
             $exec = 'inkscape';
