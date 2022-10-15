@@ -55,6 +55,20 @@ class XMLElement extends SimpleXMLElement
     public static bool $useAutoId = true;
 
     /**
+     * @param string $qualifiedName
+     * @param string $value
+     * @param string|null $namespace
+     * @return $this
+     * @psalm-suppress MethodSignatureMismatch
+     */
+    public function addAttribute(string $qualifiedName, string $value, ?string $namespace = null): static
+    {
+        parent::addAttribute($qualifiedName, $value, $namespace);
+
+        return $this;
+    }
+
+    /**
      * Remove a attribute
      *
      * @param string $attribute name of attribute
