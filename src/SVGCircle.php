@@ -36,6 +36,8 @@ namespace mober\phpsvg;
 
 class SVGCircle extends SVGShapeEx
 {
+    protected const ELEMENT = '<circle></circle>';
+
     /**
      * @see https://www.w3.org/TR/SVG11/shapes.html#CircleElement
      */
@@ -46,7 +48,7 @@ class SVGCircle extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ) {
-        parent::__construct('<circle></circle>');
+        parent::__construct(static::ELEMENT);
 
         $this->setCx($cx);
         $this->setCy($cy);

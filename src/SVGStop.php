@@ -36,9 +36,11 @@ namespace mober\phpsvg;
 
 class SVGStop extends XMLElement
 {
+    protected const ELEMENT = '<stop></stop>';
+
     public function __construct(float $offset = 0, SVGStyle|string $style = null, ?string $id = null)
     {
-        parent::__construct('<stop></stop>');
+        parent::__construct(static::ELEMENT);
 
         $this->setId($id);
         $this->setStyle($style);

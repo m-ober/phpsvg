@@ -34,6 +34,8 @@ namespace mober\phpsvg;
 
 class SVGRect extends SVGShapeEx
 {
+    protected const ELEMENT = '<rect></rect>';
+
     public function __construct(
         float|int|string $x,
         float|int|string $y,
@@ -42,7 +44,7 @@ class SVGRect extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ) {
-        parent::__construct('<rect></rect>');
+        parent::__construct(static::ELEMENT);
 
         $this->setX($x);
         $this->setY($y);

@@ -36,9 +36,11 @@ namespace mober\phpsvg;
 
 class SVGPath extends SVGShape
 {
+    protected const ELEMENT = '<path></path>';
+
     public function __construct(array|string $d, SVGStyle|string $style = null, ?string $id = null)
     {
-        parent::__construct('<path></path>');
+        parent::__construct(static::ELEMENT);
 
         $this->setAttribute('d', is_array($d) ? implode(' ', $d) : $d);
         $this->setId($id);

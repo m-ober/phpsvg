@@ -36,6 +36,8 @@ namespace mober\phpsvg;
 
 class SVGEllipse extends SVGShapeEx
 {
+    protected const ELEMENT = '<ellipse></ellipse>';
+
     public function __construct(
         float|int|string $cx,
         float|int|string $cy,
@@ -44,7 +46,7 @@ class SVGEllipse extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ) {
-        parent::__construct('<ellipse></ellipse>');
+        parent::__construct(static::ELEMENT);
 
         $this->setCx($cx);
         $this->setCy($cy);

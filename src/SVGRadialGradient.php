@@ -34,9 +34,11 @@ namespace mober\phpsvg;
 
 class SVGRadialGradient extends SVGLinearGradient
 {
+    protected const ELEMENT = '<radialGradient></radialGradient>';
+
     public function __construct(array $stops, ?string $id = null)
     {
-        parent::__construct($stops, $id, '<radialGradient></radialGradient>');
+        parent::__construct($stops, $id);
     }
 
     /**

@@ -36,6 +36,8 @@ namespace mober\phpsvg;
 
 class SVGText extends SVGShape
 {
+    protected const ELEMENT = '<text></text>';
+
     public function __construct(
         float|int|string $x,
         float|int|string $y,
@@ -43,7 +45,7 @@ class SVGText extends SVGShape
         SVGStyle|string $style = null,
         ?string $id = null
     ) {
-        parent::__construct('<text></text>');
+        parent::__construct(static::ELEMENT);
 
         $this->setX($x);
         $this->setY($y);

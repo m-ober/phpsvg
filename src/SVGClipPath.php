@@ -34,9 +34,12 @@ namespace mober\phpsvg;
 
 class SVGClipPath extends SVGShape implements SVGCanvas
 {
+    protected const ELEMENT = '<clippath></clippath>';
+
     public function __construct(?string $id = null)
     {
-        parent::__construct('<clippath></clippath>');
+        parent::__construct(static::ELEMENT);
+
         $this->setId($id);
     }
 

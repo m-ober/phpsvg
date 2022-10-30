@@ -36,13 +36,15 @@ namespace mober\phpsvg;
 
 class SVGLinearGradient extends XMLElement
 {
+    protected const ELEMENT = '<linearGradient></linearGradient>';
+
     /**
      * @param null|string $id
      * @param SVGStop[] $stops
      */
-    public function __construct(array $stops, ?string $id = null, $data = '<linearGradient></linearGradient>')
+    public function __construct(array $stops, ?string $id = null)
     {
-        parent::__construct($data);
+        parent::__construct(static::ELEMENT);
 
         $this->setId($id);
         $this->setStops($stops);

@@ -34,6 +34,8 @@ namespace mober\phpsvg;
 
 class SVGLine extends SVGShapeEx
 {
+    protected const ELEMENT = '<line></line>';
+
     public function __construct(
         float|int|string $x1,
         float|int|string $y1,
@@ -42,7 +44,7 @@ class SVGLine extends SVGShapeEx
         SVGStyle|string $style = null,
         ?string $id = null
     ) {
-        parent::__construct('<line></line>');
+        parent::__construct(static::ELEMENT);
 
         $this->setX1($x1);
         $this->setX2($x2);

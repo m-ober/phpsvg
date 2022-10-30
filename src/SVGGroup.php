@@ -34,9 +34,12 @@ namespace mober\phpsvg;
 
 class SVGGroup extends SVGShape implements SVGCanvas
 {
+    protected const ELEMENT = '<g></g>';
+
     public function __construct(?string $id = null)
     {
-        parent::__construct('<g></g>');
+        parent::__construct(static::ELEMENT);
+
         $this->setId($id);
     }
 
