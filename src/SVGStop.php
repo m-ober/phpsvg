@@ -42,9 +42,9 @@ class SVGStop extends XMLElement
     {
         parent::__construct(static::ELEMENT);
 
-        $this->setId($id);
-        $this->setStyle($style);
-        $this->setOffset($offset);
+        $this->setId($id)
+             ->setStyle($style)
+             ->setOffset($offset);
     }
 
     /**

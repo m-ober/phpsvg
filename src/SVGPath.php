@@ -42,8 +42,8 @@ class SVGPath extends SVGShape
     {
         parent::__construct(static::ELEMENT);
 
-        $this->setAttribute('d', is_array($d) ? implode(' ', $d) : $d);
-        $this->setId($id);
+        $this->setAttribute('d', is_array($d) ? implode(' ', $d) : $d)
+             ->setId($id);
 
         if (!is_null($style)) {
             $this->setAttribute('style', $style);

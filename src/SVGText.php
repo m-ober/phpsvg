@@ -47,9 +47,9 @@ class SVGText extends SVGShape
     ) {
         parent::__construct(static::ELEMENT);
 
-        $this->setX($x);
-        $this->setY($y);
-        $this->setId($id);
+        $this->setX($x)
+             ->setY($y)
+             ->setId($id);
 
         if (!is_null($style)) {
             $this->setAttribute('style', $style);

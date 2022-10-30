@@ -46,12 +46,12 @@ class SVGLine extends SVGShapeEx
     ) {
         parent::__construct(static::ELEMENT);
 
-        $this->setX1($x1);
-        $this->setX2($x2);
-        $this->setY1($y1);
-        $this->setY2($y2);
-        $this->setId($id);
-        $this->setStyle($style);
+        $this->setX1($x1)
+             ->setX2($x2)
+             ->setY1($y1)
+             ->setY2($y2)
+             ->setId($id)
+             ->setStyle($style);
     }
 
     /**

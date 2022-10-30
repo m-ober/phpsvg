@@ -46,12 +46,12 @@ class SVGRect extends SVGShapeEx
     ) {
         parent::__construct(static::ELEMENT);
 
-        $this->setX($x);
-        $this->setY($y);
-        $this->setWidth($width);
-        $this->setHeight($height);
-        $this->setId($id);
-        $this->setStyle($style);
+        $this->setX($x)
+             ->setY($y)
+             ->setWidth($width)
+             ->setHeight($height)
+             ->setId($id)
+             ->setStyle($style);
     }
 
     /**

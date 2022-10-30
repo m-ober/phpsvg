@@ -50,11 +50,11 @@ class SVGCircle extends SVGShapeEx
     ) {
         parent::__construct(static::ELEMENT);
 
-        $this->setCx($cx);
-        $this->setCy($cy);
-        $this->setRadius($radius);
-        $this->setId($id);
-        $this->setStyle($style);
+        $this->setCx($cx)
+             ->setCy($cy)
+             ->setRadius($radius)
+             ->setId($id)
+             ->setStyle($style);
     }
 
     /**

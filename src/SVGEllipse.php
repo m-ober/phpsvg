@@ -48,11 +48,11 @@ class SVGEllipse extends SVGShapeEx
     ) {
         parent::__construct(static::ELEMENT);
 
-        $this->setCx($cx);
-        $this->setCy($cy);
-        $this->setRadius($radiusX, $radiusY);
-        $this->setId($id);
-        $this->setStyle($style);
+        $this->setCx($cx)
+             ->setCy($cy)
+             ->setRadius($radiusX, $radiusY)
+             ->setId($id)
+             ->setStyle($style);
     }
 
     /**

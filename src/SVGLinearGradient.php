@@ -46,8 +46,8 @@ class SVGLinearGradient extends XMLElement
     {
         parent::__construct(static::ELEMENT);
 
-        $this->setId($id);
-        $this->setStops($stops);
+        $this->setId($id)
+             ->setStops($stops);
     }
 
     /**
