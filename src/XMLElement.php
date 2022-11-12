@@ -53,6 +53,21 @@ class XMLElement extends SimpleXMLElement
      */
     public static bool $useAutoId = true;
 
+    public function __construct(
+        string $data,
+        int $options = 0,
+        bool $dataIsURL = false,
+        string $namespaceOrPrefix = "",
+        bool $isPrefix = false
+    ) {
+        try {
+            parent::__construct($data, $options, $dataIsURL, $namespaceOrPrefix, $isPrefix);
+        } catch (\Exception $e) {
+            // Catch and re-throw as unchecked exception
+            throw new \RuntimeException($e->getMessage());
+        }
+    }
+
     /**
      * @param string $qualifiedName
      * @param string $value
