@@ -75,6 +75,7 @@ class XMLElement extends SimpleXMLElement
      * @return $this
      * @psalm-suppress MethodSignatureMismatch
      */
+    #[\ReturnTypeWillChange]
     public function addAttribute(string $qualifiedName, string $value, ?string $namespace = null): static
     {
         parent::addAttribute($qualifiedName, $value, $namespace);
@@ -351,6 +352,7 @@ class XMLElement extends SimpleXMLElement
      * @return string|int|false
      * @psalm-suppress MethodSignatureMismatch
      */
+    #[\ReturnTypeWillChange]
     public function asXML(
         string|null $filename = null,
         bool $humanReadable = false,
