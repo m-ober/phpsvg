@@ -53,6 +53,16 @@ class XMLElement extends SimpleXMLElement
      */
     public static bool $useAutoId = true;
 
+    /**
+     * @link https://php.net/manual/en/simplexmlelement.construct.php
+     * @param string $data A well-formed XML string or the path or URL to an XML document if data_is_url is TRUE.
+     * @param int $options Optionally used to specify additional Libxml parameters.
+     * @param bool $dataIsURL By default, data_is_url is FALSE.
+     * Use TRUE to specify that data is a path or URL to an XML document instead of string data.
+     * @param string $namespaceOrPrefix Namespace prefix or URI.
+     * @param bool $isPrefix TRUE if ns is a prefix, FALSE if it's a URI; defaults to FALSE.
+     * @throws RuntimeException if the XML data could not be parsed.
+     */
     public function __construct(
         string $data,
         int $options = 0,
