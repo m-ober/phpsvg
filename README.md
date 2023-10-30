@@ -43,5 +43,5 @@ $svg->addShape(
     new SVGCircle(250, 120, 100, (new SVGStyle())->setFill($radial))
 );
 
-$svg->asXML('demo.svg', humanReadable: true);
+$svg->writeXML('demo.svg', humanReadable: true);
 ```

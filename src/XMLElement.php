@@ -83,10 +83,8 @@ class XMLElement extends SimpleXMLElement
      * @param string $value
      * @param string|null $namespace
      * @return $this
-     * @psalm-suppress MethodSignatureMismatch
      */
-    #[\ReturnTypeWillChange]
-    public function addAttribute(string $qualifiedName, string $value, ?string $namespace = null): static
+    public function addAttr(string $qualifiedName, string $value, ?string $namespace = null): static
     {
         parent::addAttribute($qualifiedName, $value, $namespace);
 
@@ -360,10 +358,8 @@ class XMLElement extends SimpleXMLElement
      * @param bool $humanReadable
      * @param bool $prolog
      * @return string|int|false
-     * @psalm-suppress MethodSignatureMismatch
      */
-    #[\ReturnTypeWillChange]
-    public function asXML(
+    public function writeXML(
         string|null $filename = null,
         bool $humanReadable = false,
         bool $prolog = true

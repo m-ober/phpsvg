@@ -263,7 +263,7 @@ class Inkscape
         //treat if is a SVGDocument
         if ($filename instanceof SVGDocument) {
             $tmpFileName = tempnam(sys_get_temp_dir(), 'phpsvg');
-            $filename->asXML($tmpFileName, false);
+            $filename->writeXML($tmpFileName, false);
             $filename = $tmpFileName;
         }
 

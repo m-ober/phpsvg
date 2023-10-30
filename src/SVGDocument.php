@@ -130,7 +130,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
     public function output(): void
     {
         header('Content-type: ' . self::HEADER);
-        echo $this->asXML();
+        echo $this->writeXML();
     }
 
     /**
@@ -356,7 +356,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
 
         $image = new \Imagick();
 
-        $ok = $image->readImageBlob($this->asXML(null, false));
+        $ok = $image->readImageBlob($this->writeXML(null, false));
 
         if ($ok) {
             if ($width > 0 && $height > 0) {
