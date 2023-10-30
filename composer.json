@@ -16,8 +16,8 @@
         "ext-dom": "*"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5",
-        "vimeo/psalm": "^4.0"
+        "squizlabs/php_codesniffer": "^3.5 | ^4.0",
+        "vimeo/psalm": "^5.15"
     },
     "suggest": {
         "ext-imagick": "Export images using Imagick",
