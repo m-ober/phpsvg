@@ -239,15 +239,14 @@ class SVGDocument extends SVGShape implements SVGCanvas
      * Add some element to defs, normally a gradient
      *
      * @param XMLElement $element
-     * @psalm-suppress UndefinedThisPropertyFetch
      */
     public function addDefs(XMLElement $element): void
     {
-        if (!$this->defs) {
+        if (empty($this->getDefs())) {
             $defs = new XMLElement('<defs></defs>');
             $this->append($defs);
         }
-        $this->defs->append($element);
+        $this->getDefs()->append($element);
     }
 
     /**
@@ -266,7 +265,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
      * Return the definitions of the document, normally has gradients.
      *
      * @return XMLElement
-     * @psalm-suppress UndefinedThisPropertyFetch
+     * @psalm-suppress InvalidNullableReturnType, NullableReturnStatement
      */
     public function getDefs(): XMLElement
     {
