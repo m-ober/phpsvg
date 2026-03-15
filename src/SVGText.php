@@ -42,7 +42,7 @@ class SVGText extends SVGShape
         float|int|string $x,
         float|int|string $y,
         string $text,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ) {
         parent::__construct(static::ELEMENT);
@@ -65,7 +65,7 @@ class SVGText extends SVGShape
         float|int|string $x,
         float|int|string $y,
         string $text,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ): SVGText {
         return new SVGText($x, $y, $text, $style, $id);

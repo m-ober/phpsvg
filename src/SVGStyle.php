@@ -49,7 +49,7 @@ class SVGStyle
      *
      * @param array|string|null $style an array with styles
      */
-    public function __construct(array|string $style = null)
+    public function __construct(array|string|null $style = null)
     {
         if (is_string($style)) {
             $style = explode(';', $style);

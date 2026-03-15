@@ -38,7 +38,7 @@ class SVGPath extends SVGShape
 {
     protected const ELEMENT = '<path></path>';
 
-    public function __construct(array|string $d, SVGStyle|string $style = null, ?string $id = null)
+    public function __construct(array|string $d, SVGStyle|string|null $style = null, ?string $id = null)
     {
         parent::__construct(static::ELEMENT);
 
@@ -53,7 +53,7 @@ class SVGPath extends SVGShape
     /**
      * @deprecated
      */
-    public static function getInstance(array|string $d, SVGStyle|string $style = null, ?string $id = null): SVGPath
+    public static function getInstance(array|string $d, SVGStyle|string|null $style = null, ?string $id = null): SVGPath
     {
         return new SVGPath($d, $style, $id);
     }

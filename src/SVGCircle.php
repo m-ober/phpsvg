@@ -45,7 +45,7 @@ class SVGCircle extends SVGShapeEx
         float|int|string $cx,
         float|int|string $cy,
         float|int|string $radius,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ) {
         parent::__construct(static::ELEMENT);
@@ -64,7 +64,7 @@ class SVGCircle extends SVGShapeEx
         float|int|string $cx,
         float|int|string $cy,
         float|int|string $radius,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ): SVGCircle {
         return new SVGCircle($cx, $cy, $radius, $style, $id);

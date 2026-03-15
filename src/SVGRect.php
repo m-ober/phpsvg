@@ -41,7 +41,7 @@ class SVGRect extends SVGShapeEx
         float|int|string $y,
         float|int|string $width,
         float|int|string $height,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ) {
         parent::__construct(static::ELEMENT);
@@ -62,7 +62,7 @@ class SVGRect extends SVGShapeEx
         float|int|string $y,
         float|int|string $width,
         float|int|string $height,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ): SVGRect {
         return new SVGRect($x, $y, $width, $height, $style, $id);

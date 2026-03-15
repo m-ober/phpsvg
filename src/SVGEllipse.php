@@ -43,7 +43,7 @@ class SVGEllipse extends SVGShapeEx
         float|int|string $cy,
         float|int|string $radiusX,
         float|int|string $radiusY,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ) {
         parent::__construct(static::ELEMENT);
@@ -63,7 +63,7 @@ class SVGEllipse extends SVGShapeEx
         float|int|string $cy,
         float|int|string $radiusX,
         float|int|string $radiusY,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ): SVGEllipse {
         return new SVGEllipse($cx, $cy, $radiusX, $radiusY, $style, $id);

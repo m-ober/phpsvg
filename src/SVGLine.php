@@ -41,7 +41,7 @@ class SVGLine extends SVGShapeEx
         float|int|string $y1,
         float|int|string $x2,
         float|int|string $y2,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ) {
         parent::__construct(static::ELEMENT);
@@ -62,7 +62,7 @@ class SVGLine extends SVGShapeEx
         float|int|string $y1,
         float|int|string $x2,
         float|int|string $y2,
-        SVGStyle|string $style = null,
+        SVGStyle|string|null $style = null,
         ?string $id = null
     ): self {
         return new SVGLine($x1, $y1, $x2, $y2, $style, $id);
