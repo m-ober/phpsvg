@@ -10,14 +10,15 @@
         {"name": "Eduardo Bonfandini", "email": "trialforce@gmail.com" }
     ],
     "require": {
-        "php": "8.0 - 8.3",
+        "php": "^8.2",
         "ext-SimpleXML": "*",
         "ext-fileinfo": "*",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "symfony/polyfill-php83": "^1.33"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5 | ^4.0",
-        "vimeo/psalm": "^5.15"
+        "squizlabs/php_codesniffer": "^4.0",
+        "vimeo/psalm": "^6.0"
     },
     "suggest": {
         "ext-imagick": "Export images using Imagick",

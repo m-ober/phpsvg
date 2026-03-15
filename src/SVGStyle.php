@@ -233,9 +233,14 @@ class SVGStyle
     protected static function fromCamelCase(string $str): string
     {
         $str[0] = strtolower($str[0]);
-        return preg_replace_callback('/([A-Z])/', function ($hit) {
+        $result = preg_replace_callback('/([A-Z])/', function ($hit) {
             return "-" . strtolower($hit[0]);
         }, $str);
+
+        if ($result === null) {
+            throw new \RuntimeException('Unexpected error converting from camel case');
+        }
+        return $result;
     }
 
     /**

@@ -32,6 +32,8 @@ declare(strict_types=1);
 
 namespace mober\phpsvg;
 
+use http\Exception\RuntimeException;
+
 class SVGImage extends SVGShapeEx
 {
     /**
@@ -71,11 +73,13 @@ class SVGImage extends SVGShapeEx
         $info = $this->getImageData();
 
         if ($info->encode == 'base64') {
-            //get embed image
             return base64_decode($info->binary);
         } else {
-            //get file of system
-            return file_get_contents($this->getAttribute('xlink:href'));
+            $content = file_get_contents($this->getAttribute('xlink:href'));
+            if ($content === false) {
+                throw new \RuntimeException('Unable to read file');
+            }
+            return $content;
         }
     }
 
