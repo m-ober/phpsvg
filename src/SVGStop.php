@@ -38,7 +38,7 @@ class SVGStop extends XMLElement
 {
     protected const ELEMENT = '<stop></stop>';
 
-    public function __construct(float $offset = 0, SVGStyle|string $style = null, ?string $id = null)
+    public function __construct(float $offset = 0, SVGStyle|string|null $style = null, ?string $id = null)
     {
         parent::__construct(static::ELEMENT);
 
@@ -50,7 +50,7 @@ class SVGStop extends XMLElement
     /**
      * @deprecated
      */
-    public static function getInstance(float $offset = 0, SVGStyle|string $style = null, ?string $id = null): SVGStop
+    public static function getInstance(float $offset = 0, SVGStyle|string|null $style = null, ?string $id = null): SVGStop
     {
         return new SVGStop($offset, $style, $id);
     }
