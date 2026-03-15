@@ -228,6 +228,7 @@ class SVGDocument extends SVGShape implements SVGCanvas
      *
      * @param XMLElement $append the element to append
      */
+    #[\Override]
     public function addShape(XMLElement $append): static
     {
         $this->append($append);
@@ -242,7 +243,8 @@ class SVGDocument extends SVGShape implements SVGCanvas
      */
     public function addDefs(XMLElement $element): void
     {
-        if (empty($this->getDefs())) {
+        /** @psalm-suppress TypeDoesNotContainType */
+        if (!$this->getDefs()) {
             $defs = new XMLElement('<defs></defs>');
             $this->append($defs);
         }
@@ -267,8 +269,10 @@ class SVGDocument extends SVGShape implements SVGCanvas
      * @return XMLElement
      * @psalm-suppress InvalidNullableReturnType, NullableReturnStatement
      */
-    public function getDefs(): XMLElement
+    public function getDefs(): XMLElement|false
     {
+        /** @noinspection UndefinedThisPropertyFetch */
+        /** @psalm-suppress UndefinedThisPropertyFetch */
         return $this->defs;
     }
 

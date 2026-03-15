@@ -47,6 +47,7 @@ class SVGRadialGradient extends SVGLinearGradient
      * @return SVGLinearGradient
      * @deprecated
      */
+    #[\Override]
     public static function getInstance(array $stops, ?string $id = null): parent
     {
         return new SVGRadialGradient($stops, $id);

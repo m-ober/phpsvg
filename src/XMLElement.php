@@ -326,6 +326,7 @@ class XMLElement extends SimpleXMLElement
     public function getTitle(): string
     {
         /** @noinspection PhpCastIsUnnecessaryInspection */
+        /** @psalm-suppress UndefinedThisPropertyFetch */
         return (string) $this->title;
     }
 
@@ -350,6 +351,7 @@ class XMLElement extends SimpleXMLElement
     public function getDescription(): string
     {
         /** @noinspection PhpCastIsUnnecessaryInspection */
+        /** @psalm-suppress UndefinedThisPropertyFetch */
         return (string) $this->desc;
     }
 

@@ -54,6 +54,7 @@ class SVGGroup extends SVGShape implements SVGCanvas
     /**
      * @param XMLElement $append
      */
+    #[\Override]
     public function addShape(XMLElement $append): static
     {
         $this->append($append);
