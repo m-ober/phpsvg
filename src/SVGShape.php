@@ -239,7 +239,7 @@ class SVGShape extends XMLElement
         if ($ty > 0) {
             $this->addTransform("translate($tx,$ty)");
         } else {
-            $this->addTransform("translate($tx);");
+            $this->addTransform("translate($tx)");
         }
 
         return $this;
