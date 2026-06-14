@@ -32,8 +32,6 @@ declare(strict_types=1);
 
 namespace mober\phpsvg;
 
-use http\Exception\RuntimeException;
-
 class SVGImage extends SVGShapeEx
 {
     /**
@@ -116,11 +114,18 @@ class SVGImage extends SVGShapeEx
     public function setImage(string $filename, bool $embed = true): static
     {
         if ($embed) {
-            //get the sizes of image using gd
-            getimagesize($filename, $imageSize);
+            //get the sizes of image (width and height come from the return value,
+            //not the second parameter, which only holds IPTC/APP markers)
+            $imageSize = getimagesize($filename);
+            if ($imageSize === false) {
+                throw new \RuntimeException("Unable to read image dimensions from: $filename");
+            }
+            $content = file_get_contents($filename);
+            if ($content === false) {
+                throw new \RuntimeException("Unable to read file: $filename");
+            }
             $mime = mime_content_type($filename);
-            $file = base64_encode(file_get_contents($filename));
-            $filename = 'data:' . $mime . ';base64,' . $file;
+            $filename = 'data:' . $mime . ';base64,' . base64_encode($content);
             $this->setWidth($imageSize[0]); //define the size of image
             $this->setHeight($imageSize[1]);
         }
